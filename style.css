@@ -2,7 +2,7 @@
 .button {
     display: inline-block;
     background-color: black; /* Fondo negro */
-    color: white;            /* Texto blanco */
+    color: black;            /* Texto negro */
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 5px;
@@ -10,9 +10,9 @@
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.button:hover {
-    background-color: white; /* Fondo cambia a blanco al pasar el ratón */
-    color: black;            /* Texto cambia a negro al pasar el ratón */
-}
+/*.button:hover {
+    background-color: white;    Fondo cambia a blanco al pasar el ratón */
+  /*  color: black;             Texto cambia a negro al pasar el ratón */
+/*}*/
 
 
