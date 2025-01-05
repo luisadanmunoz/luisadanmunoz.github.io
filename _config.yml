@@ -1,6 +1,7 @@
-title: "Mi Página Personal"
-description: "Un sitio creado con el tema Architect de GitHub Pages"
-theme: jekyll-theme-architect
+
+#title: "Mi Página Personal"
+#description: "Un sitio creado con el tema Architect de GitHub Pages"
+#theme: jekyll-theme-architect
 
 remote_theme: pages-themes/midnight@v0.2.0
 plugins:
