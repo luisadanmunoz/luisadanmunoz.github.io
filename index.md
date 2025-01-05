@@ -2,7 +2,11 @@
 layout: default
 title: Bienvenido
 ---
-
+<div style="text-align: center; margin-top: 20px;">
+    <a href="./proy.md" class="button">Mis Proyectos</a>
+    <a href="./contact.md" class="button" style="margin-left: 10px;">Contacto</a>
+</div>
+---
 # ¡Hola, soy Luis Adán Muñoz!
 
 Ingeniero en Cloud especializado en Microsoft Azure, con amplia experiencia en el diseño e implementación de Landing Zones. 
@@ -91,9 +95,3 @@ AZ-900 - AZURE FUNDAMENTALS
 - [LinkedIn](https://www.linkedin.com/in/luis-adan/)
 - [GitHub](https://github.com/luisadanmunoz)
 - [Microsoft](https://learn.microsoft.com/es-es/users/luisadanmunoz/transcript/vy8p1t6gnl2qo9e)
-
-
-<div style="text-align: center; margin-top: 20px;">
-    <a href="./proy.md" class="button">Mis Proyectos</a>
-    <a href="./contact.md" class="button" style="margin-left: 10px;">Contacto</a>
-</div>
