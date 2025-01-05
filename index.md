@@ -43,7 +43,9 @@ Durante mi experiencia en soporte a usuarios y administración de sistemas, brin
 ## Formación
 
 2024 - SCRUM MANAGER
+
 2023 - MASTER POWER MBA
+
 2006 – 2008 - TÉCNICO SUPERIOR EN ADMINISTRACIÓN DE SISTEMAS INFORMÁTICOS
 
 
