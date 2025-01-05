@@ -13,7 +13,7 @@ Mi enfoque esta orientado a impulsar la transformación digital de las organizac
 
 ## Experiencia
 
-2019 – ACTUALIDAD - CONSULTOR CLOUD - EVOLUTIO – BT
+<u>2019 – ACTUALIDAD - CONSULTOR CLOUD - EVOLUTIO – BT</u>.
 
 Llevó a cabo assessment exhaustivos de infraestructuras en on-premises y en Azure, identificando oportunidades de mejora y proponiendo soluciones alineadas con los marcos de adopción (CAF) y gobierno (WAF) de Microsoft. 
 
