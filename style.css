@@ -1,16 +1,16 @@
 /* Estilo para botones en negro */
 .button {
     display: inline-block;
-    background-color: greenyellow; /* Fondo negro */
-    color: magenta;            /* Texto negro */
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    background-color: black !important; /* Fondo negro forzado */
+    color: white !important;           /* Texto blanco forzado */
+    padding: 10px 20px !important;
+    text-decoration: none !important;
+    border-radius: 5px !important;
+    font-size: 16px !important;
+    transition: background-color 0.3s ease, color 0.3s ease !important;
 }
 
 .button:hover {
-    background-color: yellow;    /* Fondo cambia a blanco al pasar el ratón */
-    color: red;               /* Texto cambia a negro al pasar el ratón */
+    background-color: white !important; /* Fondo blanco al pasar el ratón */
+    color: black !important;            /* Texto negro al pasar el ratón */
 }
