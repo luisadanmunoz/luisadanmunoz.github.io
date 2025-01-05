@@ -13,7 +13,7 @@ Mi enfoque ha estado orientado a impulsar la transformación digital de las orga
 
 ## Experiencia
 
-# 2019 – ACTUALIDAD - CONSULTOR CLOUD - EVOLUTIO – BT
+2019 – ACTUALIDAD - CONSULTOR CLOUD - EVOLUTIO – BT
 
 Llevó a cabo assessment exhaustivos de infraestructuras en on-premises y en Azure, identificando oportunidades de mejora y proponiendo soluciones alineadas con los marcos de adopción (CAF) y gobierno (WAF) de Microsoft. 
 
@@ -22,7 +22,7 @@ Como parte de mis responsabilidades, se encuentra el diseño, despliegue y confi
 Además, gestiono la migración de cargas de trabajo en fases organizadas utilizando Azure Migrate, asegurando una transición eficiente y sin interrupciones. 
 Elaboro documentación detallada, tanto ejecutiva como técnica, para respaldar las operaciones del equipo de SysOps y facilitar la toma de decisiones estratégicas de los clientes.
 
-# 2010 – 2019 - TECNICO TELECOMUNCIACIONES - EVOLUTIO - BT
+2010 – 2019 - TECNICO TELECOMUNCIACIONES - EVOLUTIO - BT
 
 Como Técnico en Telecomunicaciones, desarrollé experiencia en soporte a clientes, gestión de incidencias e implementación de soluciones del portafolio de la compañía. 
 
@@ -30,13 +30,13 @@ Mis responsabilidades incluían la configuración, administración y resolución
 
 También gestione con el fabricante Cisco para la apertura de casos, el escalado técnico y el seguimiento de soporte avanzado (TAC), optimizando la comunicación entre equipos y asegurando la resolución eficiente de problemas a través de herramientas de ticketing.
 
-# 2008 - 2010 - SYSOPS - GD CONVEY SYSTEM 
+2008 - 2010 - SYSOPS - GD CONVEY SYSTEM 
 
 Durante mi experiencia en administración de sistemas y equipos de telecomunicaciones, gestioné infraestructuras IT, coordiné equipos técnicos y proveedores, y brindé soporte tanto a usuarios como a toda la infraestructura tecnológica de la organización. 
 
 Trabajando con servicios Microsoft, Server 2k, cliente, AD, DNS, DHCP, GPO, DFS, WSUS... También gestioné soluciones ToIP con OmniPCX RCE Large y firewall SonicWall PRO-2040. En entornos virtualizados con VMWare.
 
-# 2004 – 2008 - SYSOPS - MSI
+2004 – 2008 - SYSOPS - MSI
 
 Durante mi experiencia en soporte a usuarios y administración de sistemas, brindé asistencia técnica a usuarios finales y gestioné la infraestructura IT para garantizar el correcto funcionamiento de los servicios tecnológicos. Resolví incidencias relacionadas con sistemas operativos Windows, aplicaciones y conectividad. Utilizando herramientas avanzadas como Sysinternals y scripts de PowerShell. 
 
