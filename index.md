@@ -2,8 +2,8 @@
 layout: default
 title: Bienvenido
 ---
-<div style="text-align: center; margin-top: 20px;">
-    <a href="./proy.md" class="button">Mis Proyectos</a>
+<div id="botones" style="text-align: center; margin-top: 20px;">
+    <a href="./proy.md" class="button">Proyectos</a>
     <a href="./contact.md" class="button" style="margin-left: 10px;">Contacto</a>
 </div>
 ---
