@@ -93,4 +93,7 @@ AZ-900 - AZURE FUNDAMENTALS
 - [Microsoft](https://learn.microsoft.com/es-es/users/luisadanmunoz/transcript/vy8p1t6gnl2qo9e)
 
 
-[Mis Proyectos](./proy.md)
+<div style="text-align: center; margin-top: 20px;">
+    <a href="./proy.md" class="button">Mis Proyectos</a>
+    <a href="./contact.md" class="button" style="margin-left: 10px;">Contacto</a>
+</div>

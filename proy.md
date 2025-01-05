@@ -13,4 +13,7 @@ Descripción del proyecto 1.
 ## Proyecto 2
 Descripción del proyecto 2.
 
-[Volver a la página principal](./index.md)
+<div style="text-align: center; margin-top: 20px;">
+    <a href="./index.md" class="button">Inicio</a>
+    <a href="./contact.md" class="button" style="margin-left: 10px;">Contacto</a>
+</div>
