@@ -79,8 +79,11 @@ AZ-900 - AZURE FUNDAMENTALS
 ## Aptitudes y valores
 
 •	Excelente comunicación oral y escrita
+
 •	Trabajo en equipo
+
 •	Compromiso
+
 •	Organizado
 
 ## Contacto
