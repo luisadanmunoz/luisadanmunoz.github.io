@@ -3,6 +3,11 @@
 #description: "Un sitio creado con el tema Architect de GitHub Pages"
 #theme: jekyll-theme-architect
 
-remote_theme: pages-themes/midnight@v0.2.0
+
+remote_theme: pages-themes/hacker@v0.2.0
 plugins:
 - jekyll-remote-theme # add this line to the plugins list if you already have one
+
+#remote_theme: pages-themes/midnight@v0.2.0
+#plugins:
+#- jekyll-remote-theme # add this line to the plugins list if you already have one
