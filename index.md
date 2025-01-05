@@ -5,7 +5,9 @@ title: Bienvenido
 
 # ¡Hola, soy Luis Adán Muñoz!
 
-Ingeniero en Cloud especializado en Microsoft Azure, con amplia experiencia en el diseño e implementación de Landing Zones. Poseo un sólido conocimiento de los principios fundamentales de arquitecturas en la nube y las mejores prácticas de Azure, lo que me ha permitido liderar exitosamente múltiples proyectos de creación de entornos en la plataforma. Mi enfoque ha estado orientado a impulsar la transformación digital de las organizaciones, facilitando la migración eficiente y segura de cargas de trabajo hacia la nube.
+Ingeniero en Cloud especializado en Microsoft Azure, con amplia experiencia en el diseño e implementación de Landing Zones. 
+
+Poseo un sólido conocimiento de los principios fundamentales de arquitecturas en la nube y las mejores prácticas de Azure, lo que me ha permitido liderar exitosamente múltiples proyectos de creación de entornos en la plataforma. Mi enfoque ha estado orientado a impulsar la transformación digital de las organizaciones, facilitando la migración eficiente y segura de cargas de trabajo hacia la nube.
 
 ## Experiencia
 
