@@ -234,10 +234,10 @@
 							</table>
 							<blockquote>1. Para conectarse a las máquinas virtuales de destino en redes virtuales emparejadas, será necesario crear Azure Bastión en cada VNET. Este es un costo que podemos asumir, ya que Azure Bastión en su versión Developer SKU es GRATIS.
 								Sin embargo, como siempre existe un "pero", vamos a analizarlo. Actualmente, este SKU está disponible solo en las siguientes regiones: Central US EUAP, East US 2 EUAP, West Central US, North Central US, West US y North Europe. Dado que el Cloud es una tecnología en constante evolución, se recomienda verificar la disponibilidad de este SKU en su región antes de considerar una migración.
-								az vm list-skus --resource-type "Microsoft.Network/bastionHosts" --query "[?name=='Developer']" -o table</p>
+							<p>az vm list-skus --resource-type "Microsoft.Network/bastionHosts" --query "[?name=='Developer']" -o table</p>
 								2. Soporte para conexiones concurrentes: en definitiva, utilícelo si no considera necesario contar con este tipo de conexiones. Si ve la necesidad de disponer de conexiones concurrentes, puede optar por otras opciones.
 								3. Autenticación Kerberos: Si no requiere de una integración con Active Directory o configuraciones de seguridad más estrictas
-								3. Autenticación Kerberos: Si no requiere de una integración con Active Directory o configuraciones de seguridad más estrictas
+								3. Autenticación Kerberos: Si no requiere de una integración con Active Directory o configuraciones de seguridad más estrictas</p>
 								<h3>Resumen</h3>
 								<p>Azure Bastion SKU Developer es ideal para entornos de desarrollo y pruebas donde el costo es una preocupación, ya que es gratis. Es adecuado para uso básico, sin necesidad de funcionalidades avanzadas ni soporte para conexiones concurrentes. Solo está disponible en ciertas regiones como Central US EUAP, East US 2 EUAP, West Central US, North Central US, West US y North Europe, por lo que se debe verificar su disponibilidad antes de su implementación.</blockquote>
 								
