@@ -195,12 +195,6 @@ az automation account show `
 ## 10. Referencias
 - Docs, enlaces externos
 
-- **Fila 1**
-  - Columna 1: [dato 1](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_runbook)
-  - Columna 2: dato 2
-- **Fila 2**
-  - Columna 1: Terraform
-  - Columna 2: dato B
 
 
 <table>
