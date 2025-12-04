@@ -197,5 +197,5 @@ az automation account show `
 
 | Descripción | URL | Notas |
 | ----------- | --- | ----- |
-|   cómo migrar desde un Runbook Worker híbrido de usuario basado en agente a uno basado en extensión.          |  https://learn.microsoft.com/en-us/azure/automation/migrate-existing-agent-based-hybrid-worker-to-extension-based-workers?tabs=bicep-file%2Cwin-hrw   |       |
+|             |     |       |
 |             |     |       |
