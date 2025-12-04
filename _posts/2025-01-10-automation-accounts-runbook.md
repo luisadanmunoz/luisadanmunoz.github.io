@@ -27,7 +27,7 @@ flowchart LR
   SubnetAZ --> AutomationAccount
   AutomationAccount --> Runbook
   Runbook --> AzureResources[(VMs, SQL, Key Vault, etc)]
-
+```
 
 ![Automation Accounts](/assets/img/Automation_Accounts.png)
 
@@ -94,7 +94,7 @@ resource "azurerm_automation_runbook" "example" {
 ## 8. Administración
 ```markdown
 ### CLI
-```powershell
+
 # =============================
 # VARIABLES GENERALES
 # =============================
@@ -102,7 +102,8 @@ $resourceGroup = "rg-tu-entorno"
 $automationAccount = "aa-tu-automation-account"
 $runbookName = "rb-tu-runbook"
 $jobId = "<job-id-si-aplica>"  # Solo para consultar ejecución específica
-
+```
+```markdown
 # =============================
 # LISTAR RUNBOOKS
 # =============================
@@ -110,7 +111,8 @@ az automation runbook list `
   --resource-group $resourceGroup `
   --automation-account-name $automationAccount `
   --output table
-
+```
+```markdown
 # =============================
 # OBTENER DETALLES DE UN RUNBOOK
 # =============================
@@ -118,7 +120,8 @@ az automation runbook show `
   --resource-group $resourceGroup `
   --automation-account-name $automationAccount `
   --name $runbookName
-
+```
+```markdown
 # =============================
 # ACTUALIZAR PROPIEDADES DEL RUNBOOK (log)
 # =============================
@@ -128,7 +131,8 @@ az automation runbook update `
   --name $runbookName `
   --log-verbose true `
   --log-progress true
-
+```
+```markdown
 # =============================
 # INICIAR RUNBOOK
 # =============================
@@ -136,7 +140,8 @@ az automation runbook start `
   --resource-group $resourceGroup `
   --automation-account-name $automationAccount `
   --name $runbookName
-
+```
+```markdown
 # =============================
 # LISTAR JOBS (EJECUCIONES)
 # =============================
@@ -144,7 +149,8 @@ az automation job list `
   --resource-group $resourceGroup `
   --automation-account-name $automationAccount `
   --output table
-
+```
+```markdown
 # =============================
 # OBTENER DETALLES DE UN JOB
 # =============================
@@ -152,7 +158,8 @@ az automation job show `
   --resource-group $resourceGroup `
   --automation-account-name $automationAccount `
   --job-id $jobId
-
+```
+```markdown
 # =============================
 # OBTENER SALIDA DE UN JOB
 # =============================
@@ -160,7 +167,8 @@ az automation job output show `
   --resource-group $resourceGroup `
   --automation-account-name $automationAccount `
   --job-id $jobId
-
+```
+```markdown
 # =============================
 # ELIMINAR UN RUNBOOK
 # =============================
@@ -169,7 +177,8 @@ az automation runbook delete `
   --automation-account-name $automationAccount `
   --name $runbookName `
   --yes
-
+```
+```markdown
 # =============================
 # OBTENER IDENTIDAD ASIGNADA
 # =============================
@@ -177,7 +186,6 @@ az automation account show `
   --resource-group $resourceGroup `
   --name $automationAccount `
   --query identity
-
 ```
 
 ## 9. Decisiones (ADR)
