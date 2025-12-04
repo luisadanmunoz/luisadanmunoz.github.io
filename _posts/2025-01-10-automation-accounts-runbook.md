@@ -200,5 +200,5 @@ az automation account show `
 
 | Columna 1   | Columna 2   |
 | ----------- | ----------- |
-| Fila 1, C1  | Fila 1, C2  |
+| Terraform  | https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_runbook  |
 | Fila 2, C1  | Fila 2, C2  |
