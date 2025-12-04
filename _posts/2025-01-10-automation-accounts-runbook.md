@@ -14,7 +14,7 @@ Contenido de Automation Accounts – Runbook.
 - **Objetivo**:  Azure Automation Account permite automatizar tareas administrativas y operativas dentro y fuera de Azure. Los _Runbooks_ son scripts que automatizan flujos en PowerShell, Python o a través de interfaces gráficas (Graphical/Hybrid Runbooks).
 - **Dependencias**: [[...]]  
 
-> Notas importantes: HLD, LLD, Terraform/Bicep, Runbooks, pruebas.
+> Notas El Runbook Worker híbrido de usuario basado en agente de Azure Automation (Windows y Linux) se retiró el 31 de agosto de 2024
 {: .prompt-tip }
 
 ## 2. Arquitectura
@@ -197,5 +197,5 @@ az automation account show `
 
 | Descripción | URL | Notas |
 | ----------- | --- | ----- |
-|             |     |       |
+|   cómo migrar desde un Runbook Worker híbrido de usuario basado en agente a uno basado en extensión.          |  https://learn.microsoft.com/en-us/azure/automation/migrate-existing-agent-based-hybrid-worker-to-extension-based-workers?tabs=bicep-file%2Cwin-hrw   |       |
 |             |     |       |
