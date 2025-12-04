@@ -3,7 +3,10 @@ title: "Automation Accounts – Runbook"
 date: 2025-01-10 10:00:00 +0100
 categories: [Resources, Automation]
 tags: [automation, runbook]
+description: "Diseño, arquitectura e implementación IaC de una Azure Automation Account y sus runbooks."
+mermaid: true
 ---
+
 
 Contenido de Automation Accounts – Runbook.
 ## 1. Resumen
@@ -11,20 +14,20 @@ Contenido de Automation Accounts – Runbook.
 - **Objetivo**:  Azure Automation Account permite automatizar tareas administrativas y operativas dentro y fuera de Azure. Los _Runbooks_ son scripts que automatizan flujos en PowerShell, Python o a través de interfaces gráficas (Graphical/Hybrid Runbooks).
 - **Dependencias**: [[...]]  
 
-> [!tip] Notas Importantes
-> HLD, LLD, Terraform/Bicep, Runbooks, pruebas.
+> Notas importantes: HLD, LLD, Terraform/Bicep, Runbooks, pruebas.
+{: .prompt-tip }
 
 ## 2. Arquitectura
 
 ```mermaid
 flowchart LR
-User --> AzurePortal
-AzurePortal --> FW
-FW --> SubnetAZ
-SubnetAZ --> AutomationAccount
-AutomationAccount --> Runbook
-Runbook --> AzureResources[(VMs, SQL, Key Vault, etc)]
-```
+  User --> AzurePortal
+  AzurePortal --> FW
+  FW --> SubnetAZ
+  SubnetAZ --> AutomationAccount
+  AutomationAccount --> Runbook
+  Runbook --> AzureResources[(VMs, SQL, Key Vault, etc)]
+
 
 ![Automation Accounts](/assets/img/Automation_Accounts.png)
 
@@ -43,6 +46,7 @@ Runbook --> AzureResources[(VMs, SQL, Key Vault, etc)]
 - Dashboards: 
 
 ## 5. Implementación (IaC)
+
 ### Terraform
 
 ```hcl
@@ -88,6 +92,7 @@ resource "azurerm_automation_runbook" "example" {
     - Automatizar apagado de VMs y recursos para optimizar costes.
 
 ## 8. Administración
+```markdown
 ### CLI
 ```powershell
 # =============================
