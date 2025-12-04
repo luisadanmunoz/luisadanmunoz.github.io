@@ -26,7 +26,7 @@ AutomationAccount --> Runbook
 Runbook --> AzureResources[(VMs, SQL, Key Vault, etc)]
 ```
 
-![Diagrama](../../_Assets/Automation_Accounts.png)
+![Automation Accounts](/assets/img/Automation_Accounts.png)
 
 ## 3. Diseño
 
