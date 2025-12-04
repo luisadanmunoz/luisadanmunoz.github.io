@@ -5,5 +5,5 @@ categories: [Resources, Automation]
 tags: [automation, runbook]
 ---
 
-Contenido de Automation Accounts – Runbook.
-
+Aquí pegas o escribes el contenido que tengas en DocAure
+sobre Automation Accounts y Runbooks.
