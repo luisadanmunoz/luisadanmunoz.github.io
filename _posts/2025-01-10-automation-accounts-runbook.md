@@ -201,3 +201,19 @@ az automation account show `
 - **Fila 2**
   - Columna 1: Terraform
   - Columna 2: dato B
+
+
+<table>
+  <tr>
+    <th>Columna 1</th>
+    <th>Columna 2</th>
+  </tr>
+  <tr>
+    <td>Terraform</td>
+    <td>dato 2</td>
+  </tr>
+  <tr>
+    <td>https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_runbook</td>
+    <td>dato B</td>
+  </tr>
+</table>
