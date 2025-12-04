@@ -5,4 +5,5 @@ categories: [Resources, Automation]
 tags: [automation, runbook]
 ---
 
-## 1. Resumen
+Contenido de Automation Accounts – Runbook.
+
