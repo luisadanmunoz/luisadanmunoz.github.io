@@ -30,28 +30,28 @@ Mi rol se centra en acompañar a los clientes en la definición de arquitecturas
 {: .prompt-tip }
 
 ### Experto
-- **Microsoft Certified: Azure Solutions Architect Expert** ene 2022
-- **Microsoft Certified: DevOps Engineer Expert** jul 2022 
+- **Microsoft Certified: Azure Solutions Architect Expert**
+- **Microsoft Certified: DevOps Engineer Expert**
 
 ### Asociado
-- **Azure Administrator Associate** jul 2022  
-- **Azure Network Engineer Associate** ago 2022  
-- **Windows Server Hybrid Administrator Associate** ago 2022
-- **Identity and Access Administrator Associate** sept 2022  
-- **Azure Security Engineer Associate** nov 2022
-- **Security Operations Analyst Associate** feb 2023 
+- **Azure Administrator Associate** 
+- **Azure Network Engineer Associate** 
+- **Windows Server Hybrid Administrator Associate**
+- **Identity and Access Administrator Associate** 
+- **Azure Security Engineer Associate**
+- **Security Operations Analyst Associate** 
 
 ### Especialidad
-- **Azure Virtual Desktop Specialty** jun 2023  
+- **Azure Virtual Desktop Specialty** 
 
 ### Fundamentals
-- **Azure Fundamentals** oct 2021 
-- **Security, Compliance and Identity Fundamentals** mar 2022  
-- **Azure AI Fundamentals** may 2025
+- **Azure Fundamentals** 
+- **Security, Compliance and Identity Fundamentals**  
+- **Azure AI Fundamentals**
 
 ### Microsoft Applied Skills
-- **Preparación de la seguridad y el cumplimiento para Microsoft 365 Copilot** oct 2025  
-- **Configuración del acceso seguro a las cargas de trabajo mediante redes de Azure** ago 2024 
+- **Preparación de la seguridad y el cumplimiento para Microsoft 365 Copilot** 
+- **Configuración del acceso seguro a las cargas de trabajo mediante redes de Azure**
 
 > Expediente oficial y verificable en Microsoft Learn  
 > <https://learn.microsoft.com/es-es/users/luisadanmunoz/transcript/vy8p1t6gnl2qo9e>
