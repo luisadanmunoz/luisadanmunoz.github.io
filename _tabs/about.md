@@ -56,5 +56,5 @@ Mi rol se centra en acompañar a los clientes en la definición de arquitecturas
 - **Configuración del acceso seguro a las cargas de trabajo mediante redes de Azure** (ago 2024)  
 
 > Expediente oficial y verificable en Microsoft Learn  
-> https://learn.microsoft.com/es-es/users/luisadanmunoz/transcript/vy8p1t6gnl2qo9e
+> <https://learn.microsoft.com/es-es/users/luisadanmunoz/transcript/vy8p1t6gnl2qo9e>
 {: .prompt-tip }
