@@ -27,7 +27,7 @@ Mi rol se centra en acompañar a los clientes en la definición de arquitecturas
 - Documentación técnica y gobierno cloud  
 
 ## Certificaciones Microsoft
-![Certificaciones Microsoft](/assets/img/certifications.png)
+![Certificaciones Microsoft](/assets/img/certifications.jpg)
 
 
 > Certificaciones oficiales y Applied Skills obtenidas en Microsoft Learn
