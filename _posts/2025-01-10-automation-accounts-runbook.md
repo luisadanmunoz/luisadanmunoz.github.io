@@ -12,7 +12,7 @@ Contenido de Automation Accounts – Runbook.
 ## 1. Resumen
 
 - **Objetivo**:
-- **Dependencias**:[RG], [role_assignments], [vnet], [subnet], [private_dns_zone]
+- **Dependencias**: [RG], [role_assignments], [vnet], [subnet], [private_dns_zone]
 
 
 > [!tip] Notas Importantes
