@@ -12,7 +12,7 @@ Contenido de Automation Accounts – Runbook.
 ## 1. Resumen
 
 - **Objetivo**:
-- **Dependencias**:
+- **Dependencias**:[RG], [role_assignments], [vnet], [subnet], [private_dns_zone]
 
 
 > [!tip] Notas Importantes
@@ -21,12 +21,18 @@ Contenido de Automation Accounts – Runbook.
 
 ```mermaid
 flowchart LR
-User --> AzurePortal
-AzurePortal --> FW
-FW --> SubnetAZ
-SubnetAZ --> AutomationAccount
-AutomationAccount --> Runbook
-Runbook --> AzureResources[(VMs, SQL, Key Vault, etc)]
+role_assignments --> automation_account
+automation_account --> identity_type
+automation_account --> private_dns_zone
+automation_account --> subnet
+automation_runbooks --> automation_account
+automation_schedule --> automation_account
+automation_schedule --> automation_runbooks
+vnet --> subnet
+subnet --> private_dns_zone
+private_dns_zone --> virtual_network_link
+private_dns_zone --> private_endpoint
+Runbook --> AzureResource [(VMs)]
 ```
 
 ## 3. Diseño
