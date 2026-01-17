@@ -19,21 +19,20 @@ Contenido de Automation Accounts – Runbook.
 
 ## 2. Arquitectura
 
-```mermaid
 flowchart LR
-role_assignments --> automation_account
-automation_account --> identity_type
-automation_account --> private_dns_zone
-automation_account --> subnet
-automation_runbooks --> automation_account
-automation_schedule --> automation_account
+role_assignments["Role Assignments (RBAC)"] --> automation_account["Automation Account"]
+automation_account --> identity_type["Managed Identity (System/User Assigned)"]
+automation_account --> private_dns_zone["Private DNS Zone"]
+automation_account --> subnet["Subnet"]
+automation_runbooks["Runbooks"] --> automation_account
+automation_schedule["Schedules"] --> automation_account
 automation_schedule --> automation_runbooks
-vnet --> subnet
+vnet["VNet"] --> subnet
 subnet --> private_dns_zone
-private_dns_zone --> virtual_network_link
-private_dns_zone --> private_endpoint
-Runbook --> AzureResource [(VMs)]
-```
+private_dns_zone --> virtual_network_link["VNet Link"]
+private_dns_zone --> private_endpoint["Private Endpoint"]
+Runbook["Runbook Execution"] --> AzureResource["Azure Resources (VMs)"]
+
 
 ## 3. Diseño
 
