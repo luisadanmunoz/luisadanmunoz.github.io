@@ -33,7 +33,6 @@ private_dns_zone --> virtual_network_link["VNet Link"]
 private_dns_zone --> private_endpoint["Private Endpoint"]
 Runbook["Runbook Execution"] --> AzureResource["Azure Resources (VMs)"]
 
-
 ## 3. Diseño
 
 - Naming:
