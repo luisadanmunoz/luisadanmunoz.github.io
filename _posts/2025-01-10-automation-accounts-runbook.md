@@ -41,6 +41,7 @@ subnet --> private_dns_zone
 private_dns_zone --> virtual_network_link
 private_dns_zone --> private_endpoint
 Runbook --> AzureResource[(VMs)]
+Runbook --> automation_account
 ```
 
 ## 3. Diseño
