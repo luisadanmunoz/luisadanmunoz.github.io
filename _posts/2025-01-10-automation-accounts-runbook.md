@@ -13,7 +13,7 @@ Contenido de Automation Accounts – Runbook.
 ## 1. Resumen
 
 - **Objetivo**:  Azure Automation Account permite automatizar tareas administrativas y operativas dentro y fuera de Azure. Los _Runbooks_ son scripts que automatizan, flujos en PowerShell, Python o a través de interfaces gráficas (Graphical/Hybrid Runbooks).
-- **Dependencias**: [[...]]  
+- **Dependencias**: [[RG]]  [[private_dns_zone]] [[subnet]]
 
 > [!tip] Notas Importantes
 > HLD, LLD, Terraform/Bicep, Runbooks, pruebas.
@@ -35,9 +35,12 @@ Runbook --> AzureResources[(VMs, SQL, Key Vault, etc)]
 - Naming: aa rb
 - SKUs: `Free` (hasta 500 minutos/mes). | `Basic` o `Job-based` según carga y requisitos de SLA.
 - Terraform: 
-- Cost
+- Cost:
 - Red:  VNet Integration mediante Private Endpoint (Automation Account). 
 - Hybrid: Si se usa Hybrid Worker, necesita conectividad desde la red local hacia Azure.
+
+- **Dependencias**: [[RG,private_dns_zone,VNET,Subnet]]  
+
 
 ## 4. Implementación (IaC)
 ### Terraform
