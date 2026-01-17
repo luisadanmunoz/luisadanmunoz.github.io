@@ -40,7 +40,6 @@ Runbook --> AzureResources[(VMs, SQL, Key Vault, etc)]
 
 ## 4. Implementación (IaC)
 ### Terraform
-
 ```terraform
 
 ```
