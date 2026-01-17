@@ -15,7 +15,15 @@ Contenido de Automation Accounts – Runbook.
 - **Dependencias**: [RG], [role_assignments], [vnet], [subnet], [private_dns_zone]
 
 
-> [!tip] Notas Importantes
+> ⚠️ **Warning**
+>
+> Estado de pruebas
+{: .prompt-warning }
+
+> 💡 **Tip**
+>
+> Estado de pruebas
+{: .prompt-tip }
 
 ## 2. Arquitectura
 
@@ -55,3 +63,12 @@ Runbook --> AzureResource[(VMs)]
 
 ```
 ## 6. Referencias
+
+---
+title: "Revisiting Azure Flexible Federated Identity Credentials"
+date: 2025-11-19 10:00:00 +0100
+tags: [Terraform, Azure, Azuread, Entraid, Mvpbuzz]
+image:
+  path: /assets/img/avatar.png
+  alt: "Cover"
+---
