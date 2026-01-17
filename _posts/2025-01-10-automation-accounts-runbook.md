@@ -35,16 +35,6 @@ private_dns_zone --> private_endpoint
 Runbook --> AzureResource[(VMs)]
 ```
 
-```mermaid
-flowchart LR
-User --> AzurePortal
-AzurePortal --> FW
-FW --> SubnetAZ
-SubnetAZ --> AutomationAccount
-AutomationAccount --> Runbook
-Runbook --> AzureResources[(VMs, SQL, Key Vault, etc)]
-```
-
 ## 3. Diseño
 
 - Naming:
