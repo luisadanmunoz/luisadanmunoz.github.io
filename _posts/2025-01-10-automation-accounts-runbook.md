@@ -27,6 +27,17 @@ Contenido de Automation Accounts – Runbook.
 
 ## 2. Arquitectura
 
+> ℹ️ **Info**
+>
+> Estado de pruebas
+{: .prompt-info }
+
+> ❌ **Danger**
+>
+> Estado de pruebas
+{: .prompt-danger }
+
+
 ```mermaid
 flowchart LR
 role_assignments --> automation_account
