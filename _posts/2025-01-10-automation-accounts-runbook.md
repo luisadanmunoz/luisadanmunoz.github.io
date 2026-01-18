@@ -60,7 +60,7 @@ Runbook --> automation_account
 
 - Naming: aa
 - SKU: Automation Account: Basic (suficiente para ejecución de Runbooks sin características avanzadas como Update Management).
-- Terraform: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_account
+- Terraform: <a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_account" target="_blank" rel="noopener noreferrer">Azure Automation</a>
 - Cost: Azure Automation se factura por tiempo de ejecución del job y número de jobs según el modelo vigente de Microsoft.
 - Red: private endpoint
 - Hybrid: No se utiliza Hybrid Runbook Worker en este diseño.
