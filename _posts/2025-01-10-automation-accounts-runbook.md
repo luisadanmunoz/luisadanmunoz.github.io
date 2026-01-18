@@ -271,13 +271,3 @@ az network private-endpoint list `
 
 ```
 ## 6. Referencias
-
----
-title: "Revisiting Azure Flexible Federated Identity Credentials"
-date: 2025-11-19 10:00:00 +0100
-tags: [Terraform, Azure, Azuread, Entraid, Mvpbuzz]
-image:
-  path: /assets/img/avatar.png
-  alt: "Cover"
-
----
