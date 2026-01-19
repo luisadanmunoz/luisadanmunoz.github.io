@@ -272,3 +272,49 @@ az network private-endpoint list `
 ```
 ## 6. Referencias
 
+
+### Diagrama de Arquitectura
+
+```mermaid
+flowchart TB
+    subgraph Azure["Azure Subscription"]
+        subgraph RG["Resource Group"]
+            AA["Automation Account<br/>(Managed Identity)"]
+            PE["Private Endpoint"]
+            
+            subgraph Runbooks["Runbooks"]
+                RB1["rb_vm_start<br/>(PowerShell)"]
+                RB2["rb_vm_stop<br/>(PowerShell)"]
+            end
+            
+            subgraph Schedules["Schedules"]
+                SCH1["sch-vm-start<br/>(Daily 08:00)"]
+                SCH2["sch-vm-stop<br/>(Daily 20:00)"]
+            end
+        end
+        
+        subgraph Network["Virtual Network"]
+            SUBNET["Subnet"]
+            DNS["Private DNS Zone<br/>privatelink.azure-automation.net"]
+        end
+        
+        subgraph Resources["Azure Resources"]
+            VM1["VM 1<br/>(env=prod)"]
+            VM2["VM 2<br/>(env=prod)"]
+            VM3["VM 3<br/>(env=dev)"]
+        end
+    end
+    
+    SCH1 -.Trigger.-> RB1
+    SCH2 -.Trigger.-> RB2
+    RB1 --> AA
+    RB2 --> AA
+    AA -->|RBAC: VM Contributor| Resources
+    AA <-->|Private| PE
+    PE --> SUBNET
+    SUBNET --> DNS
+    
+    style AA fill:#0078d4,color:#fff
+    style PE fill:#50e6ff,color:#000
+    style DNS fill:#50e6ff,color:#000
+```
