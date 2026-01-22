@@ -718,7 +718,7 @@ Si tu equipo está gestionando usuarios manualmente en Azure AD, esta solución 
 
 El código completo está disponible en mi repositorio de GitHub:
 
-🔗 **[github.com/luisadanmunoz/Admin_EntraID-Create_User_members_-_guests_Groups_RBAC_management_group_CSV](https://github.com/luisadanmunoz/Admin_EntraID-Create_User_members_-_guests_Groups_RBAC_management_group_CSV)**
+- [github.com/luisadanmunoz/Admin_EntraID-Create_User_members_-_guests_Groups_RBAC_management_group_CSV](https://github.com/luisadanmunoz/Admin_EntraID-Create_User_members_-_guests_Groups_RBAC_management_group_CSV)
 
 Si tienes preguntas o mejoras, no dudes en abrir un issue en el repositorio o contactarme directamente.
 
