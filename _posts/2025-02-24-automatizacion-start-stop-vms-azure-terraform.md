@@ -5,6 +5,7 @@ author: Luis Adán Muñoz
 tags: [Azure, Terraform, Automation, Infrastructure as Code, DevOps, PowerShell]
 categories: [Cloud, Automatización]
 description: "Aprende a implementar una solución completa de automatización para gestionar el encendido y apagado programado de máquinas virtuales en Azure usando Terraform, con notificaciones por email y monitorización integrada."
+mermaid: true
 ---
 
 # Automatización Inteligente de VMs en Azure: Start/Stop con Terraform y Notificaciones
