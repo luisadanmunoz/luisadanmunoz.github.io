@@ -179,9 +179,10 @@ sequenceDiagram
 
 #### 3. **Schedules Automatizados**
 Programaciones que disparan los runbooks:
-- **Inicio**: Lunes a Viernes, 08:00 AM
-- **Parada**: Lunes a Viernes, 05:00 PM
+- **Inicio**: Lunes a Viernes, 08:00 AM (excluye fines de semana)
+- **Parada**: Viernes, 05:00 PM (las VMs permanecen apagadas todo el fin de semana)
 - **Zona horaria**: Europe/Madrid (configurable)
+- **Días configurables**: Puedes ajustar `week_days` para incluir/excluir días específicos
 
 #### 4. **Action Groups y Notificaciones**
 Sistema de notificaciones que envía emails con:
@@ -256,32 +257,66 @@ automation_runbooks = {
 
 # Schedules
 automation_schedule = {
-  sch_vm_start_pre_0800 = {
+  # OPCIÓN 1: Solo días laborables (Lunes a Viernes) - SIN FINES DE SEMANA
+  sch_vm_start_weekdays_0800 = {
+    name                              = "sch-vm-start-weekdays-0800"
+    resource_group_name               = "rg-automation-lab"
+    automation_account_name           = "aa-vm-automation"
+    frequency                         = "Week"
+    interval                          = 1
+    week_days                         = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    vm_start_schedule_start_time      = "2026-01-27T08:00:00+01:00"  # Debe ser lunes
+    vm_start_schedule_description     = "Arranque automático VMs pre (L-V)"
+    vm_start_schedule_timezone        = "Europe/Madrid"
+    runbook_name                      = "rb_vm_start"
+    tag_key                           = "environment"
+    tag_value                         = "pre"
+  }
+  sch_vm_stop_weekdays_1700 = {
+    name                              = "sch-vm-stop-weekdays-1700"
+    resource_group_name               = "rg-automation-lab"
+    automation_account_name           = "aa-vm-automation"
+    frequency                         = "Week"
+    interval                          = 1
+    week_days                         = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    vm_start_schedule_start_time      = "2026-01-24T17:00:00+01:00"  # Debe ser viernes
+    vm_start_schedule_description     = "Parada automática VMs pre (L-V)"
+    vm_start_schedule_timezone        = "Europe/Madrid"
+    runbook_name                      = "rb_vm_stop"
+    tag_key                           = "environment"
+    tag_value                         = "pre"
+  }
+  
+  # OPCIÓN 2: Todos los días (incluidos fines de semana)
+  # Descomenta si prefieres que se ejecute también sábados y domingos
+  /*
+  sch_vm_start_daily_0800 = {
     name                              = "sch-vm-start-daily-0800"
     resource_group_name               = "rg-automation-lab"
     automation_account_name           = "aa-vm-automation"
     frequency                         = "Day"
     interval                          = 1
     vm_start_schedule_start_time      = "2026-01-23T08:00:00+01:00"
-    vm_start_schedule_description     = "Arranque automático VMs pre"
+    vm_start_schedule_description     = "Arranque automático VMs pre (diario)"
     vm_start_schedule_timezone        = "Europe/Madrid"
     runbook_name                      = "rb_vm_start"
     tag_key                           = "environment"
     tag_value                         = "pre"
   }
-  sch_vm_stop_pre_1700 = {
+  sch_vm_stop_daily_1700 = {
     name                              = "sch-vm-stop-daily-1700"
     resource_group_name               = "rg-automation-lab"
     automation_account_name           = "aa-vm-automation"
     frequency                         = "Day"
     interval                          = 1
     vm_start_schedule_start_time      = "2026-01-23T17:00:00+01:00"
-    vm_start_schedule_description     = "Parada automática VMs pre"
+    vm_start_schedule_description     = "Parada automática VMs pre (diario)"
     vm_start_schedule_timezone        = "Europe/Madrid"
     runbook_name                      = "rb_vm_stop"
     tag_key                           = "environment"
     tag_value                         = "pre"
   }
+  */
 }
 
 # Action Group para notificaciones
@@ -658,61 +693,208 @@ Si tienes **10 VMs B2s** (€30/mes cada una) encendidas 24/7 pero solo las nece
 
 ## Casos de Uso Reales
 
-### 1. Entorno de Desarrollo
+### 1. Entorno de Desarrollo - Solo Días Laborables (SIN fines de semana)
+
+**Escenario**: VMs de desarrollo que solo se necesitan de lunes a viernes, horario laboral 08:00-18:00.
 
 ```hcl
 # VMs de desarrollo: encendidas 08:00-18:00 (lunes a viernes)
+# Las VMs permanecen APAGADAS todo el fin de semana
 automation_schedule = {
-  dev_start = {
-    frequency = "Week"
-    interval  = 1
-    week_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-    start_time = "08:00:00+01:00"
-    tag_key   = "environment"
-    tag_value = "dev"
+  dev_start_weekdays = {
+    name                              = "dev-start-weekdays-0800"
+    resource_group_name               = "rg-automation-lab"
+    automation_account_name           = "aa-vm-automation"
+    frequency                         = "Week"
+    interval                          = 1
+    week_days                         = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    vm_start_schedule_start_time      = "2026-01-27T08:00:00+01:00"  # Lunes
+    vm_start_schedule_timezone        = "Europe/Madrid"
+    runbook_name                      = "rb_vm_start"
+    tag_key                           = "environment"
+    tag_value                         = "dev"
   }
-  dev_stop = {
-    frequency = "Week"
-    interval  = 1
-    week_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-    start_time = "18:00:00+01:00"
-    tag_key   = "environment"
-    tag_value = "dev"
+  dev_stop_weekdays = {
+    name                              = "dev-stop-weekdays-1800"
+    resource_group_name               = "rg-automation-lab"
+    automation_account_name           = "aa-vm-automation"
+    frequency                         = "Week"
+    interval                          = 1
+    week_days                         = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    vm_start_schedule_start_time      = "2026-01-27T18:00:00+01:00"
+    vm_start_schedule_timezone        = "Europe/Madrid"
+    runbook_name                      = "rb_vm_stop"
+    tag_key                           = "environment"
+    tag_value                         = "dev"
   }
 }
 ```
 
-### 2. Entorno de Testing
+**💰 Ahorro**: Si tienes 10 VMs B2s (€30/mes cada una):
+- **Sin automatización**: 10 VMs × €30 × 24h/día × 7 días = **€300/mes**
+- **Con automatización** (10h/día × 5 días/semana): 10 VMs × €30 × (50h/168h) = **€89/mes**
+- **Ahorro mensual**: **€211** (70% de reducción)
+
+### 2. Entorno de Testing - Todos los Días (incluye fines de semana)
+
+**Escenario**: VMs de testing que necesitan estar disponibles 7 días a la semana para pruebas automatizadas.
 
 ```hcl
-# VMs de testing: solo durante horario laboral
+# VMs de testing: solo durante horario extendido, todos los días
 automation_schedule = {
-  test_start = {
-    frequency = "Day"
-    interval  = 1
-    start_time = "07:00:00+01:00"
-    tag_key   = "environment"
-    tag_value = "test"
+  test_start_daily = {
+    name                              = "test-start-daily-0700"
+    resource_group_name               = "rg-automation-lab"
+    automation_account_name           = "aa-vm-automation"
+    frequency                         = "Day"
+    interval                          = 1
+    vm_start_schedule_start_time      = "2026-01-23T07:00:00+01:00"
+    vm_start_schedule_timezone        = "Europe/Madrid"
+    runbook_name                      = "rb_vm_start"
+    tag_key                           = "environment"
+    tag_value                         = "test"
   }
-  test_stop = {
-    frequency = "Day"
-    interval  = 1
-    start_time = "20:00:00+01:00"
-    tag_key   = "environment"
-    tag_value = "test"
+  test_stop_daily = {
+    name                              = "test-stop-daily-2000"
+    resource_group_name               = "rg-automation-lab"
+    automation_account_name           = "aa-vm-automation"
+    frequency                         = "Day"
+    interval                          = 1
+    vm_start_schedule_start_time      = "2026-01-23T20:00:00+01:00"
+    vm_start_schedule_timezone        = "Europe/Madrid"
+    runbook_name                      = "rb_vm_stop"
+    tag_key                           = "environment"
+    tag_value                         = "test"
   }
 }
 ```
 
-### 3. VMs por Proyecto
+**💰 Ahorro**: 13 horas/día en lugar de 24 horas = **46% de reducción de costos**
+
+### 3. Preproducción - Solo Durante la Semana Laboral
+
+**Escenario**: Entorno de preproducción que solo necesita estar activo cuando el equipo está trabajando.
 
 ```hcl
-# VMs de un proyecto específico
+# VMs de pre: Lunes inicio 07:00, Viernes parada 19:00
+# Permanecen apagadas desde viernes noche hasta lunes mañana
+automation_schedule = {
+  pre_start_monday = {
+    name                              = "pre-start-monday-0700"
+    resource_group_name               = "rg-automation-lab"
+    automation_account_name           = "aa-vm-automation"
+    frequency                         = "Week"
+    interval                          = 1
+    week_days                         = ["Monday"]
+    vm_start_schedule_start_time      = "2026-01-27T07:00:00+01:00"
+    vm_start_schedule_timezone        = "Europe/Madrid"
+    runbook_name                      = "rb_vm_start"
+    tag_key                           = "environment"
+    tag_value                         = "pre"
+  }
+  pre_stop_friday = {
+    name                              = "pre-stop-friday-1900"
+    resource_group_name               = "rg-automation-lab"
+    automation_account_name           = "aa-vm-automation"
+    frequency                         = "Week"
+    interval                          = 1
+    week_days                         = ["Friday"]
+    vm_start_schedule_start_time      = "2026-01-24T19:00:00+01:00"
+    vm_start_schedule_timezone        = "Europe/Madrid"
+    runbook_name                      = "rb_vm_stop"
+    tag_key                           = "environment"
+    tag_value                         = "pre"
+  }
+}
+```
+
+**💡 Nota**: Las VMs se encienden solo el lunes y se apagan el viernes, permaneciendo apagadas desde viernes 19:00 hasta lunes 07:00 (60 horas apagadas cada semana).
+
+### 4. VMs por Proyecto con Horario Personalizado
+
+**Escenario**: Proyecto con equipo distribuido que trabaja en diferentes zonas horarias.
+
+```hcl
+# VMs de proyecto específico con horario extendido
 automation_schedule = {
   project_alpha_start = {
-    frequency = "Day"
-    interval  = 1
-    start_time = "06:00:00+01:00"
+    name                              = "project-alpha-start-0600"
+    resource_group_name               = "rg-automation-lab"
+    automation_account_name           = "aa-vm-automation"
+    frequency                         = "Week"
+    interval                          = 1
+    week_days                         = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    vm_start_schedule_start_time      = "2026-01-27T06:00:00+01:00"
+    vm_start_schedule_timezone        = "Europe/Madrid"
+    runbook_name                      = "rb_vm_start"
+    tag_key                           = "project"
+    tag_value                         = "alpha"
+  }
+  project_alpha_stop = {
+    name                              = "project-alpha-stop-2200"
+    resource_group_name               = "rg-automation-lab"
+    automation_account_name           = "aa-vm-automation"
+    frequency                         = "Week"
+    interval                          = 1
+    week_days                         = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    vm_start_schedule_start_time      = "2026-01-27T22:00:00+01:00"
+    vm_start_schedule_timezone        = "Europe/Madrid"
+    runbook_name                      = "rb_vm_stop"
+    tag_key                           = "project"
+    tag_value                         = "alpha"
+  }
+}
+```
+
+### 5. Configuración Avanzada - Días Específicos
+
+**Escenario**: VMs que solo se usan ciertos días de la semana (por ejemplo, martes y jueves para demos).
+
+```hcl
+# VMs solo para demos: martes y jueves
+automation_schedule = {
+  demo_start_tue_thu = {
+    name                              = "demo-start-tue-thu-0900"
+    resource_group_name               = "rg-automation-lab"
+    automation_account_name           = "aa-vm-automation"
+    frequency                         = "Week"
+    interval                          = 1
+    week_days                         = ["Tuesday", "Thursday"]
+    vm_start_schedule_start_time      = "2026-01-27T09:00:00+01:00"  # Martes
+    vm_start_schedule_timezone        = "Europe/Madrid"
+    runbook_name                      = "rb_vm_start"
+    tag_key                           = "purpose"
+    tag_value                         = "demo"
+  }
+  demo_stop_tue_thu = {
+    name                              = "demo-stop-tue-thu-1500"
+    resource_group_name               = "rg-automation-lab"
+    automation_account_name           = "aa-vm-automation"
+    frequency                         = "Week"
+    interval                          = 1
+    week_days                         = ["Tuesday", "Thursday"]
+    vm_start_schedule_start_time      = "2026-01-27T15:00:00+01:00"
+    vm_start_schedule_timezone        = "Europe/Madrid"
+    runbook_name                      = "rb_vm_stop"
+    tag_key                           = "purpose"
+    tag_value                         = "demo"
+  }
+}
+```
+
+**💰 Ahorro**: Solo 12 horas/semana en lugar de 168 horas = **93% de reducción de costos**
+
+## Comparativa de Configuraciones
+
+| Configuración | Horas/Semana Encendida | % del Tiempo | Ahorro vs 24/7 |
+|--------------|------------------------|--------------|----------------|
+| 24/7 (sin automatización) | 168 horas | 100% | 0% |
+| Lunes-Viernes, 8h/día | 40 horas | 24% | **76%** |
+| Lunes-Viernes, 10h/día | 50 horas | 30% | **70%** |
+| Lunes-Viernes, 12h/día | 60 horas | 36% | **64%** |
+| Todos los días, 12h/día | 84 horas | 50% | **50%** |
+| Lunes inicio - Viernes parada | 120 horas | 71% | **29%** |
+| Martes y Jueves, 6h/día | 12 horas | 7% | **93%** |
     tag_key   = "project"
     tag_value = "alpha"
   }
