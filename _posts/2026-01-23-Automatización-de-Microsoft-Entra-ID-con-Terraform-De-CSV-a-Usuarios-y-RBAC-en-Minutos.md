@@ -1,13 +1,3 @@
----
-title: "Automatización de Microsoft Entra ID con Terraform: De CSV a Usuarios y RBAC en Minutos"
-date: 2026-01-23
-author: Luis Adán Muñoz
-tags: [Azure, Terraform, Entra ID, Azure AD, Infrastructure as Code, DevOps, RBAC, Identity Management]
-categories: [Cloud, Automatización, Seguridad]
-description: "Descubre cómo automatizar completamente la gestión de usuarios, grupos y permisos en Microsoft Entra ID usando Terraform y un simple archivo CSV. Onboarding de empleados en minutos, no horas."
-mermaid: true
----
-
 ¿Has tenido que crear 50 usuarios nuevos en Azure AD manualmente? ¿Asignar cada uno a su grupo correspondiente? ¿Configurar permisos RBAC uno por uno? Si tu respuesta es sí, sabrás que es un proceso tedioso, propenso a errores y que consume horas de trabajo.
 
 Hoy te voy a mostrar cómo **automaticé completamente este proceso** usando Terraform, reduciendo el onboarding de 50 empleados de **4 horas a solo 5 minutos**.
