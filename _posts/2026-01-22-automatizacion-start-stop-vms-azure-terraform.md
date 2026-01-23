@@ -895,11 +895,6 @@ automation_schedule = {
 | Todos los días, 12h/día | 84 horas | 50% | **50%** |
 | Lunes inicio - Viernes parada | 120 horas | 71% | **29%** |
 | Martes y Jueves, 6h/día | 12 horas | 7% | **93%** |
-    tag_key   = "project"
-    tag_value = "alpha"
-  }
-}
-```
 
 ## Troubleshooting Común
 
