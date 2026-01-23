@@ -8,15 +8,13 @@ description: "Descubre cómo automatizar completamente la gestión de usuarios, 
 mermaid: true
 ---
 
-# Automatización de Microsoft Entra ID con Terraform: De CSV a Usuarios y RBAC en Minutos
-
 ¿Has tenido que crear 50 usuarios nuevos en Azure AD manualmente? ¿Asignar cada uno a su grupo correspondiente? ¿Configurar permisos RBAC uno por uno? Si tu respuesta es sí, sabrás que es un proceso tedioso, propenso a errores y que consume horas de trabajo.
 
 Hoy te voy a mostrar cómo **automaticé completamente este proceso** usando Terraform, reduciendo el onboarding de 50 empleados de **4 horas a solo 5 minutos**.
 
 ## El Problema: Gestión Manual de Identidades
 
-En mi experiencia trabajando con equipos de IT, he visto el mismo problema repetirse una y una vez:
+En mi experiencia trabajando con equipos de IT, he visto el mismo problema repetirse una y otra vez:
 
 ### Proceso Manual Tradicional
 
