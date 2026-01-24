@@ -1,4 +1,12 @@
-# Automatizando la Documentación de Infraestructura Azure: De Markdown a HTML en Segundos
+---
+title: "Automatizando la Documentación de Infraestructura Azure: De Markdown a HTML en Segundos"
+date: 2026-01-3
+author: Luis Adán Muñoz
+tags: [Azure, Automation, Documentación, DevOps, PowerShell, Python, Gobernanza ]
+categories: [Cloud, Automatización, Automatización]
+description: "Sistema de automatización que he desarrollado para generar documentación profesional de recursos Azure."
+mermaid: true
+---
 
 ## Introducción
 
