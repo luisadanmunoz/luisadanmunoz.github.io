@@ -28,13 +28,13 @@ En mi experiencia gestionando entornos Azure a escala empresarial, me he encontr
 
 He desarrollado un sistema que automatiza completamente este proceso con tres componentes clave:
 
-### 1. DocEvo.ps1 - Generador de Documentación
+### 1. DocAzureAutomatic.ps1 - Generador de Documentación
 
 Este script de PowerShell se conecta a tus suscripciones de Azure y extrae toda la información relevante de tus recursos:
 
 ```powershell
 # Ejecutar es tan simple como:
-.\DocEvo.ps1
+.\DocAzureAutomatic.ps1
 ```
 
 El script genera archivos Markdown estructurados con:
@@ -207,7 +207,7 @@ Incluye la generación de documentación en tu pipeline:
 # Azure DevOps Pipeline
 - task: PowerShell@2
   inputs:
-    filePath: 'scripts/DocEvo.ps1'
+    filePath: 'scripts/DocAzureAutomatic.ps1'
     
 - task: PythonScript@0
   inputs:
