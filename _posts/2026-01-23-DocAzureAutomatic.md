@@ -12,29 +12,17 @@ mermaid: true
 
 La documentación de infraestructura es uno de esos aspectos críticos que todos sabemos que debemos hacer, pero que constantemente posponemos. En entornos Azure empresariales con cientos o miles de recursos, mantener documentación actualizada manualmente es prácticamente imposible. ¿La solución? Automatización completa.
 
-En este artículo, comparto un sistema de automatización que he desarrollado para generar documentación profesional de recursos Azure, validar el cumplimiento de tags organizacionales y presentar todo en reportes HTML visuales con tema oscuro. Todo el proceso toma segundos en lugar de horas.
+En este artículo, comparto un sistema de automatización que he desarrollado para generar documentación profesional de recursos Azure, y presentar todo en reportes HTML visuales con tema oscuro. Todo el proceso toma segundos en lugar de horas.
 
-## El Problema: Documentación Obsoleta y Cumplimiento de Tags
+## El Problema: Documentación Obsoleta
 
-En mi experiencia gestionando entornos Azure a escala empresarial, me he encontrado repetidamente con dos desafíos principales:
+En mi experiencia gestionando entornos Azure a escala empresarial, me he encontrado repetidamente con diferentes problemas y desafíos:
 
-### 1. Documentación Manual Insostenible
-
-La documentación manual tiene varios problemas fundamentales:
+## La documentación manual tiene varios problemas fundamentales:
 - **Se vuelve obsoleta inmediatamente**: En cuanto despliegas un nuevo recurso, la documentación está desactualizada
 - **Consume tiempo valioso**: Documentar manualmente cada recurso puede tomar horas cada semana
 - **Es propensa a errores humanos**: Copiar y pegar IDs, nombres y configuraciones lleva inevitablemente a errores
 - **Nadie la quiere hacer**: Seamos honestos, documentar es tedioso cuando tienes trabajo "real" que hacer
-
-### 2. Caos en el Etiquetado de Recursos
-
-Los tags en Azure son esenciales para:
-- Asignación de costos por departamento o proyecto
-- Identificación de propietarios y responsables
-- Políticas de gobernanza y cumplimiento
-- Automatización de operaciones (backup, apagado/encendido, etc.)
-
-Pero mantener tags consistentes en toda la organización es un desafío continuo. Los recursos se crean sin tags, con tags incorrectos o con valores que no siguen las convenciones establecidas.
 
 ## La Solución: Sistema de Automatización en Tres Componentes
 
@@ -52,7 +40,6 @@ Este script de PowerShell se conecta a tus suscripciones de Azure y extrae toda 
 El script genera archivos Markdown estructurados con:
 - Inventario completo de recursos por suscripción
 - Grupos de recursos y sus miembros
-- Tags aplicados a cada recurso
 - Validación automática contra estándares organizacionales
 - Métricas de cumplimiento
 
@@ -78,49 +65,17 @@ Características del motor de conversión:
 La presentación importa. He diseñado una hoja de estilos completa que proporciona:
 
 - **Tema oscuro profesional**: Reduce la fatiga visual y se ve moderno
-- **Colores inspirados en Azure**: Utiliza la paleta de colores corporativa (#DF5E2A como acento)
+- **Colores inspirados en Azure**: Utiliza la paleta de colores
 - **Componentes interactivos**: 
-  - Badge circular de cumplimiento con animaciones
-  - Tarjetas de estadísticas con efectos hover
   - Tablas responsivas con funcionalidad de búsqueda y filtrado
 - **Diseño responsivo**: Funciona perfectamente en desktop, tablet y móvil
 - **Print-friendly**: Media queries optimizadas para impresión
-
-## Características Destacadas del Sistema
-
-### Badge de Cumplimiento Visual
-
-Una de mis características favoritas es el badge circular de cumplimiento. Muestra visualmente el porcentaje de recursos que cumplen con tus políticas de tags:
-
-- **Verde (>80%)**: Excelente cumplimiento
-- **Amarillo (50-80%)**: Necesita atención
-- **Rojo (<50%)**: Acción urgente requerida
-
-El badge incluye efectos hover con escala y sombras que hacen la interfaz más interactiva y moderna.
-
-### Dashboard de Métricas
-
-Cinco tarjetas de estadísticas proporcionan una vista rápida del estado de tu infraestructura:
-
-```
-✅ Válidos: 247 recursos con tags correctos
-❌ Inválidos: 23 recursos con tags incorrectos
-⚠️ Faltantes: 15 recursos sin tags requeridos
-📊 Total: 285 recursos analizados
-🚫 Excluidos: 12 recursos fuera del alcance
-```
-
-Cada tarjeta tiene su propio código de color y efecto hover que la eleva visualmente cuando pasas el cursor.
 
 ### Tablas Interactivas de Recursos
 
 Las tablas no son solo estáticas. Incluyen:
 - Ordenamiento por cualquier columna
-- Búsqueda en tiempo real
-- Filtros por estado de cumplimiento
-- Badges visuales para tipos de recurso
 - Tooltips con información detallada
-- Indicadores de estado con código de colores
 
 ### Gestión de Suscripciones
 
@@ -132,7 +87,7 @@ El proceso completo es extremadamente simple:
 
 ```bash
 # Paso 1: Generar documentación desde Azure
-.\DocEvo.ps1
+.\DocAzureAutomatic.ps1
 
 # Paso 2: Convertir a HTML estilizado
 python .\html_DocAzureAutomatic.py
@@ -169,7 +124,6 @@ Para presentaciones a management o equipos técnicos:
 ### 3. Seguimiento de Mejoras
 
 Ejecuta el sistema semanalmente para:
-- Rastrear tendencias en el cumplimiento de tags
 - Identificar equipos o proyectos que necesitan capacitación
 - Medir el impacto de iniciativas de gobernanza
 - Mantener un registro histórico de cambios en la infraestructura
@@ -224,7 +178,7 @@ Configura una tarea programada en Windows para ejecutar el sistema automáticame
 
 ```powershell
 $action = New-ScheduledTaskAction -Execute 'PowerShell.exe' `
-    -Argument '-File "C:\ruta\a\DocEvo.ps1"'
+    -Argument '-File "C:\ruta\a\DocAzureAutomatic.ps1"'
 $trigger = New-ScheduledTaskTrigger -Daily -At 6am
 Register-ScheduledTask -Action $action -Trigger $trigger `
     -TaskName "AzureDocumentationDaily"
@@ -342,8 +296,7 @@ Estoy trabajando en las siguientes mejoras:
 
 La documentación de infraestructura no tiene que ser una tarea manual tediosa. Con la automatización adecuada, puedes:
 
-✅ Mantener documentación siempre actualizada  
-✅ Mejorar el cumplimiento de políticas organizacionales  
+✅ Mantener documentación siempre actualizada   
 ✅ Ahorrar horas cada semana  
 ✅ Presentar información profesionalmente  
 ✅ Facilitar auditorías y revisiones  
@@ -351,7 +304,7 @@ La documentación de infraestructura no tiene que ser una tarea manual tediosa. 
 
 El sistema que he compartido aquí es el resultado de años de experiencia gestionando infraestructura Azure a escala empresarial. Es simple, efectivo y, lo más importante, realmente se usa.
 
-Si estás luchando con documentación manual o cumplimiento de tags en Azure, te recomiendo encarecidamente que implementes un sistema similar. El retorno de inversión es inmediato y el impacto a largo plazo es significativo.
+Si estás luchando con documentación manual, te recomiendo encarecidamente que implementes un sistema similar. El retorno de inversión es inmediato y el impacto a largo plazo es significativo.
 
 ## Recursos Adicionales
 
