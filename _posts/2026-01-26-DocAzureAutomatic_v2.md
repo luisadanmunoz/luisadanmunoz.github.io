@@ -309,10 +309,11 @@ El HTML generado por make-report.v2.ps1 incluye:
 ```
 
 ### Tabla de Findings
-| Tool | Level | RuleId | Resource | File | Message | Remediation |
-|------|-------|--------|----------|------|---------|-------------|
-| Checkov | error | CKV_AZURE_1 | my-storage-account | rg-prod.json | Storage account allows public access | [link →] |
-| Prowler | critical | storage_ensure_secure_transfer | /subscriptions/.../storageAccounts/mysa | N/A | Secure transfer not enabled | [link →] |
+
+| Tool    | Level    | RuleId                           | Resource                                      | File          | Message                               | Remediation |
+|---------|----------|----------------------------------|-----------------------------------------------|---------------|---------------------------------------|-------------|
+| Checkov | error    | CKV_AZURE_1                      | my-storage-account                            | rg-prod.json  | Storage account allows public access  | [link →]    |
+| Prowler | critical | storage_ensure_secure_transfer   | /subscriptions/.../storageAccounts/mysa       | N/A           | Secure transfer not enabled           | [link →]    |
 
 ### Filtrado Interactivo JavaScript
 
