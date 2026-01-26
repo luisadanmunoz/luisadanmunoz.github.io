@@ -252,11 +252,7 @@ Inicialmente, generaba solo reportes de texto plano. Agregar el tema oscuro y la
 
 Intentos previos que requerían pasos manuales fallaron. La automatización debe ser un solo comando para que realmente se use.
 
-### 3. El Cumplimiento Mejora con Visibilidad
-
-Simplemente mostrar métricas de cumplimiento de forma prominente y regular motivó a los equipos a mejorar sus prácticas de tagging sin necesidad de mandatos de management.
-
-### 4. La Documentación Debe Ser Útil, No Solo Completa
+### 3. La Documentación Debe Ser Útil, No Solo Completa
 
 Incluir funcionalidad de búsqueda y filtrado transformó la documentación de un "requisito de auditoría" a una "herramienta útil diaria".
 
