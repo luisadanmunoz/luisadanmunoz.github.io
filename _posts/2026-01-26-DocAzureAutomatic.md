@@ -164,9 +164,6 @@ h1, h2, th {
 }
 ```
 
-**Ajustar reglas de validación:**
-Edita el script PowerShell para incluir tus propias reglas de validación de tags.
-
 **Modificar estructura de reportes:**
 El script Python usa templates que puedes ajustar para incluir secciones adicionales.
 
@@ -235,11 +232,6 @@ Desde que implementé este sistema, he observado:
 - **Antes**: 4-6 horas semanales documentando manualmente
 - **Después**: 5 minutos semanales ejecutando el script
 - **Ahorro**: ~20 horas/mes que puedo dedicar a trabajo de mayor valor
-
-### Mejora en Cumplimiento
-- **Antes**: ~60% de recursos con tags correctos
-- **Después**: ~85% de cumplimiento en 3 meses
-- **Clave**: La visibilidad constante motiva la mejora
 
 ### Reducción de Errores
 - **Antes**: 15-20 errores/mes en documentación manual
