@@ -1,5 +1,5 @@
 ---
-title: "EntraFlow (CSV-Usuarios & RBAC con Terraform)"
+title: "EntraFlow (CSV-Usuarios RBAC con Terraform)"
 date: 2026-01-23
 author: Luis Adán Muñoz
 tags: [Azure, Automation, Terraform, Entra ID, Azure AD, Infrastructure as Code, DevOps, RBAC, Identity Management]
