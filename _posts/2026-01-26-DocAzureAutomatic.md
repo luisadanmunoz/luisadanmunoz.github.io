@@ -432,8 +432,3 @@ python .\html_DocAzureAutomatic.py
 ---
 
 *¿Tienes preguntas o mejoras para DocAzureAutomatic? Contribuye al proyecto y ayuda a mejorar la documentación cloud para toda la comunidad. Comparte tus experiencias y casos de uso en los comentarios.*
-
-**Autor:** Luis Adán Muñoz  
-**Fecha:** 26 de Enero de 2026  
-**Categorías:** Cloud, Automatización, Azure  
-**Tiempo de lectura:** 12 minutos
