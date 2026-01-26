@@ -1,5 +1,5 @@
 ---
-title: "Automatización Inteligente de VMs en Azure: Start/Stop con Terraform y Notificaciones"
+title: "AzureVM Pulse (Start-Stop de VMs con Terraform)"
 date: 2026-01-22
 author: Luis Adán Muñoz
 tags: [Azure, Terraform, Automation, Infrastructure as Code, DevOps, PowerShell]
