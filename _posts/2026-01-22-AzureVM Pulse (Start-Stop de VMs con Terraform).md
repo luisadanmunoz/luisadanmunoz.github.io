@@ -981,7 +981,7 @@ Si tienes preguntas o sugerencias, no dudes en abrir un issue en el repositorio 
 - [Azure Monitor Action Groups](https://docs.microsoft.com/en-us/azure/azure-monitor/alerts/action-groups)
 - [PowerShell Az Module](https://docs.microsoft.com/en-us/powershell/azure/)
 
-**Tags**: #Azure #Terraform #InfrastructureAsCode #Automation #DevOps #CostOptimization #CloudComputing #PowerShell
+**Tags**: `#Azure` `#Terraform` `#InfrastructureAsCode` `#Automation` `#DevOps` `#CostOptimization` `#CloudComputing` `#PowerShell`
 
 ---
 
