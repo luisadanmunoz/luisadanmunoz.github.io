@@ -384,7 +384,7 @@ Posibles extensiones del proyecto:
 - [Azure PowerShell Documentation](https://docs.microsoft.com/powershell/azure/)
 - [Markdown-it-py GitHub](https://github.com/executablebooks/markdown-it-py)
 - [BeautifulSoup Documentation](https://www.crummy.com/software/BeautifulSoup/)
-- [GitHub Solución](https://github.com/luisadanmunoz/DocAzureAutomatic)
+- [GitHub Solution](https://github.com/luisadanmunoz/DocAzureAutomatic)
 
 ### Comunidad
 - Reporta bugs y solicita features en el repositorio del proyecto
