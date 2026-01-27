@@ -1,7 +1,7 @@
 ---
 title: "EntraFlow (CSV-Usuarios RBAC con Terraform)"
 date: 2026-01-23
-author: Luis Adán Muñoz
+owner: LuisAdan
 tags: [Azure, Automation, Terraform, Entra ID, Azure AD, Infrastructure as Code, DevOps, RBAC, Identity Management]
 categories: [Automatización, Administración]
 description: "Descubre cómo automatizar completamente la gestión de usuarios, grupos y permisos en Microsoft Entra ID usando Terraform y un simple archivo CSV. Onboarding de empleados en minutos, no horas."

@@ -1,7 +1,7 @@
 ---
 title: "AzureVM Pulse (Start-Stop de VMs con Terraform)"
 date: 2026-01-22
-author: Luis Adán Muñoz
+owner: LuisAdan
 tags: [Azure, Terraform, Automation, Infrastructure as Code, DevOps, PowerShell]
 categories: [Automatización, Administración]
 description: "Aprende a implementar una solución completa de automatización para gestionar el encendido y apagado programado de máquinas virtuales en Azure usando Terraform, con notificaciones por email y monitorización integrada."
