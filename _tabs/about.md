@@ -53,6 +53,7 @@ Mi rol se centra en acompañar a los clientes en la definición de arquitecturas
 - **Preparación de la seguridad y el cumplimiento para Microsoft 365 Copilot** 
 - **Configuración del acceso seguro a las cargas de trabajo mediante redes de Azure**
 - **Implementar aplicaciones nativas de nube mediante Azure Container Apps**
+- **Protección del almacenamiento para Azure Files y Azure Blob Storage**
 
 > Expediente oficial y verificable en Microsoft Learn  
 > <https://learn.microsoft.com/es-es/users/luisadanmunoz/transcript/vy8p1t6gnl2qo9e>
