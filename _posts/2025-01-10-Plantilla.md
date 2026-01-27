@@ -1,7 +1,7 @@
 ---
 title: Servicio-Azure
 area: azure/Gobernanza
-categories: [Cloud, Resources, Gobernanza]
+categories: [Resources, Gobernanza]
 owner: LuisAdan
 tags:
   - azure
