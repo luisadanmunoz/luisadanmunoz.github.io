@@ -2,6 +2,7 @@
 title: Azure-Lighthouse-Enterprise
 area: azure/management
 owner: LuisAdan
+categories: [Resources, Gobernanza]
 tags: [azure, lighthouse, multi-tenant, delegation, msp]
 cost: https://azure.microsoft.com/pricing/details/azure-lighthouse/
 repo: https://github.com/org/azure-lighthouse-iac
