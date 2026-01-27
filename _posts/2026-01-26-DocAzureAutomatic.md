@@ -3,7 +3,7 @@ title: "DocAzureAutomatic"
 date: 2026-01-26
 author: Luis Adán Muñoz
 tags: [Azure, Automation, Documentación, DevOps, PowerShell, Python, Gobernanza ]
-categories: [Automatización, Gobernanza]
+categories: [Automatización, Administración]
 description: "Sistema de automatización que he desarrollado para generar documentación profesional de recursos Azure."
 mermaid: true
 ---
