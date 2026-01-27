@@ -3,7 +3,7 @@ title: "DocAzureAutomatic_v2: Auditoría de Seguridad con Prowler y Checkov"
 date: 2026-01-27
 author: Luis Adán Muñoz
 tags: [Azure, Automation, Seguridad, Prowler, Checkov, DevSecOps, PowerShell, Python, IaC Security]
-categories: [Cloud, Automatización, Seguridad]
+categories: [Automatización, Gobernanza]
 description: "Evolución de DocAzureAutomatic: ahora con análisis de seguridad automatizado usando Prowler y Checkov. Documentación + auditoría de compliance en un solo flujo."
 mermaid: true
 ---
