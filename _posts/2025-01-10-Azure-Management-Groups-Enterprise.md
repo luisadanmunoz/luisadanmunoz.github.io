@@ -92,6 +92,27 @@ flowchart LR
     style Prod fill:#f3e5f5
 ```
 
+**Representación en código:**
+
+```
+flowchart LR
+    Root[Root MG<br/>📜 Política: Require Tags<br/>👤 Owner: CloudAdmins]
+    
+    Root -->|Hereda| Platform[Platform MG<br/>📜 + Deny Public IPs<br/>👤 + Contributor: PlatformTeam]
+    
+    Root -->|Hereda| LZ[Landing Zones MG<br/>📜 + Allowed Locations<br/>👤 + Reader: SecurityTeam]
+    
+    Platform -->|Hereda TODO| Identity[Identity MG<br/>📜 + MFA Required<br/>👤 + Contributor: IdentityTeam]
+    
+    LZ -->|Hereda TODO| Prod[Production MG<br/>📜 + Backup Required<br/>👤 + Reader: DevTeam]
+    
+    style Root fill:#ffebee
+    style Platform fill:#fff3e0
+    style Identity fill:#e8f5e9
+    style LZ fill:#e3f2fd
+    style Prod fill:#f3e5f5
+```
+
 ## 🎨 3. Diseño
 
 ### Naming Convention
