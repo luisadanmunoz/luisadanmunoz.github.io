@@ -1,4 +1,20 @@
-# Azure Chaos Studio
+---
+title: Azure Chaos Studio
+area: azure/reliability
+owner: LuisAdan
+categories: [Resources, Confiabilidad]
+tags:
+  - azure
+  - chaos-studio
+  - chaos-engineering
+  - resilience
+  - fault-injection
+  - site-reliability
+  - testing
+cost: https://azure.microsoft.com/pricing/details/chaos-studio/
+repo: https://github.com/org/azure-chaos-studio-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

@@ -1,5 +1,20 @@
-# Azure Digital Twins
-
+---
+title: Azure Digital Twins
+area: azure/iot
+owner: LuisAdan
+categories: [Resources, IoT]
+tags:
+  - azure
+  - digital-twins
+  - iot
+  - simulation
+  - spatial-intelligence
+  - event-routing
+  - graph-modeling
+cost: https://azure.microsoft.com/pricing/details/digital-twins/
+repo: https://github.com/org/azure-digital-twins-iac
+last_review: 2026-02-18
+---
 ## 📋 Características
 
 **Digital Twins** es IoT platform for creating digital models of physical environments. Twin graph, spatial intelligence, 3D visualization.
