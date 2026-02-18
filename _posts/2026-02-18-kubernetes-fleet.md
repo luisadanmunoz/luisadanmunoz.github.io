@@ -1,4 +1,21 @@
-# Azure Kubernetes Fleet Manager
+---
+title: Azure Kubernetes Fleet Manager
+area: azure/containers
+owner: LuisAdan
+categories: [Resources, Contenedores]
+tags:
+  - azure
+  - kubernetes
+  - fleet-manager
+  - aks
+  - multi-cluster
+  - cluster-orchestration
+  - workload-distribution
+  - gitops
+cost: https://azure.microsoft.com/pricing/details/kubernetes-fleet-manager/
+repo: https://github.com/org/azure-kubernetes-fleet-manager-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 
