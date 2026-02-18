@@ -1,4 +1,21 @@
-# Azure DDoS Protection
+---
+title: Azure DDoS Protection
+area: azure/networking
+owner: LuisAdan
+categories: [Resources, Redes]
+tags:
+  - azure
+  - ddos-protection
+  - networking
+  - security
+  - mitigation
+  - network-security
+  - infrastructure-protection
+  - traffic-filtering
+cost: https://azure.microsoft.com/pricing/details/ddos-protection/
+repo: https://github.com/org/azure-ddos-protection-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

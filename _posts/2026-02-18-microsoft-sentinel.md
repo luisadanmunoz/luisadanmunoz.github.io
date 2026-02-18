@@ -1,4 +1,22 @@
-# Microsoft Sentinel (SIEM/SOAR)
+---
+title: Microsoft Sentinel (SIEM/SOAR)
+area: azure/security
+owner: LuisAdan
+categories: [Resources, Seguridad]
+tags:
+  - azure
+  - sentinel
+  - siem
+  - soar
+  - security-operations
+  - threat-detection
+  - incident-response
+  - log-analytics
+  - security-automation
+cost: https://azure.microsoft.com/pricing/details/microsoft-sentinel/
+repo: https://github.com/org/azure-sentinel-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

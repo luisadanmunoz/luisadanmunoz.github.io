@@ -1,4 +1,21 @@
-# Azure Media Services
+---
+title: Azure Media Services
+area: azure/media
+owner: LuisAdan
+categories: [Resources, Multimedia]
+tags:
+  - azure
+  - media-services
+  - video-encoding
+  - streaming
+  - content-delivery
+  - live-streaming
+  - media-processing
+  - transcoding
+cost: https://azure.microsoft.com/pricing/details/media-services/
+repo: https://github.com/org/azure-media-services-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

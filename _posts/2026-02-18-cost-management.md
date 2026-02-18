@@ -1,4 +1,21 @@
-# Azure Cost Management + Billing
+---
+title: Azure Cost Management + Billing
+area: azure/governance
+owner: LuisAdan
+categories: [Resources, Gobernanza]
+tags:
+  - azure
+  - cost-management
+  - billing
+  - finops
+  - budgets
+  - cost-optimization
+  - spending-alerts
+  - chargeback
+cost: https://azure.microsoft.com/pricing/details/cost-management/
+repo: https://github.com/org/azure-cost-management-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 
