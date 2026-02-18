@@ -1,4 +1,21 @@
-# Azure SQL Managed Instance
+---
+title: Azure SQL Managed Instance
+area: azure/databases
+owner: LuisAdan
+categories: [Resources, Bases de Datos]
+tags:
+  - azure
+  - sql-managed-instance
+  - paas
+  - relational-database
+  - sql-server
+  - migration
+  - hybrid-cloud
+  - enterprise-database
+cost: https://azure.microsoft.com/pricing/details/azure-sql-managed-instance/
+repo: https://github.com/org/azure-sql-managed-instance-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 
