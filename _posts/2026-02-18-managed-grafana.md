@@ -1,4 +1,21 @@
-# Azure Managed Grafana
+---
+title: Azure Managed Grafana
+area: azure/monitoring
+owner: LuisAdan
+categories: [Resources, Monitoreo]
+tags:
+  - azure
+  - managed-grafana
+  - monitoring
+  - observability
+  - dashboards
+  - visualization
+  - prometheus
+  - azure-monitor
+cost: https://azure.microsoft.com/pricing/details/managed-grafana/
+repo: https://github.com/org/azure-managed-grafana-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 
