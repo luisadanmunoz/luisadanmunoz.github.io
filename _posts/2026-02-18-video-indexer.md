@@ -1,4 +1,21 @@
-# Azure Video Indexer
+---
+title: Azure Video Indexer
+area: azure/ai
+owner: LuisAdan
+categories: [Resources, Inteligencia Artificial]
+tags:
+  - azure
+  - video-indexer
+  - media-ai
+  - video-analytics
+  - speech-to-text
+  - face-detection
+  - content-moderation
+  - ai
+cost: https://azure.microsoft.com/pricing/details/video-indexer/
+repo: https://github.com/org/azure-video-indexer-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

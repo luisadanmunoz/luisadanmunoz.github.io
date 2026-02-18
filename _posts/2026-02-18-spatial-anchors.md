@@ -1,4 +1,21 @@
-# Azure Spatial Anchors
+---
+title: Azure Spatial Anchors
+area: azure/mixed-reality
+owner: LuisAdan
+categories: [Resources, Realidad Mixta]
+tags:
+  - azure
+  - spatial-anchors
+  - mixed-reality
+  - augmented-reality
+  - hololens
+  - ar-vr
+  - spatial-computing
+  - cross-platform
+cost: https://azure.microsoft.com/pricing/details/spatial-anchors/
+repo: https://github.com/org/azure-spatial-anchors-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

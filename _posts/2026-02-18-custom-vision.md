@@ -1,4 +1,21 @@
-# Azure Custom Vision
+---
+title: Azure Custom Vision
+area: azure/ai
+owner: LuisAdan
+categories: [Resources, Inteligencia Artificial]
+tags:
+  - azure
+  - custom-vision
+  - cognitive-services
+  - computer-vision
+  - image-classification
+  - object-detection
+  - machine-learning
+  - ai
+cost: https://azure.microsoft.com/pricing/details/cognitive-services/custom-vision-service/
+repo: https://github.com/org/azure-custom-vision-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

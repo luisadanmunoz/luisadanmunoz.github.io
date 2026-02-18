@@ -1,4 +1,21 @@
-# Azure Queue Storage
+---
+title: Azure Queue Storage
+area: azure/storage
+owner: LuisAdan
+categories: [Resources, Almacenamiento]
+tags:
+  - azure
+  - queue-storage
+  - messaging
+  - decoupling
+  - async-processing
+  - microservices
+  - storage
+  - event-driven
+cost: https://azure.microsoft.com/pricing/details/storage/queues/
+repo: https://github.com/org/azure-queue-storage-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

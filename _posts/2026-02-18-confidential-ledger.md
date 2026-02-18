@@ -1,4 +1,21 @@
-# Azure Confidential Ledger
+---
+title: Azure Confidential Ledger
+area: azure/security
+owner: LuisAdan
+categories: [Resources, Seguridad]
+tags:
+  - azure
+  - confidential-ledger
+  - blockchain
+  - tamper-proof
+  - immutable-records
+  - data-integrity
+  - confidential-computing
+  - audit-trail
+cost: https://azure.microsoft.com/pricing/details/azure-confidential-ledger/
+repo: https://github.com/org/azure-confidential-ledger-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

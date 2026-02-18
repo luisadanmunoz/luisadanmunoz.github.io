@@ -1,4 +1,21 @@
-# Azure Private Link
+---
+title: Azure Private Link
+area: azure/networking
+owner: LuisAdan
+categories: [Resources, Redes]
+tags:
+  - azure
+  - private-link
+  - private-endpoint
+  - network-security
+  - zero-trust
+  - service-connectivity
+  - data-exfiltration-prevention
+  - hybrid-networking
+cost: https://azure.microsoft.com/pricing/details/private-link/
+repo: https://github.com/org/azure-private-link-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

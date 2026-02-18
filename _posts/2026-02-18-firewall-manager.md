@@ -1,4 +1,21 @@
-# Azure Firewall Manager
+---
+title: Azure Firewall Manager
+area: azure/networking
+owner: LuisAdan
+categories: [Resources, Redes]
+tags:
+  - azure
+  - firewall-manager
+  - network-security
+  - centralized-security
+  - virtual-wan
+  - hub-spoke
+  - policy-management
+  - zero-trust
+cost: https://azure.microsoft.com/pricing/details/firewall-manager/
+repo: https://github.com/org/azure-firewall-manager-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

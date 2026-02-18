@@ -1,4 +1,21 @@
-# Azure Translator
+---
+title: Azure Translator
+area: azure/ai
+owner: LuisAdan
+categories: [Resources, Inteligencia Artificial]
+tags:
+  - azure
+  - translator
+  - cognitive-services
+  - nlp
+  - machine-translation
+  - multilingual
+  - text-analytics
+  - ai
+cost: https://azure.microsoft.com/pricing/details/cognitive-services/translator/
+repo: https://github.com/org/azure-translator-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

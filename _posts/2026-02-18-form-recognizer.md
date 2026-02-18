@@ -1,4 +1,21 @@
-# Azure Form Recognizer (Document Intelligence)
+---
+title: Azure Form Recognizer (Document Intelligence)
+area: azure/ai
+owner: LuisAdan
+categories: [Resources, Inteligencia Artificial]
+tags:
+  - azure
+  - form-recognizer
+  - document-intelligence
+  - cognitive-services
+  - ocr
+  - document-processing
+  - data-extraction
+  - ai
+cost: https://azure.microsoft.com/pricing/details/form-recognizer/
+repo: https://github.com/org/azure-form-recognizer-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

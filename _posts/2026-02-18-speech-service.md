@@ -1,4 +1,21 @@
-# Azure Speech Service
+---
+title: Azure Speech Service
+area: azure/ai
+owner: LuisAdan
+categories: [Resources, Inteligencia Artificial]
+tags:
+  - azure
+  - speech-service
+  - cognitive-services
+  - speech-to-text
+  - text-to-speech
+  - speaker-recognition
+  - voice-assistant
+  - ai
+cost: https://azure.microsoft.com/pricing/details/cognitive-services/speech-services/
+repo: https://github.com/org/azure-speech-service-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

@@ -1,5 +1,21 @@
-# Azure Orbital
-
+---
+title: Azure Orbital
+area: azure/networking
+owner: LuisAdan
+categories: [Resources, Redes]
+tags:
+  - azure
+  - orbital
+  - satellite
+  - ground-station
+  - space
+  - earth-observation
+  - telemetry
+  - satellite-connectivity
+cost: https://azure.microsoft.com/pricing/details/orbital/
+repo: https://github.com/org/azure-orbital-iac
+last_review: 2026-02-18
+---
 ## 📋 Características
 
 **Azure Orbital** es ground station as a service. Comunicación con satélites desde Azure. Procesar datos satelitales directamente en cloud. Para Earth observation, communications, IoT.

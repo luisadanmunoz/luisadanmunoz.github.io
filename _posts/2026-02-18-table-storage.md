@@ -1,4 +1,21 @@
-# Azure Table Storage
+---
+title: Azure Table Storage
+area: azure/storage
+owner: LuisAdan
+categories: [Resources, Almacenamiento]
+tags:
+  - azure
+  - table-storage
+  - nosql
+  - key-value
+  - structured-data
+  - scalable-storage
+  - storage
+  - schemaless
+cost: https://azure.microsoft.com/pricing/details/storage/tables/
+repo: https://github.com/org/azure-table-storage-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 
