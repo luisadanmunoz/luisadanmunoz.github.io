@@ -1,4 +1,22 @@
-# Microsoft Defender for Cloud
+---
+title: Microsoft Defender for Cloud
+area: azure/security
+owner: LuisAdan
+categories: [Resources, Seguridad]
+tags:
+  - azure
+  - defender-for-cloud
+  - cloud-security-posture
+  - cspm
+  - cwpp
+  - threat-protection
+  - vulnerability-management
+  - compliance
+  - zero-trust
+cost: https://azure.microsoft.com/pricing/details/defender-for-cloud/
+repo: https://github.com/org/azure-defender-for-cloud-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

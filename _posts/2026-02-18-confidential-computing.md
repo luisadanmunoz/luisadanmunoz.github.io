@@ -1,4 +1,21 @@
-# Azure Confidential Computing
+---
+title: Azure Confidential Computing
+area: azure/security
+owner: LuisAdan
+categories: [Resources, Seguridad]
+tags:
+  - azure
+  - confidential-computing
+  - tee
+  - secure-enclaves
+  - data-protection
+  - intel-sgx
+  - amd-sev
+  - zero-trust
+cost: https://azure.microsoft.com/pricing/details/virtual-machines/
+repo: https://github.com/org/azure-confidential-computing-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

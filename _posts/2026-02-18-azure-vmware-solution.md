@@ -1,4 +1,22 @@
-# Azure VMware Solution (AVS)
+---
+title: Azure VMware Solution (AVS)
+area: azure/compute
+owner: LuisAdan
+categories: [Resources, Cómputo]
+tags:
+  - azure
+  - vmware
+  - avs
+  - private-cloud
+  - migration
+  - hybrid-cloud
+  - vsphere
+  - nsx
+  - vsan
+cost: https://azure.microsoft.com/pricing/details/azure-vmware/
+repo: https://github.com/org/azure-vmware-solution-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

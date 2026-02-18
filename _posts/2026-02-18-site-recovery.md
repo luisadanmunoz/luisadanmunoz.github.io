@@ -1,4 +1,21 @@
-# Azure Site Recovery (ASR)
+---
+title: Azure Site Recovery (ASR)
+area: azure/reliability
+owner: LuisAdan
+categories: [Resources, Confiabilidad]
+tags:
+  - azure
+  - site-recovery
+  - asr
+  - disaster-recovery
+  - business-continuity
+  - replication
+  - failover
+  - backup
+cost: https://azure.microsoft.com/pricing/details/site-recovery/
+repo: https://github.com/org/azure-site-recovery-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 
