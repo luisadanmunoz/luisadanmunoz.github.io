@@ -1,4 +1,21 @@
-# Azure NetApp Files
+---
+title: Azure NetApp Files
+area: azure/storage
+owner: LuisAdan
+categories: [Resources, Almacenamiento]
+tags:
+  - azure
+  - netapp-files
+  - storage
+  - nfs
+  - smb
+  - high-performance
+  - enterprise-storage
+  - file-shares
+cost: https://azure.microsoft.com/pricing/details/netapp/
+repo: https://github.com/org/azure-netapp-files-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

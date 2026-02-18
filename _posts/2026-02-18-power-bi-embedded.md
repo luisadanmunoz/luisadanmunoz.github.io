@@ -1,4 +1,21 @@
-# Power BI Embedded
+---
+title: Power BI Embedded
+area: azure/analytics
+owner: LuisAdan
+categories: [Resources, Analítica]
+tags:
+  - azure
+  - power-bi
+  - embedded
+  - analytics
+  - business-intelligence
+  - reporting
+  - dashboards
+  - visualization
+cost: https://azure.microsoft.com/pricing/details/power-bi-embedded/
+repo: https://github.com/org/azure-power-bi-embedded-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

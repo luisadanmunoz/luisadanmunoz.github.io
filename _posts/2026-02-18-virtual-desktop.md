@@ -1,4 +1,21 @@
-# Azure Virtual Desktop (AVD)
+---
+title: Azure Virtual Desktop (AVD)
+area: azure/compute
+owner: LuisAdan
+categories: [Resources, Cómputo]
+tags:
+  - azure
+  - virtual-desktop
+  - avd
+  - vdi
+  - remote-work
+  - desktop-virtualization
+  - windows-365
+  - end-user-computing
+cost: https://azure.microsoft.com/pricing/details/virtual-desktop/
+repo: https://github.com/org/azure-virtual-desktop-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

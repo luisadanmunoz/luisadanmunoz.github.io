@@ -1,4 +1,21 @@
-# Azure Stream Analytics
+---
+title: Azure Stream Analytics
+area: azure/analytics
+owner: LuisAdan
+categories: [Resources, Analítica]
+tags:
+  - azure
+  - stream-analytics
+  - real-time
+  - event-processing
+  - data-streaming
+  - iot
+  - analytics
+  - event-hubs
+cost: https://azure.microsoft.com/pricing/details/stream-analytics/
+repo: https://github.com/org/azure-stream-analytics-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 

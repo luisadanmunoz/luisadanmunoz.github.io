@@ -1,4 +1,20 @@
-# Azure Load Testing
+---
+title: Azure Load Testing
+area: azure/reliability
+owner: LuisAdan
+categories: [Resources, Confiabilidad]
+tags:
+  - azure
+  - load-testing
+  - performance
+  - scalability
+  - jmeter
+  - stress-testing
+  - site-reliability
+cost: https://azure.microsoft.com/pricing/details/load-testing/
+repo: https://github.com/org/azure-load-testing-iac
+last_review: 2026-02-18
+---
 
 ## 📋 Características
 
