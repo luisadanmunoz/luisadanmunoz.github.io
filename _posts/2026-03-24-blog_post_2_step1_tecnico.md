@@ -160,15 +160,14 @@ Es un detalle pequeño que, si no lo corriges desde el principio, se reproduce e
 ## El flujo de datos entre contratos
 
 ```mermaid
-graph LR
+graph TB
     ORC([Orquestador])
     CONV[Agente Conversacional]
     ARQ[Agente Arquitecto]
     BUILDER[Agente Builder]
     REVISOR[Agente Revisor]
 
-    subgraph PASO1 [Capa de Contratos - Paso 1]
-        direction TB
+    subgraph PASO1["Capa de Contratos - Paso 1"]
         CO[ConversationOutput]
         IR[InfraRequirements]
         AR[ArchitectRecommendations]
@@ -184,19 +183,19 @@ graph LR
 
         CO -->|contiene| IR
         IR -->|contiene| RS
-        RS -->|contiene opcional| NS
-        NS -->|contiene lista| SS
+        RS -.->|opcional| NS
+        NS -->|lista| SS
         IR -->|contiene| TS
-        AR -->|referencia| IR
-        HCL -->|referencia| IR
-        RR -->|contiene lista| RC
-        PS -->|contiene lista| AS
-        PS -->|referencia snapshot| IR
-        PS -->|referencia snapshot| HCL
-        PS -->|referencia snapshot| RR
+        AR -.->|referencia| IR
+        HCL -.->|referencia| IR
+        RR -->|lista| RC
+        PS -->|lista| AS
+        PS -.->|snapshot| IR
+        PS -.->|snapshot| HCL
+        PS -.->|snapshot| RR
     end
 
-    ORC -->|genera pipeline_id UUID| CONV
+    ORC -->|genera pipeline_id| CONV
     CONV -->|produce| CO
     CO --> ARQ
     ARQ -->|produce| AR
@@ -205,9 +204,27 @@ graph LR
     BUILDER -->|produce| HCL
     HCL --> REVISOR
     REVISOR -->|produce| RR
-    RR -->|passed=false, iter lt 5| BUILDER
+    RR -->|passed=false| BUILDER
     RR -->|passed=true| ORC
     ORC -->|mantiene| PS
+
+    style ORC fill:#1F4E79,stroke:#2E75B6,color:#fff
+    style CONV fill:#1e3a5f,stroke:#6366f1,color:#fff
+    style ARQ fill:#1e3a5f,stroke:#6366f1,color:#fff
+    style BUILDER fill:#1a3a2a,stroke:#10b981,color:#fff
+    style REVISOR fill:#3a2a1a,stroke:#f59e0b,color:#fff
+    style CO fill:#2a1a3a,stroke:#8b5cf6,color:#fff
+    style IR fill:#2a1a3a,stroke:#8b5cf6,color:#fff
+    style AR fill:#2a1a3a,stroke:#8b5cf6,color:#fff
+    style HCL fill:#2a1a3a,stroke:#8b5cf6,color:#fff
+    style RR fill:#2a1a3a,stroke:#8b5cf6,color:#fff
+    style PS fill:#2a1a3a,stroke:#8b5cf6,color:#fff
+    style AS fill:#1a2a3a,stroke:#3b82f6,color:#fff
+    style RC fill:#1a2a3a,stroke:#3b82f6,color:#fff
+    style RS fill:#1a2a3a,stroke:#3b82f6,color:#fff
+    style NS fill:#1a2a3a,stroke:#3b82f6,color:#fff
+    style SS fill:#1a2a3a,stroke:#3b82f6,color:#fff
+    style TS fill:#1a2a3a,stroke:#3b82f6,color:#fff
 ```
 
 ---
