@@ -2,7 +2,7 @@
 title: terraform-agent-paso-2-schemamanager-fuente-de-verdad
 area: azure/iac
 owner: LuisAdan
-categories: [Resources, IaC, IA]
+categories: [IaC, IA]
 tags:
   - terraform
   - azure
