@@ -187,6 +187,24 @@ graph TB
     style SS fill:#1a2a3a,stroke:#3b82f6,color:#fff
     style TS fill:#1a2a3a,stroke:#3b82f6,color:#fff
 ```
+## Diagrama 2 — flujo de agentes:
+```mermaid
+graph LR
+    ORC([Orquestador]) -->|genera pipeline_id| CONV[Conversacional]
+    CONV -->|produce ConversationOutput| ARQ[Arquitecto]
+    CONV -->|produce ConversationOutput| BUILDER[Builder]
+    ARQ -->|produce ArchitectRecommendations| BUILDER
+    BUILDER -->|produce HCLOutput| REVISOR[Revisor]
+    REVISOR -->|produce ReviewResult| BUILDER
+    REVISOR -->|passed=true| ORC
+    ORC -->|mantiene PipelineState| ORC
+
+    style ORC fill:#1F4E79,stroke:#2E75B6,color:#fff
+    style CONV fill:#1e3a5f,stroke:#6366f1,color:#fff
+    style ARQ fill:#1e3a5f,stroke:#6366f1,color:#fff
+    style BUILDER fill:#1a3a2a,stroke:#10b981,color:#fff
+    style REVISOR fill:#3a2a1a,stroke:#f59e0b,color:#fff
+```
 
 ---
 
