@@ -14,6 +14,7 @@ tags:
   - platform-engineering
 repo: https://github.com/org/terraform-agent
 last_review: 2026-03-24
+mermaid: true
 ---
 
 # Paso 1: Por qué empecé un sistema multiagente definiendo contratos Pydantic antes de escribir ningún agente
