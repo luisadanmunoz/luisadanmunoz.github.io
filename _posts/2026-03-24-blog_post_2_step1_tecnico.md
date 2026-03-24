@@ -160,7 +160,7 @@ Es un detalle pequeño que, si no lo corriges desde el principio, se reproduce e
 ## El flujo de datos entre contratos
 
 ```mermaid
-flowchart TD
+graph LR
     ORC([Orquestador])
     CONV[Agente Conversacional]
     ARQ[Agente Arquitecto]
