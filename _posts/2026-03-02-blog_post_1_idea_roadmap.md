@@ -2,7 +2,7 @@
 title: terraform-agent-idea-y-roadmap
 area: azure/iac
 owner: LuisAdan
-categories: [Resources, IaC, IA]
+categories: [IA, IaC]
 tags:
   - terraform
   - azure

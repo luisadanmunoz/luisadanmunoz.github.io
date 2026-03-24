@@ -2,7 +2,7 @@
 title: terraform-agent-paso-1-contratos-pydantic
 area: azure/iac
 owner: LuisAdan
-categories: [Resources, IaC, IA]
+categories: [IA, IaC]
 tags:
   - terraform
   - azure
