@@ -157,62 +157,23 @@ Es un detalle pequeño que, si no lo corriges desde el principio, se reproduce e
 
 ---
 
-## El flujo de datos entre contratos
+## Diagrama 1 — modelos de datos:
 
 ```mermaid
 graph TB
-    ORC([Orquestador])
-    CONV[Agente Conversacional]
-    ARQ[Agente Arquitecto]
-    BUILDER[Agente Builder]
-    REVISOR[Agente Revisor]
+    CO[ConversationOutput] -->|contiene| IR[InfraRequirements]
+    IR -->|contiene| RS[ResourceSpec]
+    IR -->|contiene| TS[TagsSpec]
+    RS -.->|opcional| NS[NetworkSpec]
+    NS -->|lista| SS[SubnetSpec]
+    AR[ArchitectRecommendations] -.->|referencia| IR
+    HCL[HCLOutput] -.->|referencia| IR
+    RR[ReviewResult] -->|lista| RC[ReviewCheck]
+    PS[PipelineState] -->|lista| AS[AgentStep]
+    PS -.->|snapshot| IR
+    PS -.->|snapshot| HCL
+    PS -.->|snapshot| RR
 
-    subgraph PASO1["Capa de Contratos - Paso 1"]
-        CO[ConversationOutput]
-        IR[InfraRequirements]
-        AR[ArchitectRecommendations]
-        HCL[HCLOutput]
-        RR[ReviewResult]
-        PS[PipelineState]
-        AS[AgentStep]
-        RC[ReviewCheck]
-        RS[ResourceSpec]
-        NS[NetworkSpec]
-        SS[SubnetSpec]
-        TS[TagsSpec]
-
-        CO -->|contiene| IR
-        IR -->|contiene| RS
-        RS -.->|opcional| NS
-        NS -->|lista| SS
-        IR -->|contiene| TS
-        AR -.->|referencia| IR
-        HCL -.->|referencia| IR
-        RR -->|lista| RC
-        PS -->|lista| AS
-        PS -.->|snapshot| IR
-        PS -.->|snapshot| HCL
-        PS -.->|snapshot| RR
-    end
-
-    ORC -->|genera pipeline_id| CONV
-    CONV -->|produce| CO
-    CO --> ARQ
-    ARQ -->|produce| AR
-    AR --> BUILDER
-    CO --> BUILDER
-    BUILDER -->|produce| HCL
-    HCL --> REVISOR
-    REVISOR -->|produce| RR
-    RR -->|passed=false| BUILDER
-    RR -->|passed=true| ORC
-    ORC -->|mantiene| PS
-
-    style ORC fill:#1F4E79,stroke:#2E75B6,color:#fff
-    style CONV fill:#1e3a5f,stroke:#6366f1,color:#fff
-    style ARQ fill:#1e3a5f,stroke:#6366f1,color:#fff
-    style BUILDER fill:#1a3a2a,stroke:#10b981,color:#fff
-    style REVISOR fill:#3a2a1a,stroke:#f59e0b,color:#fff
     style CO fill:#2a1a3a,stroke:#8b5cf6,color:#fff
     style IR fill:#2a1a3a,stroke:#8b5cf6,color:#fff
     style AR fill:#2a1a3a,stroke:#8b5cf6,color:#fff
