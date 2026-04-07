@@ -284,7 +284,7 @@ Sin el SchemaManager, el Builder no tiene más referencia que su entrenamiento p
 
 ---
 
-*El código de este paso, la documentación técnica completa y los tests están disponibles en el repositorio del proyecto.*
+*El código de este paso, la documentación técnica completa y los tests estarán disponibles en el repositorio del proyecto.*
 
 ---
 
