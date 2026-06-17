@@ -4,11 +4,14 @@ area: azure/iac
 owner: LuisAdan
 categories: [IA, IaC]
 tags:
+  - terraform
   - azure
-  - management-groups
-  - governance
-  - rbac
-  - policy
+  - llm
+  - multiagent
+  - iac
+  - python
+  - platform-engineering
+repo: https://github.com/org/terraform-agent
 last_review: 2026-06-17
 ---
 
