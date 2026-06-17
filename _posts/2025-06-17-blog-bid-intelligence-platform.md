@@ -1,5 +1,5 @@
 ---
-title: 2025-06-17-blog-bid-intelligence-platform
+title: bid-intelligence-platform
 area: azure/iac
 owner: LuisAdan
 categories: [IA, IaC]
@@ -9,7 +9,6 @@ tags:
   - governance
   - rbac
   - policy
-repo: 
 last_review: 2026-06-17
 ---
 
