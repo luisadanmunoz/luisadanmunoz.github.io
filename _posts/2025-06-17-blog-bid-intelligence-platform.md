@@ -1,9 +1,16 @@
 ---
-layout: post
-title: "Cómo construí una plataforma de análisis de licitaciones con IA agentica"
-date: 2026-06-18
-categories: [azure, ai, python, arquitectura]
-tags: [openai, rag, agentes, python, fastapi, azure-ai-foundry]
+title: 2025-06-17-blog-bid-intelligence-platform
+area: azure/iac
+owner: LuisAdan
+categories: [IA, IaC]
+tags:
+  - azure
+  - management-groups
+  - governance
+  - rbac
+  - policy
+repo: 
+last_review: 2026-06-17
 ---
 
 Responder a un pliego de licitación de 500 páginas es un trabajo que consume semanas. Hay que leer, extraer requisitos, buscar evidencias en documentación propia, redactar, revisar y asegurarse de no dejar nada sin cubrir. El error humano es caro: un requisito ignorado puede descalificar una oferta.
