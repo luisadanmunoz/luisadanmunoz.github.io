@@ -12,7 +12,6 @@ tags:
   - update-management
   - desired-state-configuration
   - dsc
-  
 cost: https://azure.microsoft.com/pricing/details/automation/
 repo: https://github.com/org/azure-automation-iac
 last_review: 2026-02-18
