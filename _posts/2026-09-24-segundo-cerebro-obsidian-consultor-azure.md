@@ -13,6 +13,7 @@ tags:
   - knowledge-management
 repo: privado
 last_review: 2026-09-24
+mermaid: true
 ---
 
 Como consultor Azure, mi conocimiento estaba repartido por todas partes: ofertas en carpetas locales, chuletas de comandos en ficheros sueltos, apuntes de certificaciones en PDFs, módulos de Terraform en repos, y decenas de "esto ya lo resolví una vez, pero ¿dónde?".
