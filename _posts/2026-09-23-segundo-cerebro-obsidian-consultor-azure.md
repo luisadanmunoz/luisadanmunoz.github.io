@@ -12,7 +12,7 @@ tags:
   - azure
   - knowledge-management
 repo: privado
-last_review: 2026-09-24
+last_review: 2026-09-23
 mermaid: true
 ---
 
