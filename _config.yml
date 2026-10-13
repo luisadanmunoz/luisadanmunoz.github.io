@@ -49,6 +49,7 @@ categorias:
     color: "#0E8C70"
     texto: "#FFFFFF"
     descripcion: Agentes y soluciones con Microsoft Foundry.
+    icono: /assets/img/icono-ia.png
 
 # ------------------------------------------------------------
 # Construcción
