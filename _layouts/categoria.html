@@ -10,7 +10,11 @@ layout: default
     <span aria-current="page">{{ c.nombre }}</span>
   </nav>
   <div class="title-row">
+    {%- if c.icono %}
+    <img class="swatch swatch-img" src="{{ c.icono | relative_url }}" alt="" width="64" height="64">
+    {%- else %}
     <span class="swatch" style="background: {{ c.color }}" aria-hidden="true"></span>
+    {%- endif %}
     <h1>{{ c.nombre }}</h1>
   </div>
   <p class="lead">{{ page.intro }}</p>
