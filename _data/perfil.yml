@@ -13,7 +13,7 @@ foto: /assets/img/foto-luis.jpg
 
 # CV en PDF: súbelo a assets/cv/ y pon aquí su ruta (p. ej. /assets/cv/CV-Luis-Adan-Munoz.pdf).
 # Mientras esté vacío, el botón aparece desactivado.
-cv: ""
+cv: /assets/cv/CV-Luis-Adan-Munoz.pdf
 
 resumen:
   - etiqueta: Ahora
@@ -107,8 +107,7 @@ certificaciones:
 examenes:
   - AZ-900
   - AZ-104
-  - AZ-303
-  - AZ-304
+  - AZ-305
   - AZ-400
   - AZ-500
   - AZ-700
