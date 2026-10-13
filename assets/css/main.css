@@ -137,7 +137,7 @@ h1, h2, h3 { color: var(--ink-strong); font-weight: 800; letter-spacing: -0.02em
 .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
 .tile { display: flex; flex-direction: column; gap: 10px; background: var(--surface-2); border: 1.5px solid var(--line-2); border-radius: 18px; padding: 22px; text-decoration: none; color: var(--ink); }
 .tile:hover { border-color: var(--link); color: var(--ink); }
-.tile .swatch { width: 40px; height: 40px; border-radius: 12px; display: block; }
+.tile .swatch { width: 48px; height: 48px; border-radius: 12px; display: block; }
 .tile strong { font-size: 21px; color: var(--ink-strong); }
 .tile span { font-family: var(--font-read); font-size: 16px; line-height: 1.5; color: var(--muted-2); }
 
@@ -161,6 +161,8 @@ h1, h2, h3 { color: var(--ink-strong); font-weight: 800; letter-spacing: -0.02em
 .page-head .title-row { display: flex; align-items: center; gap: 18px; margin-top: 20px; }
 .page-head .title-row h1 { margin: 0; }
 .page-head .title-row .swatch { width: 22px; height: 22px; border-radius: 7px; flex: 0 0 auto; }
+.page-head .title-row .swatch-img { width: 44px; height: 44px; }
+.swatch-img { border-radius: 0; object-fit: contain; }
 .page-head .lead { margin-top: 22px; font-size: 21px; }
 
 /* ---------- Artículo ---------- */
