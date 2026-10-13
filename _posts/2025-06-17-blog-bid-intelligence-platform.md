@@ -1,5 +1,5 @@
 ---
-title: bid-intelligence-platform
+title: "Bid Intelligence Platform: diez agentes de IA para responder licitaciones"
 area: azure/iac
 owner: LuisAdan
 categories: [IA, IaC]
@@ -13,6 +13,8 @@ tags:
   - platform-engineering
 repo: https://github.com/org/terraform-agent
 last_review: 2026-06-17
+categoria: ia
+tema: "Agentes"
 ---
 
 Responder a un pliego de licitación de 500 páginas es un trabajo que consume semanas. Hay que leer, extraer requisitos, buscar evidencias en documentación propia, redactar, revisar y asegurarse de no dejar nada sin cubrir. El error humano es caro: un requisito ignorado puede descalificar una oferta.

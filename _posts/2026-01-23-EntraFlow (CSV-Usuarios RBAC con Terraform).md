@@ -6,6 +6,8 @@ tags: [Azure, Automation, Terraform, Entra ID, Azure AD, Infrastructure as Code,
 categories: [Automatización, Administración]
 description: "Descubre cómo automatizar completamente la gestión de usuarios, grupos y permisos en Microsoft Entra ID usando Terraform y un simple archivo CSV. Onboarding de empleados en minutos, no horas."
 mermaid: true
+categoria: azure
+tema: "Identidad"
 ---
 
 ¿Has tenido que crear 50 usuarios nuevos en Azure AD manualmente? ¿Asignar cada uno a su grupo correspondiente? ¿Configurar permisos RBAC uno por uno? Si tu respuesta es sí, sabrás que es un proceso tedioso, propenso a errores y que consume horas de trabajo.

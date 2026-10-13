@@ -1,5 +1,5 @@
 ---
-title: terraform-agent-idea-y-roadmap
+title: "Terraform Agent: la idea y el roadmap"
 area: azure/iac
 owner: LuisAdan
 categories: [IA, IaC]
@@ -13,6 +13,8 @@ tags:
   - platform-engineering
 repo: https://github.com/org/terraform-agent
 last_review: 2026-03-02
+categoria: ia
+tema: "Terraform Agent"
 ---
 
 # Estoy construyendo un sistema que convierte lenguaje natural en infraestructura Azure desplegada. Esto es lo que he aprendido hasta ahora.

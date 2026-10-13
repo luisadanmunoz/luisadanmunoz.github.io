@@ -6,6 +6,8 @@ tags: [Azure, Terraform, Automation, Infrastructure as Code, DevOps, PowerShell]
 categories: [Automatización, Administración]
 description: "Aprende a implementar una solución completa de automatización para gestionar el encendido y apagado programado de máquinas virtuales en Azure usando Terraform, con notificaciones por email y monitorización integrada."
 mermaid: true
+categoria: azure
+tema: "Automatización"
 ---
 
 ¿Te has preguntado cuánto dinero estás desperdiciando por dejar VMs de desarrollo o testing encendidas durante las noches y fines de semana? En este artículo te mostraré cómo implementé una solución completa de automatización en Azure que no solo gestiona el ciclo de vida de tus VMs, sino que también te mantiene informado de cada operación mediante notificaciones inteligentes.

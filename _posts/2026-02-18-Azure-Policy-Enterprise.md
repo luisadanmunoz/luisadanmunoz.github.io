@@ -1,5 +1,5 @@
 ---
-title: Azure-Policy-Enterprise
+title: "Azure Policy en entornos enterprise"
 area: azure/governance
 owner: LuisAdan
 categories: [Resources, Gobernanza]
@@ -15,6 +15,8 @@ tags:
 cost: https://azure.microsoft.com/pricing/details/azure-policy/
 repo: https://github.com/org/azure-policy-iac
 last_review: 2026-02-18
+categoria: azure
+tema: "Gobernanza"
 ---
 
 ## 📋 1. Resumen

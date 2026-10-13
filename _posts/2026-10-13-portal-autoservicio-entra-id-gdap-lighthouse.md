@@ -1,5 +1,5 @@
 ---
-title: portal-autoservicio-entra-id-gdap-lighthouse
+title: "Portal de autoservicio con Entra ID, GDAP y Lighthouse"
 area: azure/identidad
 owner: LuisAdan
 categories: [Azure, Seguridad, Automatizacion]
@@ -16,6 +16,8 @@ tags:
 repo: privado
 last_review: 2026-10-13
 mermaid: true
+categoria: azure
+tema: "Identidad"
 ---
 
 Trabajo en un partner CSP de Microsoft y hay dos quejas que se repiten en casi todos los clientes: **"no veo lo que me cuesta Azure"** y **"para resetear una contraseña tengo que abrir un ticket y esperar"**. Las dos tienen solución con herramientas que Microsoft ya da a los partners, pero nadie las había juntado.

@@ -1,0 +1,100 @@
+# Datos de la página Sobre mí. Edita este fichero para actualizarla.
+# Lo que está entre corchetes [ ] es un marcador pendiente de rellenar.
+
+rol: Luis Adán Muñoz, Arquitecto Senior de Azure
+titular: Llevo las ideas de la pizarra a producción en Azure.
+intro: >-
+  Diseño plataformas cloud para empresas de sectores regulados, las construyo con
+  Terraform y las audito contra el Well-Architected Framework. Últimamente también
+  diseño agentes de IA con Microsoft Foundry.
+
+# Foto real: súbela a assets/img/ y pon aquí su ruta (p. ej. /assets/img/foto-luis.jpg).
+# Si la dejas vacía se muestra la ilustración.
+foto: ""
+
+# CV en PDF: súbelo a assets/cv/ y pon aquí su ruta (p. ej. /assets/cv/CV-Luis-Adan-Munoz.pdf).
+# Mientras esté vacío, el botón aparece desactivado.
+cv: ""
+
+resumen:
+  - etiqueta: Ahora
+    valor: Arquitecto cloud en Evolutio
+  - etiqueta: Certificación
+    valor: Azure Solutions Architect Expert
+  - etiqueta: Preparando
+    valor: AI-102, Azure AI Engineer
+  - etiqueta: Desde
+    valor: "[Tu ciudad], España"
+
+ayuda:
+  - titulo: Arquitectura y landing zones
+    color: "#3B5BF0"
+    texto: Diseño de plataformas en Azure alineadas con el Cloud Adoption Framework, con gobierno, redes, identidad y seguridad desde el primer día.
+  - titulo: Infraestructura como código
+    color: "#7A4FE0"
+    texto: Módulos Terraform reutilizables y multi-entorno, con pipelines que validan, revisan y despliegan sin sorpresas.
+  - titulo: Auditorías y assessments
+    color: "#D24B44"
+    texto: Revisiones contra el Well-Architected Framework con hallazgos priorizados y un plan de mejora que se puede ejecutar.
+  - titulo: IA con Microsoft Foundry
+    color: "#0E8C70"
+    texto: Agentes y soluciones de IA para empresa, con datos y permisos bien separados y listos para producción.
+
+experiencia:
+  - cuando: "[Año de inicio] – actualidad"
+    puesto: Arquitecto Senior de Azure
+    empresa: Evolutio
+    texto: >-
+      Consultoría cloud para clientes de sectores regulados, con arquitectura, Terraform,
+      auditorías WAF y CAF, troubleshooting y propuestas técnicas. También soy arquitecto
+      de IA sobre Microsoft Foundry y mentor en el programa superior de IA de la compañía.
+  - cuando: "[Años]"
+    puesto: "[Puesto anterior]"
+    empresa: "[Empresa]"
+    texto: "[Una o dos frases con lo más relevante de este puesto.]"
+  - cuando: "[Años]"
+    puesto: "[Puesto anterior]"
+    empresa: "[Empresa]"
+    texto: "[Una o dos frases con lo más relevante de este puesto.]"
+
+proyectos:
+  - tema: Arquitectura
+    color: "#3B5BF0"
+    titulo: AKS privado en Spain Central
+    texto: Clúster sin endpoint público para un entorno regulado, desplegado de punta a punta con Terraform.
+    stack: AKS, DNS privado, Azure Firewall, Terraform
+  - tema: Arquitectura
+    color: "#3B5BF0"
+    titulo: Migración de SQL Server a Managed Instance
+    texto: Plan por fases con Managed Instance Link para mover bases de datos críticas con un corte mínimo.
+    stack: SQL Managed Instance, MI Link
+  - tema: IA
+    color: "#0E8C70"
+    titulo: Agente de soporte multi-cliente en Foundry
+    texto: Un agente de primer nivel que atiende a varios clientes con sus datos y permisos separados.
+    stack: Microsoft Foundry, Microsoft 365
+  - tema: Seguridad
+    color: "#D24B44"
+    titulo: Assessment de Azure con Prowler y ARI
+    texto: Un proceso reutilizable que convierte exports técnicos en un informe priorizado alineado con el WAF.
+    stack: Prowler, Azure Resource Inventory, WAF
+
+certificaciones:
+  - nombre: "Microsoft Certified: Azure Solutions Architect Expert"
+    detalle: Renovada en agosto de 2026, válida hasta enero de 2028
+    estado: vigente
+  - nombre: "AI-102: Azure AI Engineer Associate"
+    detalle: En preparación
+    estado: preparando
+
+stack:
+  - Azure
+  - Terraform
+  - PowerShell
+  - Azure CLI
+  - Python
+  - GitHub Actions
+  - Microsoft Foundry
+  - SQL Server
+  - Microsoft Purview
+  - Entra ID

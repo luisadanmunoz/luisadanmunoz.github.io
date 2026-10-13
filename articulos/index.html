@@ -1,0 +1,17 @@
+---
+layout: default
+title: Artículos
+---
+<section class="wrap page-head">
+  <nav class="crumbs" aria-label="Ruta">
+    <a href="{{ '/' | relative_url }}">Inicio</a><span aria-hidden="true">/</span>
+    <span aria-current="page">Artículos</span>
+  </nav>
+  <h1>Artículos</h1>
+  <p class="lead">Todo lo publicado, del más reciente al más antiguo.</p>
+</section>
+<section class="wrap" style="padding-bottom: 96px">
+  {%- for p in site.posts %}
+  {% include post-row.html post=p %}
+  {%- endfor %}
+</section>
