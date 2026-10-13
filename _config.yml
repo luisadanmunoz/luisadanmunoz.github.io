@@ -30,13 +30,15 @@ social:
 # Newsletter (https://buttondown.com). Deja vacío para ocultar el formulario.
 buttondown_user: "luisadanmunoz"
 
-# Colores de cada categoría de artículos
+# Colores de cada categoría de artículos.
+# 'icono' (opcional) es una imagen cuadrada PNG con fondo transparente que sustituye al cuadrado de color.
 categorias:
   noticias:
     nombre: Noticias
     color: "#FFD64A"
     texto: "#101B35"
     descripcion: Novedades de Azure e IA, explicadas y con contexto.
+    icono: /assets/img/icono-noticias.png   # opcional: sustituye al cuadrado de color
   azure:
     nombre: Azure
     color: "#3B5BF0"
