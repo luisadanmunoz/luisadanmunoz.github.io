@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="44 28 172 200" width="256" height="256">
+  <defs>
+    <g id="nube">
+      <circle cx="98" cy="110" r="34"/>
+      <circle cx="146" cy="90" r="46"/>
+      <circle cx="192" cy="122" r="30"/>
+      <rect x="62" y="116" width="130" height="36" rx="18"/>
+    </g>
+    <mask id="contorno" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256">
+      <use href="#nube" fill="#fff" stroke="#fff" stroke-width="22" stroke-linejoin="round"/>
+      <use href="#nube" fill="#000"/>
+    </mask>
+  </defs>
+  <rect width="256" height="256" fill="#5B8CFF" mask="url(#contorno)"/>
+  <g fill="none" stroke="#5B8CFF" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M100 118 H180"/>
+    <path d="M128 162 V196 M96 162 V176 L76 194 M160 162 V176 L180 194"/>
+    <circle cx="128" cy="210" r="13"/>
+    <circle cx="68" cy="204" r="12"/>
+    <circle cx="188" cy="204" r="12"/>
+  </g>
+  <g fill="#5B8CFF">
+    <circle cx="100" cy="118" r="11"/>
+    <circle cx="140" cy="118" r="11"/>
+    <circle cx="180" cy="118" r="11"/>
+  </g>
+</svg>
