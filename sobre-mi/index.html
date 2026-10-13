@@ -102,12 +102,26 @@ description: Luis Adán Muñoz, arquitecto cloud especializado en Azure, Terrafo
       </li>
       {%- endfor %}
     </ul>
+    {%- if d.examenes %}
+    <h3 class="subhead">Exámenes de Microsoft superados</h3>
+    <ul class="pills">
+      {%- for x in d.examenes %}<li>{{ x }}</li>{% endfor %}
+    </ul>
+    {%- endif %}
   </div>
   <div style="flex: 1 1 420px; min-width: 0">
     <h2 class="section-title">Con qué trabajo</h2>
     <ul class="pills">
       {%- for t in d.stack %}<li>{{ t }}</li>{% endfor %}
     </ul>
+    {%- if d.formacion %}
+    <h2 class="section-title" style="margin-top: 56px">Formación</h2>
+    <ul class="certs">
+      {%- for f in d.formacion %}
+      <li><span class="status-dot" style="background: var(--link); width: 14px; height: 14px; flex-basis: 14px" aria-hidden="true"></span><span><strong>{{ f.titulo }}</strong><span>{{ f.cuando }}</span></span></li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
   </div>
 </section>
 

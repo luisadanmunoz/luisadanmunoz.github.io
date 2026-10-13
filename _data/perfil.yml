@@ -1,16 +1,15 @@
 # Datos de la página Sobre mí. Edita este fichero para actualizarla.
-# Lo que está entre corchetes [ ] es un marcador pendiente de rellenar.
 
-rol: Luis Adán Muñoz, Arquitecto Senior de Azure
+rol: Luis Adán Muñoz, Consultor y Arquitecto Cloud en Azure
 titular: Llevo las ideas de la pizarra a producción en Azure.
 intro: >-
-  Diseño plataformas cloud para empresas de sectores regulados, las construyo con
-  Terraform y las audito contra el Well-Architected Framework. Últimamente también
-  diseño agentes de IA con Microsoft Foundry.
+  Más de 20 años en tecnología y en cloud desde 2019. Diseño e implanto Azure Landing Zones,
+  modelos de gobierno y migraciones, y acompaño a los clientes en la transformación de sus
+  plataformas: assessment, arquitectura, automatización con Terraform y documentación pensada
+  tanto para los equipos técnicos como para quien tiene que decidir.
 
-# Foto real: súbela a assets/img/ y pon aquí su ruta (p. ej. /assets/img/foto-luis.jpg).
-# Si la dejas vacía se muestra la ilustración.
-foto: ""
+# Foto: ruta dentro de assets/img/. Si la dejas vacía se muestra la ilustración.
+foto: /assets/img/foto-luis.jpg
 
 # CV en PDF: súbelo a assets/cv/ y pon aquí su ruta (p. ej. /assets/cv/CV-Luis-Adan-Munoz.pdf).
 # Mientras esté vacío, el botón aparece desactivado.
@@ -18,44 +17,61 @@ cv: ""
 
 resumen:
   - etiqueta: Ahora
-    valor: Arquitecto cloud en Evolutio
+    valor: Consultor cloud en Evolutio
+  - etiqueta: En tecnología
+    valor: Más de 20 años
+  - etiqueta: En cloud
+    valor: Desde 2019
   - etiqueta: Certificación
     valor: Azure Solutions Architect Expert
-  - etiqueta: Preparando
-    valor: AI-102, Azure AI Engineer
-  - etiqueta: Desde
-    valor: "[Tu ciudad], España"
 
 ayuda:
-  - titulo: Arquitectura y landing zones
+  - titulo: Arquitectura y gobierno
     color: "#3B5BF0"
-    texto: Diseño de plataformas en Azure alineadas con el Cloud Adoption Framework, con gobierno, redes, identidad y seguridad desde el primer día.
-  - titulo: Infraestructura como código
+    texto: Azure Landing Zones con CAF, Well-Architected y Enterprise-Scale. Management Groups, suscripciones, Azure Policy, RBAC, tagging y Policy as Code.
+  - titulo: Migración y modernización
     color: "#7A4FE0"
-    texto: Módulos Terraform reutilizables y multi-entorno, con pipelines que validan, revisan y despliegan sin sorpresas.
-  - titulo: Auditorías y assessments
+    texto: Assessment, Azure Migrate, planificación por oleadas, cutover y estrategias 7R para mover cargas sin sobresaltos.
+  - titulo: Seguridad e identidad
     color: "#D24B44"
-    texto: Revisiones contra el Well-Architected Framework con hallazgos priorizados y un plan de mejora que se puede ejecutar.
+    texto: Microsoft Entra ID, PIM, Conditional Access, Key Vault, Defender for Cloud, Microsoft Sentinel y gobierno de identidades.
+  - titulo: Redes y plataforma
+    color: "#2A9BD8"
+    texto: Hub & Spoke, vWAN, Azure Firewall, VPN y ExpressRoute, Private Link, Front Door, Application Gateway con WAF, AKS, Container Apps y App Service.
+  - titulo: Operación y FinOps
+    color: "#E08A2E"
+    texto: Azure Monitor, Log Analytics, Application Insights, Prometheus y Grafana, Backup y Site Recovery, presupuestos, reservas y Savings Plans.
   - titulo: IA con Microsoft Foundry
     color: "#0E8C70"
     texto: Agentes y soluciones de IA para empresa, con datos y permisos bien separados y listos para producción.
 
 experiencia:
-  - cuando: "[Año de inicio] – actualidad"
-    puesto: Arquitecto Senior de Azure
+  - cuando: Noviembre 2019 – actualidad
+    puesto: Consultor de arquitectura en la nube
     empresa: Evolutio
     texto: >-
-      Consultoría cloud para clientes de sectores regulados, con arquitectura, Terraform,
-      auditorías WAF y CAF, troubleshooting y propuestas técnicas. También soy arquitecto
-      de IA sobre Microsoft Foundry y mentor en el programa superior de IA de la compañía.
-  - cuando: "[Años]"
-    puesto: "[Puesto anterior]"
-    empresa: "[Empresa]"
-    texto: "[Una o dos frases con lo más relevante de este puesto.]"
-  - cuando: "[Años]"
-    puesto: "[Puesto anterior]"
-    empresa: "[Empresa]"
-    texto: "[Una o dos frases con lo más relevante de este puesto.]"
+      Assessments de infraestructuras on-premises y Azure alineados con el Cloud Adoption Framework.
+      Diseño y despliegue de servicios IaaS y PaaS automatizados con Terraform, migraciones por fases
+      con Azure Migrate y documentación ejecutiva y técnica para SysOps y para la toma de decisiones
+      de los clientes.
+  - cuando: Septiembre 2010 – noviembre 2019
+    puesto: Técnico de telecomunicaciones
+    empresa: BT Group
+    texto: >-
+      Soporte a clientes y redes Cisco: routers, switches y firewalls con OSPF, EIGRP, BGP, VLAN y QoS.
+      Gestión de incidencias con ITIL, planificación de proyectos y escalado técnico con el TAC de Cisco.
+  - cuando: Noviembre 2008 – septiembre 2010
+    puesto: Administrador de sistemas
+    empresa: Convey Systems
+    texto: >-
+      Infraestructura IT y telecomunicaciones: entornos Microsoft (Active Directory, DNS, DHCP, GPO,
+      DFS, WSUS), virtualización con VMware, telefonía IP y firewalls, coordinando equipos y proveedores.
+  - cuando: Abril 2004 – noviembre 2008
+    puesto: Administrador de sistemas
+    empresa: MSI
+    texto: >-
+      Soporte a usuarios y administración de la infraestructura IT: incidencias de Windows, aplicaciones
+      y conectividad, con Sysinternals y scripts de PowerShell.
 
 proyectos:
   - tema: Arquitectura
@@ -63,8 +79,8 @@ proyectos:
     titulo: AKS privado en Spain Central
     texto: Clúster sin endpoint público para un entorno regulado, desplegado de punta a punta con Terraform.
     stack: AKS, DNS privado, Azure Firewall, Terraform
-  - tema: Arquitectura
-    color: "#3B5BF0"
+  - tema: Migración
+    color: "#7A4FE0"
     titulo: Migración de SQL Server a Managed Instance
     texto: Plan por fases con Managed Instance Link para mover bases de datos críticas con un corte mínimo.
     stack: SQL Managed Instance, MI Link
@@ -87,6 +103,29 @@ certificaciones:
     detalle: En preparación
     estado: preparando
 
+# Exámenes superados (se muestran como etiquetas bajo las certificaciones)
+examenes:
+  - AZ-900
+  - AZ-104
+  - AZ-303
+  - AZ-304
+  - AZ-400
+  - AZ-500
+  - AZ-700
+  - AZ-800
+  - AZ-801
+  - AZ-140
+  - SC-900
+  - SC-300
+  - SC-200
+  - AI-900
+
+formacion:
+  - cuando: "2008"
+    titulo: Técnico superior en desarrollo de aplicaciones informáticas
+  - cuando: "2004"
+    titulo: Técnico superior en administración de sistemas informáticos
+
 stack:
   - Azure
   - Terraform
@@ -94,7 +133,14 @@ stack:
   - Azure CLI
   - Python
   - GitHub Actions
+  - Azure DevOps
   - Microsoft Foundry
+  - Microsoft Entra ID
+  - Defender for Cloud
+  - Microsoft Sentinel
+  - Azure Migrate
+  - AKS
+  - Azure Monitor
+  - Grafana
   - SQL Server
-  - Microsoft Purview
-  - Entra ID
+  - Cisco

@@ -352,3 +352,5 @@ h1, h2, h3 { color: var(--ink-strong); font-weight: 800; letter-spacing: -0.02em
 .mermaid { background: var(--surface); border-radius: 18px; padding: 20px; margin: 30px 0; overflow-x: auto; }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+
+.subhead { margin: 40px 0 16px; font-size: 19px; color: var(--ink-strong); }
