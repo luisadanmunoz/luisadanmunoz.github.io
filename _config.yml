@@ -44,6 +44,7 @@ categorias:
     color: "#3B5BF0"
     texto: "#FFFFFF"
     descripcion: Arquitectura, redes, Terraform, seguridad y costes.
+    icono: /assets/img/icono-azure.svg
   ia:
     nombre: IA
     color: "#0E8C70"
