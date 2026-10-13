@@ -1,5 +1,5 @@
 ---
-title: Azure-Management-Groups-Enterprise
+title: "Azure Management Groups para entornos enterprise"
 area: azure/governance
 owner: LuisAdan
 categories: [Resources, Gobernanza]
@@ -12,6 +12,8 @@ tags:
 cost: https://azure.microsoft.com/pricing/details/azure-policy/
 repo: https://github.com/org/azure-management-groups-iac
 last_review: 2026-01-27
+categoria: azure
+tema: "Gobernanza"
 ---
 
 ## 📋 1. Resumen

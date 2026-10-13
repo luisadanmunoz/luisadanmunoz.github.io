@@ -1,0 +1,42 @@
+{%- assign u = page.url -%}
+{%- assign sec = "inicio" -%}
+{%- if page.collection == "posts" or u contains "/articulos/" -%}{%- assign sec = "articulos" -%}{%- endif -%}
+{%- if page.collection == "recursos" or u contains "/recursos/" -%}{%- assign sec = "recursos" -%}{%- endif -%}
+{%- if u contains "/sobre-mi/" -%}{%- assign sec = "sobre-mi" -%}{%- endif -%}
+{%- if u != "/" and sec == "inicio" -%}{%- assign sec = "otra" -%}{%- endif -%}
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="{{ '/' | relative_url }}">
+      <img src="{{ '/assets/img/logo-luis-192.png' | relative_url }}" alt="" width="48" height="48">
+      <span>{{ site.title }}</span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="{{ '/' | relative_url }}"{% if sec == "inicio" %} class="is-current" aria-current="page"{% endif %}>Inicio</a>
+      <details class="menu{% if sec == 'articulos' %} is-current{% endif %}">
+        <summary>Artículos
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="menu-panel menu-articulos">
+          {%- for c in site.categorias %}
+          <a href="{{ '/articulos/' | append: c[0] | append: '/' | relative_url }}">
+            <span class="dot" style="background: {{ c[1].color }}" aria-hidden="true"></span>
+            <span><strong>{{ c[1].nombre }}</strong><small>{{ c[1].descripcion }}</small></span>
+          </a>
+          {%- endfor %}
+        </div>
+      </details>
+      <details class="menu{% if sec == 'recursos' %} is-current{% endif %}">
+        <summary>Recursos
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="menu-panel menu-recursos">
+          {%- for i in site.data.recursos %}
+          <a href="{{ '/recursos/' | append: i.slug | append: '/' | relative_url }}">{{ i.nombre }}</a>
+          {%- endfor %}
+          <a class="all" href="{{ '/recursos/' | relative_url }}">Ver todos los recursos</a>
+        </div>
+      </details>
+      <a href="{{ '/sobre-mi/' | relative_url }}"{% if sec == "sobre-mi" %} class="is-current" aria-current="page"{% endif %}>Sobre mí</a>
+    </nav>
+  </div>
+</header>

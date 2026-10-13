@@ -1,0 +1,21 @@
+{%- if site.buttondown_user != "" -%}
+<section class="wrap cta-wrap" aria-labelledby="newsletter-title">
+  <div class="cta">
+    <div>
+      <h2 id="newsletter-title">Te aviso cuando publique algo nuevo</h2>
+      <p>Un correo por artículo, sin nada más. Te das de baja con un clic.</p>
+    </div>
+    <form action="https://buttondown.com/api/emails/embed-subscribe/{{ site.buttondown_user }}" method="post" target="_blank">
+      <label for="bd-email">Tu correo electrónico</label>
+      <div class="field">
+        <input id="bd-email" name="email" type="email" required autocomplete="email" placeholder="nombre@empresa.com">
+        <button class="btn btn-primary" type="submit">Suscribirme</button>
+      </div>
+      <label class="consent">
+        <input type="checkbox" name="consent" required>
+        <span>Acepto recibir un correo cuando se publique un artículo nuevo y he leído la <a href="{{ '/privacidad/' | relative_url }}">política de privacidad</a>.</span>
+      </label>
+    </form>
+  </div>
+</section>
+{%- endif -%}

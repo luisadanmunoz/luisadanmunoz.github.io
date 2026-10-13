@@ -1,0 +1,13 @@
+{%- assign p = include.post -%}
+{%- assign c = site.categorias[p.categoria] | default: site.categorias.azure -%}
+{%- assign words = p.content | number_of_words -%}
+{%- assign mins = words | divided_by: 200 | plus: 1 -%}
+<a class="post-row" href="{{ p.url | relative_url }}" data-tema="{{ p.tema | default: c.nombre }}">
+  <span class="post-tile" style="background: {{ c.color }}; color: {{ c.texto }}">{{ p.tema | default: c.nombre }}</span>
+  <span class="post-body">
+    <span class="post-title">{{ p.titulo | default: p.title }}</span>
+    {%- assign resumen = p.description | default: p.excerpt | strip_html | strip_newlines | truncate: 170 -%}
+    {%- if resumen != "" %}<span class="post-summary">{{ resumen }}</span>{% endif %}
+    <span class="post-meta">{% include fecha.html date=p.date %}, {{ mins }} min de lectura</span>
+  </span>
+</a>

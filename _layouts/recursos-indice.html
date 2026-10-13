@@ -1,0 +1,33 @@
+---
+layout: default
+---
+{%- assign indice = site.data.recursos | where: "slug", page.indice | first -%}
+{%- assign items = site.recursos | where: "indice", page.indice | sort: "orden" -%}
+<section class="wrap page-head">
+  <nav class="crumbs" aria-label="Ruta">
+    <a href="{{ '/' | relative_url }}">Inicio</a><span aria-hidden="true">/</span>
+    <a href="{{ '/recursos/' | relative_url }}">Recursos</a><span aria-hidden="true">/</span>
+    <span aria-current="page">{{ indice.nombre }}</span>
+  </nav>
+  <h1>{{ indice.nombre }}</h1>
+  <p class="lead">{{ indice.intro }}</p>
+  {% include leyenda.html total=items.size %}
+</section>
+
+<div class="wrap res-layout">
+  <nav class="res-side" aria-label="Índices de recursos">
+    {%- for i in site.data.recursos %}
+    {%- assign n = site.recursos | where: "indice", i.slug | size %}
+    <a href="{{ '/recursos/' | append: i.slug | append: '/' | relative_url }}"{% if i.slug == page.indice %} aria-current="page"{% endif %}>{{ i.nombre }} <span>{{ n }}</span></a>
+    {%- endfor %}
+  </nav>
+  <div class="res-grid">
+    {%- for r in items %}
+    <a class="res-card is-{{ r.estado }}" href="{{ r.url | relative_url }}">
+      <span class="row"><strong>{{ r.title }}</strong><span class="status-dot status-{{ r.estado }}" role="img" aria-label="{% include estado.html estado=r.estado %}"></span></span>
+      <span class="desc">{{ r.resumen }}</span>
+      <span class="state">{% include estado.html estado=r.estado %}</span>
+    </a>
+    {%- endfor %}
+  </div>
+</div>

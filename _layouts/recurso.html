@@ -1,0 +1,53 @@
+---
+layout: default
+---
+{%- assign indice = site.data.recursos | where: "slug", page.indice | first -%}
+<section class="wrap page-head">
+  <nav class="crumbs" aria-label="Ruta">
+    <a href="{{ '/' | relative_url }}">Inicio</a><span aria-hidden="true">/</span>
+    <a href="{{ '/recursos/' | relative_url }}">Recursos</a><span aria-hidden="true">/</span>
+    <a href="{{ '/recursos/' | append: page.indice | append: '/' | relative_url }}">{{ indice.nombre }}</a><span aria-hidden="true">/</span>
+    <span aria-current="page">{{ page.title }}</span>
+  </nav>
+  <h1>{{ page.title }}</h1>
+  <p class="lead">{{ page.resumen }}</p>
+  <div class="legend"><span><span class="status-dot status-{{ page.estado }}" aria-hidden="true"></span>{% include estado.html estado=page.estado %}</span>
+  {%- if page.last_review %}<span>Revisado el {% include fecha.html date=page.last_review %}</span>{% endif %}</div>
+</section>
+
+<div class="wrap post-layout" style="padding-top: 24px">
+  <article class="prose" id="articulo">
+    {%- assign texto = content | strip -%}
+    {%- if texto == "" %}
+    <div class="wip">
+      <p style="margin: 0"><strong>Esta ficha está en preparación.</strong> Cuando esté lista tendrá:</p>
+      <ol>
+        <li>Qué es y cuándo usarlo</li>
+        <li>Decisiones de diseño</li>
+        <li>Módulo de Terraform</li>
+        <li>Errores típicos</li>
+        <li>Fuentes oficiales</li>
+      </ol>
+    </div>
+    {%- else %}
+    {{ content }}
+    {%- endif %}
+
+    {%- if page.fuentes and page.fuentes.size > 0 %}
+    <section class="sources">
+      <h2>Fuentes</h2>
+      <ul>
+        {%- for f in page.fuentes %}
+        <li><a href="{{ f.url }}">{{ f.titulo | default: f.url }}</a></li>
+        {%- endfor %}
+      </ul>
+    </section>
+    {%- endif %}
+
+    <p class="review"><a href="{{ '/recursos/' | append: page.indice | append: '/' | relative_url }}">Volver a {{ indice.nombre }}</a></p>
+  </article>
+  <aside class="toc" aria-label="En esta ficha" hidden>
+    <p>En esta ficha</p>
+    <nav></nav>
+  </aside>
+</div>

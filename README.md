@@ -1,43 +1,78 @@
-# Chirpy Starter
+# luisadanmunoz.es
 
-[![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy)][gem]&nbsp;
-[![GitHub license](https://img.shields.io/github/license/cotes2020/chirpy-starter.svg?color=blue)][mit]
+Web y blog técnico de Luis Adán Muñoz: Azure, Terraform e IA con Microsoft Foundry.
+Sitio estático con [Jekyll](https://jekyllrb.com), publicado en GitHub Pages con GitHub Actions
+y servido en `https://luisadanmunoz.es` a través de Cloudflare.
 
-When installing the [**Chirpy**][chirpy] theme through [RubyGems.org][gem], Jekyll can only read files in the folders
-`_data`, `_layouts`, `_includes`, `_sass` and `assets`, as well as a small part of options of the `_config.yml` file
-from the theme's gem. If you have ever installed this theme gem, you can use the command
-`bundle info --path jekyll-theme-chirpy` to locate these files.
+## Cómo está organizado
 
-The Jekyll team claims that this is to leave the ball in the user’s court, but this also results in users not being
-able to enjoy the out-of-the-box experience when using feature-rich themes.
+| Ruta | Qué contiene |
+|---|---|
+| `_config.yml` | Datos generales: título, redes, usuario de Buttondown y colores de las categorías |
+| `_posts/` | Artículos, uno por fichero Markdown |
+| `_recursos/<indice>/` | Fichas de recursos de Azure, una por fichero, agrupadas en 18 índices |
+| `_data/recursos.yml` | Nombre, orden y texto de cada índice de Recursos |
+| `_data/perfil.yml` | Contenido de la página Sobre mí (experiencia, proyectos, CV, foto) |
+| `_layouts/`, `_includes/` | Plantillas HTML |
+| `assets/css/main.css` | Estilos (paleta, tipografía, componentes) |
+| `assets/js/main.js` | Menús, filtros, botón Copiar e índice del artículo |
+| `assets/img/` | Logo, imagen de portada e imagen para compartir |
+| `resource/` | Fichas antiguas del blog anterior. No se publican; sirven de base para completar `_recursos/` |
 
-To fully use all the features of **Chirpy**, you need to copy the other critical files from the theme's gem to your
-Jekyll site. The following is a list of targets:
+## Publicar un artículo
 
-```shell
-.
-├── _config.yml
-├── _plugins
-├── _tabs
-└── index.html
+Crea `_posts/AAAA-MM-DD-titulo-corto.md`:
+
+```markdown
+---
+title: "Título del artículo"
+description: "Una o dos frases que aparecen en los listados y al compartir."
+categoria: azure          # noticias | azure | ia
+tema: "Terraform"         # etiqueta que se ve en la portada y en los filtros
+last_review: 2026-10-14
+versiones: "azurerm 4.x y Terraform 1.9"   # opcional
+fuentes:                  # opcional, se listan al final
+  - titulo: "Documentación oficial"
+    url: https://learn.microsoft.com/...
+mermaid: false            # true si usas diagramas mermaid
+---
+
+Texto en Markdown.
+
+Párrafo con una decisión importante.
+{: .decision}
+
+Párrafo con algo a vigilar.
+{: .ojo}
 ```
 
-To save you time, and also in case you lose some files while copying, we extract those files/configurations of the
-latest version of the **Chirpy** theme and the [CD][CD] workflow to here, so that you can start writing in minutes.
+Al hacer push a `main`, la web se construye y publica sola en uno o dos minutos.
 
-## Usage
+## Documentar un recurso
 
-Check out the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy/wiki).
+Cada recurso ya tiene su fichero en `_recursos/<indice>/<recurso>.md`. Para documentarlo:
 
-## Contributing
+1. Escribe el contenido debajo de la cabecera.
+2. Cambia `estado` a `en-curso` o `documentado`.
+3. Rellena `last_review` y, si quieres, `fuentes`.
 
-This repository is automatically updated with new releases from the theme repository. If you encounter any issues or want to contribute to its improvement, please visit the [theme repository][chirpy] to provide feedback.
+Para añadir un recurso nuevo, copia una ficha existente del mismo índice y cambia `title`, `resumen` y `orden`.
+Para añadir un índice nuevo, añádelo a `_data/recursos.yml`, crea `recursos/<slug>/index.html`
+copiando uno existente y crea la carpeta `_recursos/<slug>/`.
 
-## License
+## Probar en local
 
-This work is published under [MIT][mit] License.
+Necesitas Ruby 3.3 y Bundler.
 
-[gem]: https://rubygems.org/gems/jekyll-theme-chirpy
-[chirpy]: https://github.com/cotes2020/jekyll-theme-chirpy/
-[CD]: https://en.wikipedia.org/wiki/Continuous_deployment
-[mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
+```powershell
+bundle install
+bundle exec jekyll serve --livereload
+# abre http://localhost:4000
+```
+
+## Dominio y publicación
+
+- Settings → Pages → Source: **GitHub Actions**.
+- Settings → Pages → Custom domain: `luisadanmunoz.es`, con **Enforce HTTPS** activado.
+- DNS en Cloudflare: registros A/AAAA de GitHub Pages en la raíz y CNAME `www` → `luisadanmunoz.github.io`.
+- Copia del blog anterior en la rama `backup-blog-antiguo`.

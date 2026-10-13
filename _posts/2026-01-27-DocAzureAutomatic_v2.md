@@ -6,6 +6,8 @@ tags: [Azure, Automation, Seguridad, Prowler, Checkov, DevSecOps, PowerShell, Py
 categories: [Automatización, Administración]
 description: "Evolución de DocAzureAutomatic: ahora con análisis de seguridad automatizado usando Prowler y Checkov. Documentación + auditoría de compliance en un solo flujo."
 mermaid: true
+categoria: azure
+tema: "Seguridad"
 ---
 
 # 🔒 DocAzureAutomatic v2: Cuando la Documentación se Encuentra con DevSecOps

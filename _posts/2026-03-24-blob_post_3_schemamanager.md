@@ -1,5 +1,5 @@
 ---
-title: terraform-agent-paso-2-schemamanager-fuente-de-verdad
+title: "Terraform Agent, paso 2: SchemaManager como fuente de verdad"
 area: azure/iac
 owner: LuisAdan
 categories: [IA, IaC]
@@ -14,6 +14,8 @@ tags:
   - software-architecture
 repo: https://github.com/org/terraform-agent
 last_review: 2026-03-24
+categoria: ia
+tema: "Terraform Agent"
 ---
 
 # Paso 2: El módulo que impide que un LLM invente atributos de Terraform

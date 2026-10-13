@@ -1,4 +1,76 @@
 ---
-layout: home
-# Index page
+layout: default
+title: Inicio
 ---
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-text">
+      <h1>Hola, soy Luis. Construyo en Azure y lo cuento aquí.</h1>
+      <p class="lead">Soy arquitecto cloud. Escribo sobre los proyectos reales en los que trabajo: redes privadas, Terraform, agentes de IA en Foundry, seguridad y costes. Con lo que funcionó, lo que no y el código para que lo pruebes tú.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#destacado">Leer lo último</a>
+        {%- if site.social.linkedin != "" %}
+        <a class="btn btn-ghost" href="{{ site.social.linkedin }}">Seguirme en LinkedIn</a>
+        {%- else %}
+        <a class="btn btn-ghost" href="{{ '/sobre-mi/' | relative_url }}">Conóceme</a>
+        {%- endif %}
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="{{ '/assets/img/hero-luis.jpg' | relative_url }}" alt="Ilustración de Luis Adán Muñoz rodeado de paneles holográficos con mapas, gráficas y código, en un centro de datos" width="880" height="880" fetchpriority="high">
+    </div>
+  </div>
+</section>
+
+{%- assign destacado = site.posts | first %}
+{%- if destacado %}
+{%- assign c = site.categorias[destacado.categoria] | default: site.categorias.azure %}
+{%- assign words = destacado.content | number_of_words %}
+{%- assign mins = words | divided_by: 200 | plus: 1 %}
+<section id="destacado" class="wrap" aria-label="Artículo destacado" style="padding-bottom: 96px">
+  <a class="featured" href="{{ destacado.url | relative_url }}">
+    <div class="cover" style="background: {{ c.color }}; color: {{ c.texto }}">
+      <span class="chip" style="color: {{ c.color }}{% if destacado.categoria == 'noticias' %}; background: #101B35{% endif %}">{{ destacado.tema | default: c.nombre }}</span>
+      <span class="cover-title">{{ destacado.titulo | default: destacado.title }}</span>
+    </div>
+    <div class="featured-text">
+      <p class="kicker">Lo último, {% include fecha.html date=destacado.date %}</p>
+      <h2>{{ destacado.titulo | default: destacado.title }}</h2>
+      {%- assign resumen = destacado.description | default: destacado.excerpt | strip_html | strip_newlines | truncate: 220 %}
+      <p>{{ resumen }}</p>
+      <p class="more">Leer el artículo, {{ mins }} min</p>
+    </div>
+  </a>
+</section>
+{%- endif %}
+
+<section class="band">
+  <div class="wrap">
+    <h2 class="section-title">Explora</h2>
+    <div class="tiles">
+      {%- for cat in site.categorias %}
+      <a class="tile" href="{{ '/articulos/' | append: cat[0] | append: '/' | relative_url }}">
+        <span class="swatch" style="background: {{ cat[1].color }}" aria-hidden="true"></span>
+        <strong>{{ cat[1].nombre }}</strong>
+        <span>{{ cat[1].descripcion }}</span>
+      </a>
+      {%- endfor %}
+      <a class="tile" href="{{ '/recursos/' | relative_url }}">
+        <span class="swatch" style="background: #7A4FE0" aria-hidden="true"></span>
+        <strong>Recursos</strong>
+        <span>Fichas de cada servicio de Azure: diseño, Terraform y errores típicos.</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" style="padding-top: 88px; padding-bottom: 16px">
+  <div class="section-head">
+    <h2 class="section-title" style="margin: 0">Artículos recientes</h2>
+  </div>
+  {%- for p in site.posts offset: 1 limit: 6 %}
+  {% include post-row.html post=p %}
+  {%- endfor %}
+</section>
+
+{% include newsletter.html %}

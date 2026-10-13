@@ -6,6 +6,8 @@ tags: [Azure, Automation, Documentación, DevOps, PowerShell, Python, Gobernanza
 categories: [Automatización, Administración]
 description: "Sistema de automatización que he desarrollado para generar documentación profesional de recursos Azure."
 mermaid: true
+categoria: azure
+tema: "Automatización"
 ---
 
 # 📘 DocAzureAutomatic: Automatiza la Documentación de tu Infraestructura Azure

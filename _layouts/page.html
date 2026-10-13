@@ -1,0 +1,16 @@
+---
+layout: default
+---
+<section class="wrap page-head">
+  <nav class="crumbs" aria-label="Ruta">
+    <a href="{{ '/' | relative_url }}">Inicio</a><span aria-hidden="true">/</span>
+    <span aria-current="page">{{ page.title }}</span>
+  </nav>
+  <h1>{{ page.title }}</h1>
+  {%- if page.description %}<p class="lead">{{ page.description }}</p>{% endif %}
+</section>
+<div class="wrap" style="padding-bottom: 96px">
+  <div class="prose">
+    {{ content }}
+  </div>
+</div>

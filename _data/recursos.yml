@@ -1,0 +1,58 @@
+# Índices de la sección Recursos.
+# Cada índice tiene su carpeta en _recursos/<slug>/ con un fichero .md por recurso.
+# El orden de esta lista es el orden del menú y de la página /recursos/.
+
+- slug: automation
+  nombre: Automation
+  intro: Todo lo que trabaja solo, desde runbooks y flujos hasta funciones y pipelines que despliegan y operan la plataforma.
+- slug: avd
+  nombre: AVD
+  intro: Azure Virtual Desktop, con escritorios y aplicaciones Windows publicados desde Azure, perfiles y escalado.
+- slug: backups-update
+  nombre: Backups-Update
+  intro: Copias de seguridad, recuperación ante desastres y parches. Lo que te salva cuando algo sale mal.
+- slug: compute
+  nombre: Compute
+  intro: Dónde se ejecutan tus cargas, ya sea en máquinas virtuales, Kubernetes o contenedores.
+- slug: database
+  nombre: DataBase
+  intro: Bases de datos relacionales y NoSQL gestionadas, y cómo elegirlas, desplegarlas, protegerlas y migrarlas.
+- slug: gobernanza
+  nombre: Gobernanza
+  intro: La estructura y las reglas de la plataforma, con su jerarquía, políticas, permisos y costes. El corazón de una landing zone.
+- slug: hybrid
+  nombre: Hybrid
+  intro: Azure fuera de Azure, con servidores, Kubernetes y bases de datos locales gestionados desde la nube.
+- slug: ia
+  nombre: IA
+  intro: Modelos, agentes, búsqueda sobre tus datos y servicios cognitivos para soluciones de empresa.
+- slug: intune
+  nombre: Intune
+  intro: Gestión de dispositivos y aplicaciones, con inscripción, cumplimiento, configuración y seguridad del puesto.
+- slug: iot
+  nombre: IoT
+  intro: Dispositivos conectados, con alta segura, mensajería y gemelos digitales.
+- slug: mensajeria
+  nombre: Mensajeria
+  intro: Cómo se comunican tus aplicaciones mediante colas, eventos y mensajes.
+- slug: microsoft-entra-id
+  nombre: Microsoft-Entra-ID
+  intro: Identidad, con usuarios, aplicaciones, accesos privilegiados y sincronización con el directorio local.
+- slug: migrate-assessments
+  nombre: Migrate - Assessments
+  intro: Evaluar lo que hay y llevarlo a Azure, con inventario, assessments y herramientas de migración.
+- slug: monitoring-visualize
+  nombre: Monitoring-Visualize
+  intro: Saber qué pasa antes de que te lo cuenten, con métricas, registros, alertas y paneles.
+- slug: networking
+  nombre: Networking
+  intro: Redes virtuales, DNS, conectividad híbrida, acceso privado y entrega de aplicaciones.
+- slug: security
+  nombre: Security
+  intro: Secretos, claves, postura de seguridad y detección de amenazas.
+- slug: storage
+  nombre: Storage
+  intro: Almacenamiento de objetos, ficheros y discos, con su rendimiento, redundancia y acceso privado.
+- slug: web
+  nombre: Web
+  intro: Aplicaciones web y APIs, con su hospedaje, publicación y gobierno.

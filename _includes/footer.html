@@ -1,0 +1,11 @@
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© {{ site.time | date: "%Y" }} {{ site.author.name }}</span>
+    <nav aria-label="Redes y enlaces">
+      {%- if site.social.linkedin != "" %}<a href="{{ site.social.linkedin }}" rel="me">LinkedIn</a>{% endif %}
+      {%- if site.social.github != "" %}<a href="{{ site.social.github }}" rel="me">GitHub</a>{% endif %}
+      <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+      <a href="{{ '/privacidad/' | relative_url }}">Privacidad</a>
+    </nav>
+  </div>
+</footer>

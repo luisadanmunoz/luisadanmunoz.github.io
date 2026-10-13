@@ -1,0 +1,42 @@
+---
+layout: default
+---
+{%- assign c = site.categorias[page.categoria] -%}
+{%- assign lista = site.posts | where: "categoria", page.categoria -%}
+<section class="wrap page-head">
+  <nav class="crumbs" aria-label="Ruta">
+    <a href="{{ '/' | relative_url }}">Inicio</a><span aria-hidden="true">/</span>
+    <span>Artículos</span><span aria-hidden="true">/</span>
+    <span aria-current="page">{{ c.nombre }}</span>
+  </nav>
+  <div class="title-row">
+    <span class="swatch" style="background: {{ c.color }}" aria-hidden="true"></span>
+    <h1>{{ c.nombre }}</h1>
+  </div>
+  <p class="lead">{{ page.intro }}</p>
+</section>
+
+<section class="wrap" style="padding-bottom: 96px" data-filtrable>
+  {%- assign temas = "" | split: "" -%}
+  {%- for p in lista -%}
+    {%- assign t = p.tema | default: c.nombre -%}
+    {%- unless temas contains t -%}{%- assign temas = temas | push: t -%}{%- endunless -%}
+  {%- endfor -%}
+  {%- if temas.size > 1 %}
+  <div class="filters" role="group" aria-label="Filtrar por tema">
+    <button type="button" class="filter" aria-pressed="true" data-filter="*">Todos</button>
+    {%- for t in temas %}
+    <button type="button" class="filter" aria-pressed="false" data-filter="{{ t }}">{{ t }}</button>
+    {%- endfor %}
+  </div>
+  {%- endif %}
+  <p class="count" data-count data-singular="artículo" data-plural="artículos">{{ lista.size }} {% if lista.size == 1 %}artículo{% else %}artículos{% endif %}</p>
+  {%- for p in lista %}
+  {% include post-row.html post=p %}
+  {%- endfor %}
+  {%- if lista.size == 0 %}
+  <div class="empty">Todavía no hay artículos aquí. Vuelve pronto o suscríbete para que te avise.</div>
+  {%- endif %}
+</section>
+
+{% include newsletter.html %}

@@ -1,5 +1,5 @@
 ---
-title: terraform-agent-paso-1-contratos-pydantic
+title: "Terraform Agent, paso 1: contratos Pydantic antes que agentes"
 area: azure/iac
 owner: LuisAdan
 categories: [IA, IaC]
@@ -15,6 +15,8 @@ tags:
 repo: https://github.com/org/terraform-agent
 last_review: 2026-03-24
 mermaid: true
+categoria: ia
+tema: "Terraform Agent"
 ---
 
 # Paso 1: Por qué empecé un sistema multiagente definiendo contratos Pydantic antes de escribir ningún agente

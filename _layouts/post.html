@@ -1,0 +1,70 @@
+---
+layout: default
+---
+{%- assign c = site.categorias[page.categoria] | default: site.categorias.azure -%}
+{%- assign words = content | number_of_words -%}
+{%- assign mins = words | divided_by: 200 | plus: 1 -%}
+<div class="post-hero" style="background: {{ c.color }}; color: {{ c.texto }}">
+  <div class="wrap">
+    <a class="chip" href="{{ '/articulos/' | append: page.categoria | append: '/' | relative_url }}" style="color: {{ c.color }}{% if page.categoria == 'noticias' %}; background: #101B35{% endif %}">{{ page.tema | default: c.nombre }}</a>
+    <h1>{{ page.titulo | default: page.title }}</h1>
+    <div class="byline">
+      <img src="{{ '/assets/img/logo-luis-192.png' | relative_url }}" alt="" width="52" height="52">
+      <span><strong>{{ site.author.name }}</strong><span>{% include fecha.html date=page.date %}, {{ mins }} min de lectura</span></span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap post-layout">
+  <article class="prose" id="articulo">
+    {{ content }}
+
+    {%- if page.last_review %}
+    <p class="review">Revisado el {% include fecha.html date=page.last_review %}{% if page.versiones %}. Probado con {{ page.versiones }}{% endif %}.</p>
+    {%- endif %}
+
+    {%- if page.fuentes and page.fuentes.size > 0 %}
+    <section class="sources">
+      <h2>Fuentes</h2>
+      <ul>
+        {%- for f in page.fuentes %}
+        <li><a href="{{ f.url }}">{{ f.titulo | default: f.url }}</a></li>
+        {%- endfor %}
+      </ul>
+    </section>
+    {%- endif %}
+
+    <div class="author-card">
+      <img src="{{ '/assets/img/logo-luis-192.png' | relative_url }}" alt="Ilustración de {{ site.author.name }}" width="72" height="72">
+      <div class="who"><strong>{{ site.author.name }}</strong><span>{{ site.author.bio }}</span></div>
+      <a class="btn btn-primary" href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absolute_url | uri_escape }}">Compartir en LinkedIn</a>
+    </div>
+  </article>
+
+  <aside class="toc" aria-label="En este artículo" hidden>
+    <p>En este artículo</p>
+    <nav></nav>
+  </aside>
+</div>
+
+{%- assign mismos = site.posts | where: "categoria", page.categoria -%}
+{%- assign relacionados = "" | split: "" -%}
+{%- for p in mismos -%}{%- if p.url != page.url and relacionados.size < 2 -%}{%- assign relacionados = relacionados | push: p -%}{%- endif -%}{%- endfor -%}
+{%- if relacionados.size > 0 %}
+<section class="band" style="margin-top: 48px">
+  <div class="wrap">
+    <h2 class="section-title">Sigue leyendo</h2>
+    <div class="related">
+      {%- for p in relacionados %}
+      {%- assign pc = site.categorias[p.categoria] | default: site.categorias.azure %}
+      <a href="{{ p.url | relative_url }}">
+        <span class="mini" style="background: {{ pc.color }}" aria-hidden="true"></span>
+        <span><small style="color: {{ pc.color }}">{{ p.tema | default: pc.nombre }}</small><strong>{{ p.titulo | default: p.title }}</strong></span>
+      </a>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+{%- endif %}
+
+{% include newsletter.html %}

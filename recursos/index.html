@@ -1,0 +1,25 @@
+---
+layout: default
+title: Recursos
+description: Fichas de cada servicio de Azure con el que trabajo, agrupadas por índice.
+---
+<section class="wrap page-head">
+  <nav class="crumbs" aria-label="Ruta">
+    <a href="{{ '/' | relative_url }}">Inicio</a><span aria-hidden="true">/</span>
+    <span aria-current="page">Recursos</span>
+  </nav>
+  <h1>Recursos</h1>
+  <p class="lead">Una ficha por cada servicio de Azure con el que trabajo: para qué sirve, cómo lo diseño, el módulo de Terraform y los errores que conviene evitar.</p>
+  {% include leyenda.html total=site.recursos.size %}
+</section>
+<div class="wrap res-index">
+  {%- for i in site.data.recursos %}
+  {%- assign items = site.recursos | where: "indice", i.slug %}
+  {%- assign hechos = items | where: "estado", "documentado" | size %}
+  <a href="{{ '/recursos/' | append: i.slug | append: '/' | relative_url }}">
+    <strong>{{ i.nombre }}</strong>
+    <span>{{ i.intro }}</span>
+    <small>{{ items.size }} recursos, {{ hechos }} documentados</small>
+  </a>
+  {%- endfor %}
+</div>
