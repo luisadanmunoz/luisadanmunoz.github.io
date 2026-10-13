@@ -50,7 +50,11 @@ title: Inicio
     <div class="tiles">
       {%- for cat in site.categorias %}
       <a class="tile" href="{{ '/articulos/' | append: cat[0] | append: '/' | relative_url }}">
+        {%- if cat[1].icono %}
+        <img class="swatch swatch-img" src="{{ cat[1].icono | relative_url }}" alt="" width="76" height="76" loading="lazy">
+        {%- else %}
         <span class="swatch" style="background: {{ cat[1].color }}" aria-hidden="true"></span>
+        {%- endif %}
         <strong>{{ cat[1].nombre }}</strong>
         <span>{{ cat[1].descripcion }}</span>
       </a>
