@@ -3,6 +3,9 @@
    Paleta: fondo marino, acción amarilla, colores por categoría.
    ============================================================ */
 
+/* El atributo hidden debe ocultar siempre, aunque el elemento tenga display propio (filtros, índice) */
+[hidden] { display: none !important; }
+
 :root {
   --bg: #101B35;
   --surface: #16244A;
