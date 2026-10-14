@@ -424,3 +424,6 @@ body > main { flex: 1 0 auto; }
   .cta h2 { font-size: 28px; }
   .cta .field .btn { flex: 1 1 100%; justify-content: center; }
 }
+
+/* Tarjeta de autor del artículo: interlineado propio, no el del texto largo */
+.author-card .who span { display: block; margin-top: 4px; line-height: 1.5; }
