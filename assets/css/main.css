@@ -391,3 +391,39 @@ h1, h2, h3 { color: var(--ink-strong); font-weight: 800; letter-spacing: -0.02em
   .photo { max-width: 300px; }
 }
 @media (max-width: 359px) { .nav { flex-wrap: wrap; justify-content: flex-start; } }
+
+/* ============================================================
+   Ajustes visuales, segunda ronda
+   ============================================================ */
+
+/* El pie queda abajo también en páginas cortas (404, fichas en preparación) */
+body { min-height: 100vh; display: flex; flex-direction: column; }
+body > main { flex: 1 0 auto; }
+
+/* Botón amarillo dentro de un artículo: el color de enlace del texto lo dejaba azul claro sobre amarillo */
+.prose .btn { text-decoration: none; }
+.prose .btn-primary, .prose .btn-primary:hover { color: var(--on-accent); }
+
+/* Casilla de consentimiento de la newsletter visible sobre el azul */
+.cta .consent input {
+  -webkit-appearance: none; appearance: none; width: 22px; height: 22px; margin: 0;
+  border: 2px solid #fff; border-radius: 6px; background: transparent; cursor: pointer;
+}
+.cta .consent input:checked {
+  border-color: var(--accent);
+  background: var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='%23101B35' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 15px no-repeat;
+}
+
+/* Tarjetas: respuesta suave al pasar el ratón */
+.tile, .res-card, .res-index a, .related a, .project, .card { transition: border-color .15s ease, transform .15s ease; }
+.tile:hover, .res-card:hover, .res-index a:hover, .related a:hover { transform: translateY(-2px); }
+
+@media (max-width: 560px) {
+  /* Caja de newsletter y llamadas a la acción menos apretadas en móvil */
+  .cta { padding: 30px 22px; border-radius: 22px; }
+  .cta h2 { font-size: 28px; }
+  .cta .field .btn { flex: 1 1 100%; justify-content: center; }
+}
+
+/* Tarjeta de autor del artículo: interlineado propio, no el del texto largo */
+.author-card .who span { display: block; margin-top: 4px; line-height: 1.5; }
