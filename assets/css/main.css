@@ -104,7 +104,10 @@ h1, h2, h3 { color: var(--ink-strong); font-weight: 800; letter-spacing: -0.02em
 .menu-recursos .all { grid-column: 1 / -1; border-top: 1.5px solid var(--line-2); margin-top: 6px; padding-top: 14px; color: var(--accent); }
 
 @media (max-width: 720px) {
-  .menu-panel { position: fixed; left: 12px !important; right: 12px !important; width: auto; top: 96px; max-height: 70vh; overflow: auto; }
+  /* El panel se abre justo debajo del menú (antes se fijaba a 96 px y tapaba los botones de la segunda fila) */
+  .site-header .wrap { position: relative; }
+  .nav details { position: static; }
+  .menu-panel { position: absolute; top: calc(100% - 18px); left: 12px !important; right: 12px !important; width: auto; max-height: 70vh; overflow: auto; }
 }
 
 /* ---------- Ruta ---------- */
@@ -354,3 +357,33 @@ h1, h2, h3 { color: var(--ink-strong); font-weight: 800; letter-spacing: -0.02em
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
 
 .subhead { margin: 40px 0 16px; font-size: 19px; color: var(--ink-strong); }
+
+/* ============================================================
+   Ajustes visuales (revisión de octubre de 2026)
+   ============================================================ */
+
+/* Portada, Explora: el icono ya no se monta sobre el título de la tarjeta */
+.tile .swatch-img { width: 72px; height: 72px; margin: 0 0 4px; }
+
+/* Sobre mí: el nombre de cada certificación y formación con el mismo contraste que el resto de títulos */
+.certs strong { color: var(--ink-strong); }
+
+/* Sobre mí: rejillas equilibradas (6 tarjetas en 3+3, 4 proyectos en 2+2) */
+.cards { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.project-grid { grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); }
+@media (max-width: 460px) { .cards, .project-grid { grid-template-columns: 1fr; } }
+
+/* Ficha de recurso: separación del enlace "Volver a…" */
+.prose .review { margin-top: 32px; }
+
+/* Móvil */
+@media (max-width: 560px) {
+  /* Menú en menos filas */
+  .site-header .wrap { padding-top: 20px; padding-bottom: 20px; gap: 14px; }
+  .nav { gap: 4px; font-size: 15px; }
+  .nav > a, .nav summary { padding: 9px 8px; gap: 4px; }
+  /* Miniatura de los listados más compacta */
+  .post-tile { flex-basis: 132px; height: 84px; padding: 12px; font-size: 16px; }
+  /* Foto de Sobre mí sin ocupar toda la pantalla */
+  .photo { max-width: 300px; }
+}
