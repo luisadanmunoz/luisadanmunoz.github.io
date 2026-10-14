@@ -1,5 +1,6 @@
 ---
 title: "Un segundo cerebro en Obsidian para un consultor de Azure"
+description: "Cómo monté un vault de Obsidian versionado, con guardarraíles de seguridad y conectado a Claude Code, para ordenar el conocimiento de un consultor de Azure."
 area: productividad/knowledge-management
 owner: LuisAdan
 categories: [Productividad, IA]

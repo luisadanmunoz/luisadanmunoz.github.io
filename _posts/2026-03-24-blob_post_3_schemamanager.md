@@ -1,5 +1,6 @@
 ---
 title: "Terraform Agent, paso 2: SchemaManager como fuente de verdad"
+description: "El SchemaManager: cómo el schema real del provider azurerm se convierte en la única fuente de verdad para que un LLM no invente atributos de Terraform."
 area: azure/iac
 owner: LuisAdan
 categories: [IA, IaC]
@@ -18,7 +19,8 @@ categoria: ia
 tema: "Terraform Agent"
 ---
 
-# Paso 2: El módulo que impide que un LLM invente atributos de Terraform
+Paso 2: El módulo que impide que un LLM invente atributos de Terraform
+{: .entrada}
 
 *~15 MB de JSON. Un índice en memoria. Cero alucinaciones de atributos. Así funciona el SchemaManager.*
 

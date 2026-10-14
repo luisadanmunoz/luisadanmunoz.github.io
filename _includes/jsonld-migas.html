@@ -1,0 +1,18 @@
+{%- comment -%}
+  Ruta de navegación para buscadores (BreadcrumbList).
+  Uso: include jsonld-migas.html n1="Artículos" u1="/articulos/" n2="Azure" u2="/articulos/azure/"
+{%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": {{ '/' | absolute_url | jsonify }} }
+    {%- if include.n1 %},
+    { "@type": "ListItem", "position": 2, "name": {{ include.n1 | jsonify }}, "item": {{ include.u1 | absolute_url | jsonify }} }{% endif %}
+    {%- if include.n2 %},
+    { "@type": "ListItem", "position": 3, "name": {{ include.n2 | jsonify }}, "item": {{ include.u2 | absolute_url | jsonify }} }{% endif %},
+    { "@type": "ListItem", "position": {% if include.n2 %}4{% elsif include.n1 %}3{% else %}2{% endif %}, "name": {{ page.titulo | default: page.title | jsonify }}, "item": {{ page.url | absolute_url | jsonify }} }
+  ]
+}
+</script>

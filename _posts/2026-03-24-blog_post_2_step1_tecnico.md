@@ -1,5 +1,6 @@
 ---
 title: "Terraform Agent, paso 1: contratos Pydantic antes que agentes"
+description: "Por qué empecé un sistema multiagente definiendo contratos de datos con Pydantic antes de escribir ningún agente, y las decisiones no obvias de ese primer paso."
 area: azure/iac
 owner: LuisAdan
 categories: [IA, IaC]
@@ -19,7 +20,8 @@ categoria: ia
 tema: "Terraform Agent"
 ---
 
-# Paso 1: Por qué empecé un sistema multiagente definiendo contratos Pydantic antes de escribir ningún agente
+Paso 1: Por qué empecé un sistema multiagente definiendo contratos Pydantic antes de escribir ningún agente
+{: .entrada}
 
 *Antes de un solo LLM, antes de Terraform, antes de Azure: modelos de datos. Aquí está el razonamiento y las decisiones no obvias.*
 

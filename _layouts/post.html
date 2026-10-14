@@ -68,3 +68,6 @@ layout: default
 {%- endif %}
 
 {% include newsletter.html %}
+
+{%- assign url_cat = "/articulos/" | append: page.categoria | append: "/" -%}
+{% include jsonld-migas.html n1="Artículos" u1="/articulos/" n2=c.nombre u2=url_cat %}

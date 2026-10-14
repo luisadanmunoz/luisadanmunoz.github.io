@@ -1,5 +1,6 @@
 ---
 title: "Azure Policy en entornos enterprise"
+description: "Estrategia enterprise de Azure Policy con Policy as Code y EPAC: iniciativas, asignaciones por Management Group, remediación y cumplimiento normativo."
 area: azure/governance
 owner: LuisAdan
 categories: [Resources, Gobernanza]
