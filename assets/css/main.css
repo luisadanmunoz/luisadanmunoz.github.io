@@ -427,3 +427,9 @@ body > main { flex: 1 0 auto; }
 
 /* Tarjeta de autor del artículo: interlineado propio, no el del texto largo */
 .author-card .who span { display: block; margin-top: 4px; line-height: 1.5; }
+
+/* Portada: imagen principal más grande, sin romper el titular */
+.hero-text { flex: 1 1 480px; }
+.hero-img { flex: 1 1 560px; max-width: 660px; }
+.hero h1 { font-size: clamp(46px, 6vw, 84px); }
+@media (min-width: 1100px) { .hero-img { margin-right: -24px; } }
