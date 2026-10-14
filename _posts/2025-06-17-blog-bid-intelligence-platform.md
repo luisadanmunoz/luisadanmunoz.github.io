@@ -1,5 +1,6 @@
 ---
 title: "Bid Intelligence Platform: diez agentes de IA para responder licitaciones"
+description: "Una plataforma con diez agentes de IA que lee pliegos de licitación, extrae requisitos y los enlaza con evidencias para preparar ofertas trazables."
 area: azure/iac
 owner: LuisAdan
 categories: [IA, IaC]

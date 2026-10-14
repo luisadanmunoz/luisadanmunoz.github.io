@@ -82,7 +82,7 @@ defaults:
   - scope: { path: "" }
     values:
       layout: page
-      image: /assets/img/og-default.png
+      image: /assets/img/og-default.jpg
 
 plugins:
   - jekyll-feed

@@ -70,6 +70,15 @@ bundle exec jekyll serve --livereload
 # abre http://localhost:4000
 ```
 
+## SEO
+
+- Cada artículo necesita `description` (150-160 caracteres): es el texto que sale en Google y al compartir.
+- Al documentar una ficha de recurso, añade también `description` en su cabecera.
+- `sitemap.xml` y `robots.txt` son propios. Las fichas de recursos en estado `proximamente` llevan `noindex` y no
+  entran en el sitemap; en cuanto pasan a `en-curso` o `documentado` se indexan solas.
+- Datos estructurados: artículos y páginas (jekyll-seo-tag), ruta de navegación en artículos y fichas, y persona en Sobre mí.
+- Imagen al compartir por defecto: `assets/img/og-default.jpg` (1200×630). Un artículo puede usar otra con `image:`.
+
 ## Dominio y publicación
 
 - Settings → Pages → Source: **GitHub Actions**.

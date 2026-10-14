@@ -1,0 +1,24 @@
+{%- comment -%} Datos estructurados de la persona (schema.org) para buscadores {%- endcomment -%}
+{%- assign d = site.data.perfil -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "mainEntity": {
+    "@type": "Person",
+    "name": {{ site.author.name | jsonify }},
+    "jobTitle": "Consultor y Arquitecto Cloud en Azure",
+    "description": {{ site.author.bio | jsonify }},
+    "url": {{ '/sobre-mi/' | absolute_url | jsonify }},
+    "image": {{ d.foto | default: '/assets/img/logo-luis-512.png' | absolute_url | jsonify }},
+    "worksFor": { "@type": "Organization", "name": "Evolutio" },
+    "knowsAbout": {{ d.stack | jsonify }},
+    "sameAs": [
+      {%- assign enlaces = "" | split: "" -%}
+      {%- if site.social.linkedin != "" %}{% assign enlaces = enlaces | push: site.social.linkedin %}{% endif -%}
+      {%- if site.social.github != "" %}{% assign enlaces = enlaces | push: site.social.github %}{% endif -%}
+      {%- for e in enlaces %}{{ e | jsonify }}{% unless forloop.last %}, {% endunless %}{% endfor -%}
+    ]
+  }
+}
+</script>

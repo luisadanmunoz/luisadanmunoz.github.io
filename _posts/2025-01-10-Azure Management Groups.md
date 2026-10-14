@@ -1,5 +1,6 @@
 ---
 title: "Azure Management Groups para entornos enterprise"
+description: "Cómo diseñar una jerarquía de Management Groups en Azure para gobernar suscripciones con Azure Policy, RBAC heredado y control de costes, todo como código."
 area: azure/governance
 owner: LuisAdan
 categories: [Resources, Gobernanza]

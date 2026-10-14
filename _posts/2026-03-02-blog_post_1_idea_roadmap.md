@@ -1,5 +1,6 @@
 ---
 title: "Terraform Agent: la idea y el roadmap"
+description: "Un sistema multiagente que convierte lenguaje natural en infraestructura Azure desplegada con Terraform real, validado y sin atributos inventados."
 area: azure/iac
 owner: LuisAdan
 categories: [IA, IaC]
@@ -17,7 +18,8 @@ categoria: ia
 tema: "Terraform Agent"
 ---
 
-# Estoy construyendo un sistema que convierte lenguaje natural en infraestructura Azure desplegada. Esto es lo que he aprendido hasta ahora.
+Estoy construyendo un sistema que convierte lenguaje natural en infraestructura Azure desplegada. Esto es lo que he aprendido hasta ahora.
+{: .entrada}
 
 *Infraestructura como código generada, validada y desplegada por agentes de IA. Sin templates. Sin alucinaciones. Con Terraform real.*
 
