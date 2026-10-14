@@ -1,0 +1,91 @@
+name: "Publicar en LinkedIn"
+
+# Cuando la web termina de publicarse tras un merge en main, prepara un post de LinkedIn
+# por cada artículo nuevo y espera tu aprobación (entorno "linkedin") antes de publicarlo.
+# También se puede lanzar a mano para un artículo concreto.
+on:
+  workflow_run:
+    workflows: ["Construir y publicar la web"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      articulo:
+        description: "Ruta del artículo (_posts/AAAA-MM-DD-titulo.md) o su URL publicada"
+        required: true
+      solo_borrador:
+        description: "Solo preparar el borrador (no publicar)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: linkedin
+  cancel-in-progress: false
+
+jobs:
+  preparar:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push')
+    runs-on: ubuntu-latest
+    outputs:
+      total: ${{ steps.prep.outputs.total }}
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Preparar los borradores
+        id: prep
+        env:
+          ARTICULO: ${{ inputs.articulo }}
+          SITE_URL: ${{ vars.SITE_URL || 'https://luisadanmunoz.es' }}
+        run: python .github/scripts/linkedin.py preparar --site "$SITE_URL" --salida borradores.json --articulo "$ARTICULO"
+
+      - name: Guardar los borradores
+        if: steps.prep.outputs.total != '0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: borradores-linkedin
+          path: borradores.json
+          retention-days: 7
+
+  publicar:
+    needs: preparar
+    if: needs.preparar.outputs.total != '0' && !(github.event_name == 'workflow_dispatch' && inputs.solo_borrador)
+    runs-on: ubuntu-latest
+    # Configura en Settings → Environments → linkedin un "Required reviewer" (tú):
+    # el job se queda esperando hasta que revises el borrador y lo apruebes.
+    environment: linkedin
+    steps:
+      - name: Descargar el script
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/scripts
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Recuperar los borradores
+        uses: actions/download-artifact@v4
+        with:
+          name: borradores-linkedin
+
+      - name: Publicar en LinkedIn
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+          LINKEDIN_VERSION: ${{ vars.LINKEDIN_VERSION }}
+        run: python .github/scripts/linkedin.py publicar --borradores borradores.json
