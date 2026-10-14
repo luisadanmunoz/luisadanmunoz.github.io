@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101B35">
+<!-- Begin Jekyll SEO tag v2.9.1 -->
+<title>Luis Adán Muñoz | Arquitectura Azure e IA, desde proyectos reales</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Luis Adán Muñoz" />
+<meta name="author" content="Luis Adán Muñoz" />
+<meta property="og:locale" content="es_ES" />
+<meta name="description" content="Blog técnico de Luis Adán Muñoz, arquitecto cloud: Azure, Terraform, agentes de IA con Microsoft Foundry, seguridad y costes, contado desde proyectos reales y con el código para probarlo." />
+<meta name="twitter:description" property="og:description" content="Blog técnico de Luis Adán Muñoz, arquitecto cloud: Azure, Terraform, agentes de IA con Microsoft Foundry, seguridad y costes, contado desde proyectos reales y con el código para probarlo." />
+<link rel="canonical" href="https://luisadanmunoz.es/" />
+<meta property="og:url" content="https://luisadanmunoz.es/" />
+<meta property="og:site_name" content="Luis Adán Muñoz" />
+<meta property="og:image" content="https://luisadanmunoz.es/assets/img/og-default.jpg" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://luisadanmunoz.es/assets/img/og-default.jpg" />
+<meta name="twitter:title" content="Luis Adán Muñoz" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Luis Adán Muñoz"},"description":"Blog técnico de Luis Adán Muñoz, arquitecto cloud: Azure, Terraform, agentes de IA con Microsoft Foundry, seguridad y costes, contado desde proyectos reales y con el código para probarlo.","headline":"Luis Adán Muñoz","image":"https://luisadanmunoz.es/assets/img/og-default.jpg","name":"Luis Adán Muñoz","url":"https://luisadanmunoz.es/"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&amp;family=JetBrains+Mono:wght@400;500&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap">
+<link rel="stylesheet" href="/assets/css/main.css?v=1791994000">
+<link rel="icon" type="image/png" sizes="64x64" href="/assets/img/logo-luis-64.png">
+<link rel="apple-touch-icon" href="/assets/img/logo-luis-192.png">
+<link type="application/atom+xml" rel="alternate" href="https://luisadanmunoz.es/feed.xml" title="Luis Adán Muñoz" />
+
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <img src="/assets/img/logo-luis-192.png" alt="" width="48" height="48">
+      <span>Luis Adán Muñoz</span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="/" class="is-current" aria-current="page">Inicio</a>
+      <details class="menu">
+        <summary>Artículos
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="menu-panel menu-articulos">
+          <a href="/articulos/noticias/">
+            <span class="dot" style="background: #FFD64A" aria-hidden="true"></span>
+            <span><strong>Noticias</strong><small>Novedades de Azure e IA, explicadas y con contexto.</small></span>
+          </a>
+          <a href="/articulos/azure/">
+            <span class="dot" style="background: #3B5BF0" aria-hidden="true"></span>
+            <span><strong>Azure</strong><small>Arquitectura, redes, Terraform, seguridad y costes.</small></span>
+          </a>
+          <a href="/articulos/ia/">
+            <span class="dot" style="background: #0E8C70" aria-hidden="true"></span>
+            <span><strong>IA</strong><small>Agentes y soluciones con Microsoft Foundry.</small></span>
+          </a>
+        </div>
+      </details>
+      <details class="menu">
+        <summary>Recursos
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="menu-panel menu-recursos">
+          <a href="/recursos/automation/">Automation</a>
+          <a href="/recursos/avd/">AVD</a>
+          <a href="/recursos/backups-update/">Backups-Update</a>
+          <a href="/recursos/compute/">Compute</a>
+          <a href="/recursos/database/">DataBase</a>
+          <a href="/recursos/gobernanza/">Gobernanza</a>
+          <a href="/recursos/hybrid/">Hybrid</a>
+          <a href="/recursos/ia/">IA</a>
+          <a href="/recursos/intune/">Intune</a>
+          <a href="/recursos/iot/">IoT</a>
+          <a href="/recursos/mensajeria/">Mensajeria</a>
+          <a href="/recursos/microsoft-entra-id/">Microsoft-Entra-ID</a>
+          <a href="/recursos/migrate-assessments/">Migrate - Assessments</a>
+          <a href="/recursos/monitoring-visualize/">Monitoring-Visualize</a>
+          <a href="/recursos/networking/">Networking</a>
+          <a href="/recursos/security/">Security</a>
+          <a href="/recursos/storage/">Storage</a>
+          <a href="/recursos/web/">Web</a>
+          <a class="all" href="/recursos/">Ver todos los recursos</a>
+        </div>
+      </details>
+      <a href="/sobre-mi/">Sobre mí</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-text">
+      <h1>Hola, soy Luis. Construyo en Azure y lo cuento aquí.</h1>
+      <p class="lead">Soy arquitecto cloud. Escribo sobre los proyectos reales en los que trabajo: redes privadas, Terraform, agentes de IA en Foundry, seguridad y costes. Con lo que funcionó, lo que no y el código para que lo pruebes tú.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#destacado">Leer lo último</a>
+        <a class="btn btn-ghost" href="/sobre-mi/">Conóceme</a>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="/assets/img/hero-luis.jpg" alt="Ilustración de Luis Adán Muñoz dentro de una nube, rodeado de una red neuronal y de los iconos de Noticias, Azure, IA y Recursos" width="960" height="960" fetchpriority="high">
+    </div>
+  </div>
+</section>
+<section id="destacado" class="wrap" aria-label="Artículo destacado" style="padding-bottom: 96px">
+  <a class="featured" href="/posts/portal-autoservicio-entra-id-gdap-lighthouse/">
+    <div class="cover" style="background: #3B5BF0; color: #FFFFFF">
+      <span class="chip" style="color: #3B5BF0">Identidad</span>
+      <span class="cover-title">Portal de autoservicio con Entra ID, GDAP y Lighthouse</span>
+    </div>
+    <div class="featured-text">
+      <p class="kicker">Lo último, 13 de octubre de 2026</p>
+      <h2>Portal de autoservicio con Entra ID, GDAP y Lighthouse</h2>
+      <p>Del rol de administrador en Microsoft 365 Lighthouse a un portal de autoservicio: el cliente pide, su responsable aprueba y la tarea se ejecuta vía GDAP.</p>
+      <p class="more">Leer el artículo, 16 min</p>
+    </div>
+  </a>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <h2 class="section-title">Explora</h2>
+    <div class="tiles">
+      <a class="tile" href="/articulos/noticias/">
+        <img class="swatch swatch-img" src="/assets/img/icono-noticias.png" alt="" width="76" height="76" loading="lazy">
+        <strong>Noticias</strong>
+        <span>Novedades de Azure e IA, explicadas y con contexto.</span>
+      </a>
+      <a class="tile" href="/articulos/azure/">
+        <img class="swatch swatch-img" src="/assets/img/icono-azure.svg" alt="" width="76" height="76" loading="lazy">
+        <strong>Azure</strong>
+        <span>Arquitectura, redes, Terraform, seguridad y costes.</span>
+      </a>
+      <a class="tile" href="/articulos/ia/">
+        <img class="swatch swatch-img" src="/assets/img/icono-ia.png" alt="" width="76" height="76" loading="lazy">
+        <strong>IA</strong>
+        <span>Agentes y soluciones con Microsoft Foundry.</span>
+      </a>
+      <a class="tile" href="/recursos/">
+        <img class="swatch swatch-img" src="/assets/img/icono-recursos.png" alt="" width="76" height="76" loading="lazy">
+        <strong>Recursos</strong>
+        <span>Fichas de cada servicio de Azure: diseño, Terraform y errores típicos.</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" style="padding-top: 88px; padding-bottom: 16px">
+  <div class="section-head">
+    <h2 class="section-title" style="margin: 0">Artículos recientes</h2>
+  </div>
+  <a class="post-row" href="/posts/segundo-cerebro-obsidian-consultor-azure/" data-tema="Productividad">
+  <span class="post-tile" style="background: #0E8C70; color: #FFFFFF">Productividad</span>
+  <span class="post-body">
+    <span class="post-title">Un segundo cerebro en Obsidian para un consultor de Azure</span><span class="post-summary">Cómo monté un vault de Obsidian versionado, con guardarraíles de seguridad y conectado a Claude Code, para ordenar el conocimiento de un consultor de Azure.</span>
+    <span class="post-meta">23 de septiembre de 2026, 15 min de lectura</span>
+  </span>
+</a>
+
+  <a class="post-row" href="/posts/blog_post_2_step1_tecnico/" data-tema="Terraform Agent">
+  <span class="post-tile" style="background: #0E8C70; color: #FFFFFF">Terraform Agent</span>
+  <span class="post-body">
+    <span class="post-title">Terraform Agent, paso 1: contratos Pydantic antes que agentes</span><span class="post-summary">Por qué empecé un sistema multiagente definiendo contratos de datos con Pydantic antes de escribir ningún agente, y las decisiones no obvias de ese primer paso.</span>
+    <span class="post-meta">24 de marzo de 2026, 11 min de lectura</span>
+  </span>
+</a>
+
+  <a class="post-row" href="/posts/blob_post_3_schemamanager/" data-tema="Terraform Agent">
+  <span class="post-tile" style="background: #0E8C70; color: #FFFFFF">Terraform Agent</span>
+  <span class="post-body">
+    <span class="post-title">Terraform Agent, paso 2: SchemaManager como fuente de verdad</span><span class="post-summary">El SchemaManager: cómo el schema real del provider azurerm se convierte en la única fuente de verdad para que un LLM no invente atributos de Terraform.</span>
+    <span class="post-meta">24 de marzo de 2026, 10 min de lectura</span>
+  </span>
+</a>
+
+  <a class="post-row" href="/posts/blog_post_1_idea_roadmap/" data-tema="Terraform Agent">
+  <span class="post-tile" style="background: #0E8C70; color: #FFFFFF">Terraform Agent</span>
+  <span class="post-body">
+    <span class="post-title">Terraform Agent: la idea y el roadmap</span><span class="post-summary">Un sistema multiagente que convierte lenguaje natural en infraestructura Azure desplegada con Terraform real, validado y sin atributos inventados.</span>
+    <span class="post-meta">2 de marzo de 2026, 6 min de lectura</span>
+  </span>
+</a>
+
+  <a class="post-row" href="/posts/Azure-Policy-Enterprise/" data-tema="Gobernanza">
+  <span class="post-tile" style="background: #3B5BF0; color: #FFFFFF">Gobernanza</span>
+  <span class="post-body">
+    <span class="post-title">Azure Policy en entornos enterprise</span><span class="post-summary">Estrategia enterprise de Azure Policy con Policy as Code y EPAC: iniciativas, asignaciones por Management Group, remediación y cumplimiento normativo.</span>
+    <span class="post-meta">18 de febrero de 2026, 52 min de lectura</span>
+  </span>
+</a>
+
+  <a class="post-row" href="/posts/DocAzureAutomatic_v2/" data-tema="Seguridad">
+  <span class="post-tile" style="background: #3B5BF0; color: #FFFFFF">Seguridad</span>
+  <span class="post-body">
+    <span class="post-title">DocAzureAutomatic_v2: Auditoría de Seguridad con Prowler y Checkov</span><span class="post-summary">Evolución de DocAzureAutomatic: ahora con análisis de seguridad automatizado usando Prowler y Checkov. Documentación + auditoría de compliance en un solo flujo.</span>
+    <span class="post-meta">27 de enero de 2026, 28 min de lectura</span>
+  </span>
+</a>
+
+</section>
+
+<section class="wrap cta-wrap" aria-labelledby="newsletter-title">
+  <div class="cta">
+    <div>
+      <h2 id="newsletter-title">Te aviso cuando publique algo nuevo</h2>
+      <p>Un correo por artículo, sin nada más. Te das de baja con un clic.</p>
+    </div>
+    <form action="https://buttondown.com/api/emails/embed-subscribe/luisadanmunoz" method="post" target="_blank">
+      <label for="bd-email">Tu correo electrónico</label>
+      <div class="field">
+        <input id="bd-email" name="email" type="email" required autocomplete="email" placeholder="nombre@empresa.com">
+        <button class="btn btn-primary" type="submit">Suscribirme</button>
+      </div>
+      <label class="consent">
+        <input type="checkbox" name="consent" required>
+        <span>Acepto recibir un correo cuando se publique un artículo nuevo y he leído la <a href="/privacidad/">política de privacidad</a>.</span>
+      </label>
+    </form>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Luis Adán Muñoz</span>
+    <nav aria-label="Redes y enlaces"><a href="https://github.com/luisadanmunoz" rel="me">GitHub</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="/privacidad/">Privacidad</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js?v=1791994000" defer></script>
+</body>
+</html>

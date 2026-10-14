@@ -1,0 +1,134 @@
+[
+  {
+    "path": "_posts/2026-10-13-portal-autoservicio-entra-id-gdap-lighthouse.md",
+    "url": "https://luisadanmunoz.es/posts/portal-autoservicio-entra-id-gdap-lighthouse/",
+    "title": "Portal de autoservicio con Entra ID, GDAP y Lighthouse",
+    "description": "Del rol de administrador en Microsoft 365 Lighthouse a un portal de autoservicio: el cliente pide, su responsable aprueba y la tarea se ejecuta vía GDAP.",
+    "image": "https://luisadanmunoz.es/assets/img/og-default.jpg",
+    "categoria": "azure",
+    "tags": ["entra-id","gdap","microsoft-365-lighthouse","microsoft-graph","csp","cost-management","python","powershell","autorremediacion"],
+    "date": "2026-10-13T00:00:00+02:00",
+    "linkedin": null
+  },
+  {
+    "path": "_posts/2026-09-23-segundo-cerebro-obsidian-consultor-azure.md",
+    "url": "https://luisadanmunoz.es/posts/segundo-cerebro-obsidian-consultor-azure/",
+    "title": "Un segundo cerebro en Obsidian para un consultor de Azure",
+    "description": "Cómo monté un vault de Obsidian versionado, con guardarraíles de seguridad y conectado a Claude Code, para ordenar el conocimiento de un consultor de Azure.",
+    "image": "https://luisadanmunoz.es/assets/img/og-default.jpg",
+    "categoria": "ia",
+    "tags": ["obsidian","claude-code","git","gitleaks","templater","azure","knowledge-management"],
+    "date": "2026-09-23T00:00:00+02:00",
+    "linkedin": null
+  },
+  {
+    "path": "_posts/2026-03-24-blog_post_2_step1_tecnico.md",
+    "url": "https://luisadanmunoz.es/posts/blog_post_2_step1_tecnico/",
+    "title": "Terraform Agent, paso 1: contratos Pydantic antes que agentes",
+    "description": "Por qué empecé un sistema multiagente definiendo contratos de datos con Pydantic antes de escribir ningún agente, y las decisiones no obvias de ese primer paso.",
+    "image": "https://luisadanmunoz.es/assets/img/og-default.jpg",
+    "categoria": "ia",
+    "tags": ["terraform","azure","pydantic","python","multiagent","llm","software-architecture","platform-engineering"],
+    "date": "2026-03-24T00:00:00+01:00",
+    "linkedin": null
+  },
+  {
+    "path": "_posts/2026-03-24-blob_post_3_schemamanager.md",
+    "url": "https://luisadanmunoz.es/posts/blob_post_3_schemamanager/",
+    "title": "Terraform Agent, paso 2: SchemaManager como fuente de verdad",
+    "description": "El SchemaManager: cómo el schema real del provider azurerm se convierte en la única fuente de verdad para que un LLM no invente atributos de Terraform.",
+    "image": "https://luisadanmunoz.es/assets/img/og-default.jpg",
+    "categoria": "ia",
+    "tags": ["terraform","azure","python","multiagent","llm","iac","platform-engineering","software-architecture"],
+    "date": "2026-03-24T00:00:00+01:00",
+    "linkedin": null
+  },
+  {
+    "path": "_posts/2026-03-02-blog_post_1_idea_roadmap.md",
+    "url": "https://luisadanmunoz.es/posts/blog_post_1_idea_roadmap/",
+    "title": "Terraform Agent: la idea y el roadmap",
+    "description": "Un sistema multiagente que convierte lenguaje natural en infraestructura Azure desplegada con Terraform real, validado y sin atributos inventados.",
+    "image": "https://luisadanmunoz.es/assets/img/og-default.jpg",
+    "categoria": "ia",
+    "tags": ["terraform","azure","llm","multiagent","iac","python","platform-engineering"],
+    "date": "2026-03-02T00:00:00+01:00",
+    "linkedin": null
+  },
+  {
+    "path": "_posts/2026-02-18-Azure-Policy-Enterprise.md",
+    "url": "https://luisadanmunoz.es/posts/Azure-Policy-Enterprise/",
+    "title": "Azure Policy en entornos enterprise",
+    "description": "Estrategia enterprise de Azure Policy con Policy as Code y EPAC: iniciativas, asignaciones por Management Group, remediación y cumplimiento normativo.",
+    "image": "https://luisadanmunoz.es/assets/img/og-default.jpg",
+    "categoria": "azure",
+    "tags": ["azure","policy","governance","compliance","policy-as-code","epac","initiative","remediation"],
+    "date": "2026-02-18T00:00:00+01:00",
+    "linkedin": null
+  },
+  {
+    "path": "_posts/2026-01-27-DocAzureAutomatic_v2.md",
+    "url": "https://luisadanmunoz.es/posts/DocAzureAutomatic_v2/",
+    "title": "DocAzureAutomatic_v2: Auditoría de Seguridad con Prowler y Checkov",
+    "description": "Evolución de DocAzureAutomatic: ahora con análisis de seguridad automatizado usando Prowler y Checkov. Documentación + auditoría de compliance en un solo flujo.",
+    "image": "https://luisadanmunoz.es/assets/img/og-default.jpg",
+    "categoria": "azure",
+    "tags": ["Azure","Automation","Seguridad","Prowler","Checkov","DevSecOps","PowerShell","Python","IaC Security"],
+    "date": "2026-01-27T00:00:00+01:00",
+    "linkedin": null
+  },
+  {
+    "path": "_posts/2026-01-26-DocAzureAutomatic.md",
+    "url": "https://luisadanmunoz.es/posts/DocAzureAutomatic/",
+    "title": "DocAzureAutomatic",
+    "description": "Sistema de automatización que he desarrollado para generar documentación profesional de recursos Azure.",
+    "image": "https://luisadanmunoz.es/assets/img/og-default.jpg",
+    "categoria": "azure",
+    "tags": ["Azure","Automation","Documentación","DevOps","PowerShell","Python","Gobernanza"],
+    "date": "2026-01-26T00:00:00+01:00",
+    "linkedin": null
+  },
+  {
+    "path": "_posts/2026-01-23-EntraFlow (CSV-Usuarios RBAC con Terraform).md",
+    "url": "https://luisadanmunoz.es/posts/EntraFlow-(CSV-Usuarios-RBAC-con-Terraform)/",
+    "title": "EntraFlow (CSV-Usuarios RBAC con Terraform)",
+    "description": "Descubre cómo automatizar completamente la gestión de usuarios, grupos y permisos en Microsoft Entra ID usando Terraform y un simple archivo CSV. Onboarding de empleados en minutos, no horas.",
+    "image": "https://luisadanmunoz.es/assets/img/og-default.jpg",
+    "categoria": "azure",
+    "tags": ["Azure","Automation","Terraform","Entra ID","Azure AD","Infrastructure as Code","DevOps","RBAC","Identity Management"],
+    "date": "2026-01-23T00:00:00+01:00",
+    "linkedin": null
+  },
+  {
+    "path": "_posts/2026-01-22-AzureVM Pulse (Start-Stop de VMs con Terraform).md",
+    "url": "https://luisadanmunoz.es/posts/AzureVM-Pulse-(Start-Stop-de-VMs-con-Terraform)/",
+    "title": "AzureVM Pulse (Start-Stop de VMs con Terraform)",
+    "description": "Aprende a implementar una solución completa de automatización para gestionar el encendido y apagado programado de máquinas virtuales en Azure usando Terraform, con notificaciones por email y monitorización integrada.",
+    "image": "https://luisadanmunoz.es/assets/img/og-default.jpg",
+    "categoria": "azure",
+    "tags": ["Azure","Terraform","Automation","Infrastructure as Code","DevOps","PowerShell"],
+    "date": "2026-01-22T00:00:00+01:00",
+    "linkedin": null
+  },
+  {
+    "path": "_posts/2025-06-17-blog-bid-intelligence-platform.md",
+    "url": "https://luisadanmunoz.es/posts/blog-bid-intelligence-platform/",
+    "title": "Bid Intelligence Platform: diez agentes de IA para responder licitaciones",
+    "description": "Una plataforma con diez agentes de IA que lee pliegos de licitación, extrae requisitos y los enlaza con evidencias para preparar ofertas trazables.",
+    "image": "https://luisadanmunoz.es/assets/img/og-default.jpg",
+    "categoria": "ia",
+    "tags": ["terraform","azure","llm","multiagent","iac","python","platform-engineering"],
+    "date": "2025-06-17T00:00:00+02:00",
+    "linkedin": null
+  },
+  {
+    "path": "_posts/2025-01-10-Azure Management Groups.md",
+    "url": "https://luisadanmunoz.es/posts/Azure-Management-Groups/",
+    "title": "Azure Management Groups para entornos enterprise",
+    "description": "Cómo diseñar una jerarquía de Management Groups en Azure para gobernar suscripciones con Azure Policy, RBAC heredado y control de costes, todo como código.",
+    "image": "https://luisadanmunoz.es/assets/img/og-default.jpg",
+    "categoria": "azure",
+    "tags": ["azure","management-groups","governance","rbac","policy"],
+    "date": "2025-01-10T00:00:00+01:00",
+    "linkedin": null
+  }
+]

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101B35">
+<!-- Begin Jekyll SEO tag v2.9.1 -->
+<title>Virtual Network | Luis Adán Muñoz</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Virtual Network" />
+<meta name="author" content="Luis Adán Muñoz" />
+<meta property="og:locale" content="es_ES" />
+<meta name="description" content="Blog técnico de Luis Adán Muñoz, arquitecto cloud: Azure, Terraform, agentes de IA con Microsoft Foundry, seguridad y costes, contado desde proyectos reales y con el código para probarlo." />
+<meta name="twitter:description" property="og:description" content="Blog técnico de Luis Adán Muñoz, arquitecto cloud: Azure, Terraform, agentes de IA con Microsoft Foundry, seguridad y costes, contado desde proyectos reales y con el código para probarlo." />
+<link rel="canonical" href="https://luisadanmunoz.es/recursos/networking/virtual-network/" />
+<meta property="og:url" content="https://luisadanmunoz.es/recursos/networking/virtual-network/" />
+<meta property="og:site_name" content="Luis Adán Muñoz" />
+<meta property="og:image" content="https://luisadanmunoz.es/assets/img/og-default.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-10-14T18:06:40+02:00" />
+<meta property="article:modified_time" content="2026-10-14T18:06:40+02:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://luisadanmunoz.es/assets/img/og-default.jpg" />
+<meta name="twitter:title" content="Virtual Network" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Luis Adán Muñoz"},"dateModified":"2026-10-14T18:06:40+02:00","datePublished":"2026-10-14T18:06:40+02:00","description":"Blog técnico de Luis Adán Muñoz, arquitecto cloud: Azure, Terraform, agentes de IA con Microsoft Foundry, seguridad y costes, contado desde proyectos reales y con el código para probarlo.","headline":"Virtual Network","image":"https://luisadanmunoz.es/assets/img/og-default.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://luisadanmunoz.es/recursos/networking/virtual-network/"},"url":"https://luisadanmunoz.es/recursos/networking/virtual-network/"}</script>
+<!-- End Jekyll SEO tag -->
+
+<meta name="robots" content="noindex, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&amp;family=JetBrains+Mono:wght@400;500&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap">
+<link rel="stylesheet" href="/assets/css/main.css?v=1791994000">
+<link rel="icon" type="image/png" sizes="64x64" href="/assets/img/logo-luis-64.png">
+<link rel="apple-touch-icon" href="/assets/img/logo-luis-192.png">
+<link type="application/atom+xml" rel="alternate" href="https://luisadanmunoz.es/feed.xml" title="Luis Adán Muñoz" />
+
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <img src="/assets/img/logo-luis-192.png" alt="" width="48" height="48">
+      <span>Luis Adán Muñoz</span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="/">Inicio</a>
+      <details class="menu">
+        <summary>Artículos
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="menu-panel menu-articulos">
+          <a href="/articulos/noticias/">
+            <span class="dot" style="background: #FFD64A" aria-hidden="true"></span>
+            <span><strong>Noticias</strong><small>Novedades de Azure e IA, explicadas y con contexto.</small></span>
+          </a>
+          <a href="/articulos/azure/">
+            <span class="dot" style="background: #3B5BF0" aria-hidden="true"></span>
+            <span><strong>Azure</strong><small>Arquitectura, redes, Terraform, seguridad y costes.</small></span>
+          </a>
+          <a href="/articulos/ia/">
+            <span class="dot" style="background: #0E8C70" aria-hidden="true"></span>
+            <span><strong>IA</strong><small>Agentes y soluciones con Microsoft Foundry.</small></span>
+          </a>
+        </div>
+      </details>
+      <details class="menu is-current">
+        <summary>Recursos
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="menu-panel menu-recursos">
+          <a href="/recursos/automation/">Automation</a>
+          <a href="/recursos/avd/">AVD</a>
+          <a href="/recursos/backups-update/">Backups-Update</a>
+          <a href="/recursos/compute/">Compute</a>
+          <a href="/recursos/database/">DataBase</a>
+          <a href="/recursos/gobernanza/">Gobernanza</a>
+          <a href="/recursos/hybrid/">Hybrid</a>
+          <a href="/recursos/ia/">IA</a>
+          <a href="/recursos/intune/">Intune</a>
+          <a href="/recursos/iot/">IoT</a>
+          <a href="/recursos/mensajeria/">Mensajeria</a>
+          <a href="/recursos/microsoft-entra-id/">Microsoft-Entra-ID</a>
+          <a href="/recursos/migrate-assessments/">Migrate - Assessments</a>
+          <a href="/recursos/monitoring-visualize/">Monitoring-Visualize</a>
+          <a href="/recursos/networking/">Networking</a>
+          <a href="/recursos/security/">Security</a>
+          <a href="/recursos/storage/">Storage</a>
+          <a href="/recursos/web/">Web</a>
+          <a class="all" href="/recursos/">Ver todos los recursos</a>
+        </div>
+      </details>
+      <a href="/sobre-mi/">Sobre mí</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido">
+<section class="wrap page-head">
+  <nav class="crumbs" aria-label="Ruta">
+    <a href="/">Inicio</a><span aria-hidden="true">/</span>
+    <a href="/recursos/">Recursos</a><span aria-hidden="true">/</span>
+    <a href="/recursos/networking/">Networking</a><span aria-hidden="true">/</span>
+    <span aria-current="page">Virtual Network</span>
+  </nav>
+  <h1>Virtual Network</h1>
+  <p class="lead">La red privada donde viven tus recursos.</p>
+  <div class="legend"><span><span class="status-dot status-proximamente" aria-hidden="true"></span>Próximamente</span></div>
+</section>
+
+<div class="wrap post-layout" style="padding-top: 24px">
+  <article class="prose" id="articulo">
+    <div class="wip">
+      <p style="margin: 0"><strong>Esta ficha está en preparación.</strong> Cuando esté lista tendrá:</p>
+      <ol>
+        <li>Qué es y cuándo usarlo</li>
+        <li>Decisiones de diseño</li>
+        <li>Módulo de Terraform</li>
+        <li>Errores típicos</li>
+        <li>Fuentes oficiales</li>
+      </ol>
+    </div>
+
+    <p class="review"><a href="/recursos/networking/">Volver a Networking</a></p>
+  </article>
+  <aside class="toc" aria-label="En esta ficha" hidden>
+    <p>En esta ficha</p>
+    <nav></nav>
+  </aside>
+</div><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://luisadanmunoz.es/" },
+    { "@type": "ListItem", "position": 2, "name": "Recursos", "item": "https://luisadanmunoz.es/recursos/" },
+    { "@type": "ListItem", "position": 3, "name": "Networking", "item": "https://luisadanmunoz.es/recursos/networking/" },
+    { "@type": "ListItem", "position": 4, "name": "Virtual Network", "item": "https://luisadanmunoz.es/recursos/networking/virtual-network/" }
+  ]
+}
+</script>
+
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Luis Adán Muñoz</span>
+    <nav aria-label="Redes y enlaces"><a href="https://github.com/luisadanmunoz" rel="me">GitHub</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="/privacidad/">Privacidad</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js?v=1791994000" defer></script>
+</body>
+</html>

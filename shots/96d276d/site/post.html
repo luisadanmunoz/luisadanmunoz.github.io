@@ -1,0 +1,2068 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101B35">
+<!-- Begin Jekyll SEO tag v2.9.1 -->
+<title>Azure Management Groups para entornos enterprise | Luis Adán Muñoz</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Azure Management Groups para entornos enterprise" />
+<meta name="author" content="Luis Adán Muñoz" />
+<meta property="og:locale" content="es_ES" />
+<meta name="description" content="Cómo diseñar una jerarquía de Management Groups en Azure para gobernar suscripciones con Azure Policy, RBAC heredado y control de costes, todo como código." />
+<meta name="twitter:description" property="og:description" content="Cómo diseñar una jerarquía de Management Groups en Azure para gobernar suscripciones con Azure Policy, RBAC heredado y control de costes, todo como código." />
+<link rel="canonical" href="https://luisadanmunoz.es/posts/Azure-Management-Groups/" />
+<meta property="og:url" content="https://luisadanmunoz.es/posts/Azure-Management-Groups/" />
+<meta property="og:site_name" content="Luis Adán Muñoz" />
+<meta property="og:image" content="https://luisadanmunoz.es/assets/img/og-default.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-01-10T00:00:00+01:00" />
+<meta property="article:modified_time" content="2025-01-10T00:00:00+01:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://luisadanmunoz.es/assets/img/og-default.jpg" />
+<meta name="twitter:title" content="Azure Management Groups para entornos enterprise" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Luis Adán Muñoz"},"dateModified":"2025-01-10T00:00:00+01:00","datePublished":"2025-01-10T00:00:00+01:00","description":"Cómo diseñar una jerarquía de Management Groups en Azure para gobernar suscripciones con Azure Policy, RBAC heredado y control de costes, todo como código.","headline":"Azure Management Groups para entornos enterprise","image":"https://luisadanmunoz.es/assets/img/og-default.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://luisadanmunoz.es/posts/Azure-Management-Groups/"},"url":"https://luisadanmunoz.es/posts/Azure-Management-Groups/"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&amp;family=JetBrains+Mono:wght@400;500&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap">
+<link rel="stylesheet" href="/assets/css/main.css?v=1791994000">
+<link rel="icon" type="image/png" sizes="64x64" href="/assets/img/logo-luis-64.png">
+<link rel="apple-touch-icon" href="/assets/img/logo-luis-192.png">
+<link type="application/atom+xml" rel="alternate" href="https://luisadanmunoz.es/feed.xml" title="Luis Adán Muñoz" />
+
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <img src="/assets/img/logo-luis-192.png" alt="" width="48" height="48">
+      <span>Luis Adán Muñoz</span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="/">Inicio</a>
+      <details class="menu is-current">
+        <summary>Artículos
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="menu-panel menu-articulos">
+          <a href="/articulos/noticias/">
+            <span class="dot" style="background: #FFD64A" aria-hidden="true"></span>
+            <span><strong>Noticias</strong><small>Novedades de Azure e IA, explicadas y con contexto.</small></span>
+          </a>
+          <a href="/articulos/azure/">
+            <span class="dot" style="background: #3B5BF0" aria-hidden="true"></span>
+            <span><strong>Azure</strong><small>Arquitectura, redes, Terraform, seguridad y costes.</small></span>
+          </a>
+          <a href="/articulos/ia/">
+            <span class="dot" style="background: #0E8C70" aria-hidden="true"></span>
+            <span><strong>IA</strong><small>Agentes y soluciones con Microsoft Foundry.</small></span>
+          </a>
+        </div>
+      </details>
+      <details class="menu">
+        <summary>Recursos
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="menu-panel menu-recursos">
+          <a href="/recursos/automation/">Automation</a>
+          <a href="/recursos/avd/">AVD</a>
+          <a href="/recursos/backups-update/">Backups-Update</a>
+          <a href="/recursos/compute/">Compute</a>
+          <a href="/recursos/database/">DataBase</a>
+          <a href="/recursos/gobernanza/">Gobernanza</a>
+          <a href="/recursos/hybrid/">Hybrid</a>
+          <a href="/recursos/ia/">IA</a>
+          <a href="/recursos/intune/">Intune</a>
+          <a href="/recursos/iot/">IoT</a>
+          <a href="/recursos/mensajeria/">Mensajeria</a>
+          <a href="/recursos/microsoft-entra-id/">Microsoft-Entra-ID</a>
+          <a href="/recursos/migrate-assessments/">Migrate - Assessments</a>
+          <a href="/recursos/monitoring-visualize/">Monitoring-Visualize</a>
+          <a href="/recursos/networking/">Networking</a>
+          <a href="/recursos/security/">Security</a>
+          <a href="/recursos/storage/">Storage</a>
+          <a href="/recursos/web/">Web</a>
+          <a class="all" href="/recursos/">Ver todos los recursos</a>
+        </div>
+      </details>
+      <a href="/sobre-mi/">Sobre mí</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido">
+<div class="post-hero" style="background: #3B5BF0; color: #FFFFFF">
+  <div class="wrap">
+    <a class="chip" href="/articulos/azure/" style="color: #3B5BF0">Gobernanza</a>
+    <h1>Azure Management Groups para entornos enterprise</h1>
+    <div class="byline">
+      <img src="/assets/img/logo-luis-192.png" alt="" width="52" height="52">
+      <span><strong>Luis Adán Muñoz</strong><span>10 de enero de 2025, 47 min de lectura</span></span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap post-layout">
+  <article class="prose" id="articulo">
+    <h2 id="-1-resumen">📋 1. Resumen</h2>
+
+<ul>
+  <li>
+    <p><strong>Objetivo</strong>: Implementar una estructura jerárquica de Management Groups para proporcionar gobernanza centralizada, aplicación consistente de políticas de Azure y gestión de acceso RBAC a través de múltiples suscripciones de Azure.</p>
+  </li>
+  <li>
+    <p><strong>Dependencias</strong>:</p>
+    <ul>
+      <li>[[Azure-Subscriptions]] - Suscripciones organizadas bajo los Management Groups</li>
+      <li>[[Azure-Policy]] - Políticas aplicadas a nivel de Management Group</li>
+      <li>[[Azure-RBAC]] - Asignaciones de roles heredadas jerárquicamente</li>
+      <li>[[Azure-Active-Directory]] - Identidades para asignaciones RBAC</li>
+      <li>[[Cost-Management]] - Presupuestos y análisis de costes por Management Group</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>[!tip] Notas Importantes</p>
+  <ul>
+    <li>Límite de 6 niveles de profundidad en la jerarquía</li>
+    <li>Cada directorio de Azure AD tiene un Management Group raíz (Tenant Root Group)</li>
+    <li>Las políticas y RBAC se heredan hacia abajo en la jerarquía</li>
+    <li>Cambios en estructura requieren permisos de Management Group Administrator</li>
+    <li>HLD disponible en <code class="language-plaintext highlighter-rouge">docs/architecture/management-groups-hld.pdf</code></li>
+    <li>Terraform modules en <code class="language-plaintext highlighter-rouge">terraform/modules/management-groups/</code></li>
+  </ul>
+</blockquote>
+
+<h2 id="️-2-arquitectura">🏛️ 2. Arquitectura</h2>
+
+<h3 id="jerarquía-de-management-groups">Jerarquía de Management Groups</h3>
+
+<pre><code class="language-mermaid">flowchart TB
+    Root[🏢 Tenant Root Group&lt;br/&gt;Contoso Corp]
+    
+    Root --&gt; Platform[⚙️ Platform&lt;br/&gt;Servicios compartidos]
+    Root --&gt; LandingZones[🎯 Landing Zones&lt;br/&gt;Cargas de trabajo]
+    Root --&gt; Sandbox[🧪 Sandbox&lt;br/&gt;Desarrollo y pruebas]
+    Root --&gt; Decommissioned[🗑️ Decommissioned&lt;br/&gt;Recursos obsoletos]
+    
+    Platform --&gt; Identity[🔐 Identity&lt;br/&gt;AD, IAM]
+    Platform --&gt; Management[📊 Management&lt;br/&gt;Monitoring, Logs]
+    Platform --&gt; Connectivity[🌐 Connectivity&lt;br/&gt;Networking, VPN]
+    
+    LandingZones --&gt; Corp[🏢 Corp&lt;br/&gt;Apps corporativas]
+    LandingZones --&gt; Online[🌍 Online&lt;br/&gt;Apps públicas]
+    
+    Corp --&gt; CorpProd[🟢 Corp-Production]
+    Corp --&gt; CorpNonProd[🟡 Corp-NonProduction]
+    
+    Online --&gt; OnlineProd[🟢 Online-Production]
+    Online --&gt; OnlineNonProd[🟡 Online-NonProduction]
+    
+    Sandbox --&gt; Dev[💻 Development]
+    Sandbox --&gt; Test[🧪 Testing]
+    
+    style Root fill:#e1f5ff
+    style Platform fill:#fff4e1
+    style LandingZones fill:#e8f5e9
+    style Sandbox fill:#fce4ec
+    style Decommissioned fill:#f5f5f5
+</code></pre>
+
+<p><strong>Diagrama detallado</strong>: <code class="language-plaintext highlighter-rouge">_assets/diagrams/management-groups-hierarchy-detailed.drawio</code></p>
+
+<h3 id="flujo-de-herencia-de-políticas-y-rbac">Flujo de Herencia de Políticas y RBAC</h3>
+
+<pre><code class="language-mermaid">flowchart LR
+    Root[Root MG&lt;br/&gt;📜 Política: Require Tags&lt;br/&gt;👤 Owner: CloudAdmins] 
+    
+    Root --&gt;|Hereda| Platform[Platform MG&lt;br/&gt;📜 + Deny Public IPs&lt;br/&gt;👤 + Contributor: PlatformTeam]
+    
+    Root --&gt;|Hereda| LZ[Landing Zones MG&lt;br/&gt;📜 + Allowed Locations&lt;br/&gt;👤 + Reader: SecurityTeam]
+    
+    Platform --&gt;|Hereda TODO| Identity[Identity MG&lt;br/&gt;📜 + MFA Required&lt;br/&gt;👤 + Contributor: IdentityTeam]
+    
+    LZ --&gt;|Hereda TODO| Prod[Production MG&lt;br/&gt;📜 + Backup Required&lt;br/&gt;👤 + Reader: DevTeam]
+    
+    style Root fill:#ffebee
+    style Platform fill:#fff3e0
+    style Identity fill:#e8f5e9
+    style LZ fill:#e3f2fd
+    style Prod fill:#f3e5f5
+</code></pre>
+
+<p><strong>Representación en código:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>flowchart LR
+    Root[Root MG&lt;br/&gt;📜 Política: Require Tags&lt;br/&gt;👤 Owner: CloudAdmins]
+    
+    Root --&gt;|Hereda| Platform[Platform MG&lt;br/&gt;📜 + Deny Public IPs&lt;br/&gt;👤 + Contributor: PlatformTeam]
+    
+    Root --&gt;|Hereda| LZ[Landing Zones MG&lt;br/&gt;📜 + Allowed Locations&lt;br/&gt;👤 + Reader: SecurityTeam]
+    
+    Platform --&gt;|Hereda TODO| Identity[Identity MG&lt;br/&gt;📜 + MFA Required&lt;br/&gt;👤 + Contributor: IdentityTeam]
+    
+    LZ --&gt;|Hereda TODO| Prod[Production MG&lt;br/&gt;📜 + Backup Required&lt;br/&gt;👤 + Reader: DevTeam]
+    
+    style Root fill:#ffebee
+    style Platform fill:#fff3e0
+    style Identity fill:#e8f5e9
+    style LZ fill:#e3f2fd
+    style Prod fill:#f3e5f5
+</code></pre></div></div>
+
+<h2 id="-3-diseño">🎨 3. Diseño</h2>
+
+<h3 id="naming-convention">Naming Convention</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Formato: mg-&lt;scope&gt;-&lt;environment&gt;-&lt;region&gt;
+
+Ejemplos:
+- mg-root-prod-global          (Root Management Group)
+- mg-platform-prod-global      (Platform services)
+- mg-landingzone-prod-global   (Landing zones)
+- mg-corp-prod-weu            (Corporate workloads West Europe)
+- mg-online-prod-eus          (Online apps East US)
+- mg-sandbox-dev-global       (Development sandboxes)
+</code></pre></div></div>
+
+<h3 id="estructura-jerárquica-recomendada">Estructura Jerárquica Recomendada</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nivel</th>
+      <th>Management Group</th>
+      <th>Propósito</th>
+      <th>Políticas Aplicadas</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Tenant Root</td>
+      <td>Raíz del tenant</td>
+      <td>Require Tags, Allowed Regions</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Platform</td>
+      <td>Servicios compartidos</td>
+      <td>Deny Public IPs, Network rules</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Landing Zones</td>
+      <td>Aplicaciones</td>
+      <td>Resource limits, Naming standards</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Sandbox</td>
+      <td>Desarrollo</td>
+      <td>Relaxed policies, Auto-shutdown</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Identity</td>
+      <td>AD, AAD</td>
+      <td>MFA enforcement, Identity policies</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Management</td>
+      <td>Monitoring</td>
+      <td>Log Analytics required</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Connectivity</td>
+      <td>Networking</td>
+      <td>Virtual Network rules</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Corp</td>
+      <td>Apps corporativas</td>
+      <td>Internal access only</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Online</td>
+      <td>Apps públicas</td>
+      <td>WAF required, DDoS protection</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Corp-Prod</td>
+      <td>Producción corp</td>
+      <td>Backup required, No delete lock</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Corp-NonProd</td>
+      <td>No-producción corp</td>
+      <td>Auto-shutdown nights</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="consideraciones-de-diseño">Consideraciones de Diseño</h3>
+
+<ul>
+  <li><strong>Límite de profundidad</strong>: Máximo 6 niveles (Root + 5 niveles hijos)</li>
+  <li><strong>Límite de Management Groups</strong>: 10,000 por directorio de Azure AD</li>
+  <li><strong>Límite de suscripciones</strong>: Sin límite por Management Group</li>
+  <li><strong>Tiempo de propagación</strong>: Políticas pueden tardar hasta 30 minutos en propagarse</li>
+  <li><strong>Movimientos de suscripciones</strong>: Requieren permisos Owner o Contributor en ambos MGs</li>
+</ul>
+
+<h2 id="-4-observabilidad">📊 4. Observabilidad</h2>
+
+<h3 id="auditoría-y-monitoreo">Auditoría y Monitoreo</h3>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"Alertas_Activity_Log"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"management_group_created"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Informational"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Microsoft.Management/managementGroups/write"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"notification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"governance-team@contoso.com"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"management_group_deleted"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Critical"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Microsoft.Management/managementGroups/delete"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"notification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"security-ops@contoso.com"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"subscription_moved"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"High"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Microsoft.Management/managementGroups/subscriptions/write"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"notification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cloud-admins@contoso.com"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"policy_assignment_modified"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Medium"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Microsoft.Authorization/policyAssignments/write"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"notification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"compliance-team@contoso.com"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"rbac_assignment_changed"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"High"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Microsoft.Authorization/roleAssignments/*"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"notification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"security-ops@contoso.com"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="logs-y-diagnósticos">Logs y Diagnósticos</h3>
+
+<ul>
+  <li><strong>Activity Logs</strong>: Habilitados para todas las operaciones de Management Group
+    <ul>
+      <li>Retención: 90 días en Log Analytics Workspace</li>
+      <li>Storage: Archivado a Storage Account por 2 años</li>
+    </ul>
+  </li>
+  <li><strong>Compliance Dashboard</strong>:
+    <ul>
+      <li>Azure Policy Compliance por Management Group</li>
+      <li>Actualización cada 4 horas</li>
+      <li>Dashboard URL: <code class="language-plaintext highlighter-rouge">https://portal.azure.com/#view/Microsoft_Azure_Policy/PolicyComplianceBlade</code></li>
+    </ul>
+  </li>
+  <li><strong>RBAC Reports</strong>:
+    <ul>
+      <li>Reporte mensual de asignaciones de roles</li>
+      <li>Identificación de permisos excesivos</li>
+      <li>Herramienta: Azure PIM + Custom PowerShell scripts</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="backupdr">Backup/DR</h3>
+
+<ul>
+  <li><strong>Configuración as Code</strong>: Toda la estructura en Terraform (Git repository)</li>
+  <li><strong>Backup diario</strong>: Terraform state en Azure Storage con versioning</li>
+  <li><strong>Disaster Recovery</strong>:
+    <ul>
+      <li>RPO: 1 día (backups diarios de Terraform state)</li>
+      <li>RTO: 4 horas (re-despliegue completo desde Terraform)</li>
+      <li>Procedimiento documentado en <code class="language-plaintext highlighter-rouge">runbooks/mg-disaster-recovery.md</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="parches-y-actualizaciones">Parches y Actualizaciones</h3>
+
+<ul>
+  <li><strong>Revisión trimestral</strong>: Estructura de Management Groups</li>
+  <li><strong>Actualizaciones de políticas</strong>: Según roadmap de Azure Policy</li>
+  <li><strong>Testing</strong>: Cambios siempre probados en Sandbox MG primero</li>
+  <li><strong>Ventana de cambios</strong>: Primer lunes de cada mes, 18:00-20:00 CET</li>
+</ul>
+
+<h3 id="dashboards">Dashboards</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Azure Portal Dashboards:
+├── Management Groups Overview
+│   ├── Jerarquía completa
+│   ├── Número de suscripciones por MG
+│   └── Estado de compliance
+├── Policy Compliance
+│   ├── Políticas por MG
+│   ├── Non-compliant resources
+│   └── Exemptions activas
+└── Cost Management
+    ├── Costes por Management Group
+    ├── Tendencias mensuales
+    └── Presupuestos y alertas
+</code></pre></div></div>
+
+<p><strong>Dashboard JSON</strong>: <code class="language-plaintext highlighter-rouge">_assets/dashboards/management-groups-dashboard.json</code></p>
+
+<h2 id="️-5-implementación-iac">⚙️ 5. Implementación (IaC)</h2>
+
+<h3 id="terraform">Terraform</h3>
+
+<div class="language-hcl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># terraform/main.tf</span>
+<span class="c1"># Management Group Hierarchy</span>
+
+<span class="nx">terraform</span> <span class="p">{</span>
+  <span class="nx">required_providers</span> <span class="p">{</span>
+    <span class="nx">azurerm</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">source</span>  <span class="o">=</span> <span class="s2">"hashicorp/azurerm"</span>
+      <span class="nx">version</span> <span class="o">=</span> <span class="s2">"~&gt; 3.85"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="nx">backend</span> <span class="s2">"azurerm"</span> <span class="p">{</span>
+    <span class="nx">resource_group_name</span>  <span class="o">=</span> <span class="s2">"rg-terraform-state"</span>
+    <span class="nx">storage_account_name</span> <span class="o">=</span> <span class="s2">"sttfstatecontoso"</span>
+    <span class="nx">container_name</span>       <span class="o">=</span> <span class="s2">"tfstate"</span>
+    <span class="nx">key</span>                  <span class="o">=</span> <span class="s2">"management-groups.tfstate"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">provider</span> <span class="s2">"azurerm"</span> <span class="p">{</span>
+  <span class="nx">features</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="c1"># Root Management Group (ya existe, solo referencia)</span>
+<span class="nx">data</span> <span class="s2">"azurerm_management_group"</span> <span class="s2">"root"</span> <span class="p">{</span>
+  <span class="nx">name</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">azurerm_client_config</span><span class="p">.</span><span class="nx">current</span><span class="p">.</span><span class="nx">tenant_id</span>
+<span class="p">}</span>
+
+<span class="nx">data</span> <span class="s2">"azurerm_client_config"</span> <span class="s2">"current"</span> <span class="p">{}</span>
+
+<span class="c1"># Platform Management Group</span>
+<span class="nx">resource</span> <span class="s2">"azurerm_management_group"</span> <span class="s2">"platform"</span> <span class="p">{</span>
+  <span class="nx">display_name</span>               <span class="o">=</span> <span class="s2">"Platform"</span>
+  <span class="nx">parent_management_group_id</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">id</span>
+  
+  <span class="nx">subscription_ids</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="p">}</span>
+
+<span class="c1"># Identity Management Group</span>
+<span class="nx">resource</span> <span class="s2">"azurerm_management_group"</span> <span class="s2">"identity"</span> <span class="p">{</span>
+  <span class="nx">display_name</span>               <span class="o">=</span> <span class="s2">"Identity"</span>
+  <span class="nx">parent_management_group_id</span> <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">platform</span><span class="p">.</span><span class="nx">id</span>
+  
+  <span class="nx">subscription_ids</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nx">var</span><span class="p">.</span><span class="nx">subscription_id_identity_prod</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Management Services MG</span>
+<span class="nx">resource</span> <span class="s2">"azurerm_management_group"</span> <span class="s2">"management"</span> <span class="p">{</span>
+  <span class="nx">display_name</span>               <span class="o">=</span> <span class="s2">"Management"</span>
+  <span class="nx">parent_management_group_id</span> <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">platform</span><span class="p">.</span><span class="nx">id</span>
+  
+  <span class="nx">subscription_ids</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nx">var</span><span class="p">.</span><span class="nx">subscription_id_monitoring_prod</span><span class="p">,</span>
+    <span class="nx">var</span><span class="p">.</span><span class="nx">subscription_id_logging_prod</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Connectivity Management Group</span>
+<span class="nx">resource</span> <span class="s2">"azurerm_management_group"</span> <span class="s2">"connectivity"</span> <span class="p">{</span>
+  <span class="nx">display_name</span>               <span class="o">=</span> <span class="s2">"Connectivity"</span>
+  <span class="nx">parent_management_group_id</span> <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">platform</span><span class="p">.</span><span class="nx">id</span>
+  
+  <span class="nx">subscription_ids</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nx">var</span><span class="p">.</span><span class="nx">subscription_id_network_hub_prod</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Landing Zones Management Group</span>
+<span class="nx">resource</span> <span class="s2">"azurerm_management_group"</span> <span class="s2">"landing_zones"</span> <span class="p">{</span>
+  <span class="nx">display_name</span>               <span class="o">=</span> <span class="s2">"Landing-Zones"</span>
+  <span class="nx">parent_management_group_id</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">id</span>
+  
+  <span class="nx">subscription_ids</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="p">}</span>
+
+<span class="c1"># Corp Management Group</span>
+<span class="nx">resource</span> <span class="s2">"azurerm_management_group"</span> <span class="s2">"corp"</span> <span class="p">{</span>
+  <span class="nx">display_name</span>               <span class="o">=</span> <span class="s2">"Corp"</span>
+  <span class="nx">parent_management_group_id</span> <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">landing_zones</span><span class="p">.</span><span class="nx">id</span>
+  
+  <span class="nx">subscription_ids</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="p">}</span>
+
+<span class="c1"># Corp Production</span>
+<span class="nx">resource</span> <span class="s2">"azurerm_management_group"</span> <span class="s2">"corp_prod"</span> <span class="p">{</span>
+  <span class="nx">display_name</span>               <span class="o">=</span> <span class="s2">"Corp-Production"</span>
+  <span class="nx">parent_management_group_id</span> <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">corp</span><span class="p">.</span><span class="nx">id</span>
+  
+  <span class="nx">subscription_ids</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nx">var</span><span class="p">.</span><span class="nx">subscription_id_app1_prod</span><span class="p">,</span>
+    <span class="nx">var</span><span class="p">.</span><span class="nx">subscription_id_app2_prod</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Corp Non-Production</span>
+<span class="nx">resource</span> <span class="s2">"azurerm_management_group"</span> <span class="s2">"corp_nonprod"</span> <span class="p">{</span>
+  <span class="nx">display_name</span>               <span class="o">=</span> <span class="s2">"Corp-NonProduction"</span>
+  <span class="nx">parent_management_group_id</span> <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">corp</span><span class="p">.</span><span class="nx">id</span>
+  
+  <span class="nx">subscription_ids</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nx">var</span><span class="p">.</span><span class="nx">subscription_id_app1_dev</span><span class="p">,</span>
+    <span class="nx">var</span><span class="p">.</span><span class="nx">subscription_id_app1_test</span><span class="p">,</span>
+    <span class="nx">var</span><span class="p">.</span><span class="nx">subscription_id_app2_dev</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Online Management Group</span>
+<span class="nx">resource</span> <span class="s2">"azurerm_management_group"</span> <span class="s2">"online"</span> <span class="p">{</span>
+  <span class="nx">display_name</span>               <span class="o">=</span> <span class="s2">"Online"</span>
+  <span class="nx">parent_management_group_id</span> <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">landing_zones</span><span class="p">.</span><span class="nx">id</span>
+  
+  <span class="nx">subscription_ids</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="p">}</span>
+
+<span class="c1"># Online Production</span>
+<span class="nx">resource</span> <span class="s2">"azurerm_management_group"</span> <span class="s2">"online_prod"</span> <span class="p">{</span>
+  <span class="nx">display_name</span>               <span class="o">=</span> <span class="s2">"Online-Production"</span>
+  <span class="nx">parent_management_group_id</span> <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">online</span><span class="p">.</span><span class="nx">id</span>
+  
+  <span class="nx">subscription_ids</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nx">var</span><span class="p">.</span><span class="nx">subscription_id_ecommerce_prod</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Online Non-Production</span>
+<span class="nx">resource</span> <span class="s2">"azurerm_management_group"</span> <span class="s2">"online_nonprod"</span> <span class="p">{</span>
+  <span class="nx">display_name</span>               <span class="o">=</span> <span class="s2">"Online-NonProduction"</span>
+  <span class="nx">parent_management_group_id</span> <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">online</span><span class="p">.</span><span class="nx">id</span>
+  
+  <span class="nx">subscription_ids</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nx">var</span><span class="p">.</span><span class="nx">subscription_id_ecommerce_staging</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Sandbox Management Group</span>
+<span class="nx">resource</span> <span class="s2">"azurerm_management_group"</span> <span class="s2">"sandbox"</span> <span class="p">{</span>
+  <span class="nx">display_name</span>               <span class="o">=</span> <span class="s2">"Sandbox"</span>
+  <span class="nx">parent_management_group_id</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">id</span>
+  
+  <span class="nx">subscription_ids</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nx">var</span><span class="p">.</span><span class="nx">subscription_id_sandbox_dev1</span><span class="p">,</span>
+    <span class="nx">var</span><span class="p">.</span><span class="nx">subscription_id_sandbox_dev2</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Decommissioned Management Group</span>
+<span class="nx">resource</span> <span class="s2">"azurerm_management_group"</span> <span class="s2">"decommissioned"</span> <span class="p">{</span>
+  <span class="nx">display_name</span>               <span class="o">=</span> <span class="s2">"Decommissioned"</span>
+  <span class="nx">parent_management_group_id</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">id</span>
+  
+  <span class="nx">subscription_ids</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="p">}</span>
+
+<span class="c1"># Policy Assignment - Require Tags (Root level)</span>
+<span class="nx">resource</span> <span class="s2">"azurerm_management_group_policy_assignment"</span> <span class="s2">"require_tags"</span> <span class="p">{</span>
+  <span class="nx">name</span>                 <span class="o">=</span> <span class="s2">"require-tags-policy"</span>
+  <span class="nx">display_name</span>         <span class="o">=</span> <span class="s2">"Require specific tags on resources"</span>
+  <span class="nx">management_group_id</span>  <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">id</span>
+  <span class="nx">policy_definition_id</span> <span class="o">=</span> <span class="s2">"/providers/Microsoft.Authorization/policyDefinitions/1e30110a-5ceb-460c-a204-c1c3969c6d62"</span>
+  
+  <span class="nx">parameters</span> <span class="o">=</span> <span class="nx">jsonencode</span><span class="p">({</span>
+    <span class="nx">tagName</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">value</span> <span class="o">=</span> <span class="s2">"CostCenter"</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+
+<span class="c1"># Policy Assignment - Allowed Locations</span>
+<span class="nx">resource</span> <span class="s2">"azurerm_management_group_policy_assignment"</span> <span class="s2">"allowed_locations"</span> <span class="p">{</span>
+  <span class="nx">name</span>                 <span class="o">=</span> <span class="s2">"allowed-locations"</span>
+  <span class="nx">display_name</span>         <span class="o">=</span> <span class="s2">"Allowed Azure Regions"</span>
+  <span class="nx">management_group_id</span>  <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">id</span>
+  <span class="nx">policy_definition_id</span> <span class="o">=</span> <span class="s2">"/providers/Microsoft.Authorization/policyDefinitions/e56962a6-4747-49cd-b67b-bf8b01975c4c"</span>
+  
+  <span class="nx">parameters</span> <span class="o">=</span> <span class="nx">jsonencode</span><span class="p">({</span>
+    <span class="nx">listOfAllowedLocations</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">value</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">"westeurope"</span><span class="p">,</span>
+        <span class="s2">"northeurope"</span><span class="p">,</span>
+        <span class="s2">"eastus"</span><span class="p">,</span>
+        <span class="s2">"westus"</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+
+<span class="c1"># RBAC Assignment - Cloud Administrators</span>
+<span class="nx">resource</span> <span class="s2">"azurerm_role_assignment"</span> <span class="s2">"cloud_admins_root"</span> <span class="p">{</span>
+  <span class="nx">scope</span>                <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">id</span>
+  <span class="nx">role_definition_name</span> <span class="o">=</span> <span class="s2">"Owner"</span>
+  <span class="nx">principal_id</span>         <span class="o">=</span> <span class="nx">var</span><span class="p">.</span><span class="nx">aad_group_cloud_admins_object_id</span>
+<span class="p">}</span>
+
+<span class="c1"># RBAC Assignment - Platform Team</span>
+<span class="nx">resource</span> <span class="s2">"azurerm_role_assignment"</span> <span class="s2">"platform_team"</span> <span class="p">{</span>
+  <span class="nx">scope</span>                <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">platform</span><span class="p">.</span><span class="nx">id</span>
+  <span class="nx">role_definition_name</span> <span class="o">=</span> <span class="s2">"Contributor"</span>
+  <span class="nx">principal_id</span>         <span class="o">=</span> <span class="nx">var</span><span class="p">.</span><span class="nx">aad_group_platform_team_object_id</span>
+<span class="p">}</span>
+
+<span class="c1"># RBAC Assignment - Security Team (Reader en Landing Zones)</span>
+<span class="nx">resource</span> <span class="s2">"azurerm_role_assignment"</span> <span class="s2">"security_team_reader"</span> <span class="p">{</span>
+  <span class="nx">scope</span>                <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">landing_zones</span><span class="p">.</span><span class="nx">id</span>
+  <span class="nx">role_definition_name</span> <span class="o">=</span> <span class="s2">"Reader"</span>
+  <span class="nx">principal_id</span>         <span class="o">=</span> <span class="nx">var</span><span class="p">.</span><span class="nx">aad_group_security_team_object_id</span>
+<span class="p">}</span>
+
+<span class="c1"># Outputs</span>
+<span class="nx">output</span> <span class="s2">"management_group_ids"</span> <span class="p">{</span>
+  <span class="nx">description</span> <span class="o">=</span> <span class="s2">"Map of all Management Group IDs"</span>
+  <span class="nx">value</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">platform</span>       <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">platform</span><span class="p">.</span><span class="nx">id</span>
+    <span class="nx">identity</span>       <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">identity</span><span class="p">.</span><span class="nx">id</span>
+    <span class="nx">management</span>     <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">management</span><span class="p">.</span><span class="nx">id</span>
+    <span class="nx">connectivity</span>   <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">connectivity</span><span class="p">.</span><span class="nx">id</span>
+    <span class="nx">landing_zones</span>  <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">landing_zones</span><span class="p">.</span><span class="nx">id</span>
+    <span class="nx">corp</span>           <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">corp</span><span class="p">.</span><span class="nx">id</span>
+    <span class="nx">corp_prod</span>      <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">corp_prod</span><span class="p">.</span><span class="nx">id</span>
+    <span class="nx">corp_nonprod</span>   <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">corp_nonprod</span><span class="p">.</span><span class="nx">id</span>
+    <span class="nx">online</span>         <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">online</span><span class="p">.</span><span class="nx">id</span>
+    <span class="nx">online_prod</span>    <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">online_prod</span><span class="p">.</span><span class="nx">id</span>
+    <span class="nx">online_nonprod</span> <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">online_nonprod</span><span class="p">.</span><span class="nx">id</span>
+    <span class="nx">sandbox</span>        <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">id</span>
+    <span class="nx">decommissioned</span> <span class="o">=</span> <span class="nx">azurerm_management_group</span><span class="p">.</span><span class="nx">decommissioned</span><span class="p">.</span><span class="nx">id</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-hcl highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># terraform/variables.tf</span>
+
+<span class="nx">variable</span> <span class="s2">"subscription_id_identity_prod"</span> <span class="p">{</span>
+  <span class="nx">description</span> <span class="o">=</span> <span class="s2">"Subscription ID for Identity services (Production)"</span>
+  <span class="nx">type</span>        <span class="o">=</span> <span class="nx">string</span>
+<span class="p">}</span>
+
+<span class="nx">variable</span> <span class="s2">"subscription_id_monitoring_prod"</span> <span class="p">{</span>
+  <span class="nx">description</span> <span class="o">=</span> <span class="s2">"Subscription ID for Monitoring services"</span>
+  <span class="nx">type</span>        <span class="o">=</span> <span class="nx">string</span>
+<span class="p">}</span>
+
+<span class="nx">variable</span> <span class="s2">"subscription_id_logging_prod"</span> <span class="p">{</span>
+  <span class="nx">description</span> <span class="o">=</span> <span class="s2">"Subscription ID for Logging services"</span>
+  <span class="nx">type</span>        <span class="o">=</span> <span class="nx">string</span>
+<span class="p">}</span>
+
+<span class="nx">variable</span> <span class="s2">"subscription_id_network_hub_prod"</span> <span class="p">{</span>
+  <span class="nx">description</span> <span class="o">=</span> <span class="s2">"Subscription ID for Network Hub"</span>
+  <span class="nx">type</span>        <span class="o">=</span> <span class="nx">string</span>
+<span class="p">}</span>
+
+<span class="nx">variable</span> <span class="s2">"subscription_id_app1_prod"</span> <span class="p">{</span>
+  <span class="nx">description</span> <span class="o">=</span> <span class="s2">"Subscription ID for App1 Production"</span>
+  <span class="nx">type</span>        <span class="o">=</span> <span class="nx">string</span>
+<span class="p">}</span>
+
+<span class="nx">variable</span> <span class="s2">"subscription_id_app2_prod"</span> <span class="p">{</span>
+  <span class="nx">description</span> <span class="o">=</span> <span class="s2">"Subscription ID for App2 Production"</span>
+  <span class="nx">type</span>        <span class="o">=</span> <span class="nx">string</span>
+<span class="p">}</span>
+
+<span class="nx">variable</span> <span class="s2">"subscription_id_app1_dev"</span> <span class="p">{</span>
+  <span class="nx">description</span> <span class="o">=</span> <span class="s2">"Subscription ID for App1 Development"</span>
+  <span class="nx">type</span>        <span class="o">=</span> <span class="nx">string</span>
+<span class="p">}</span>
+
+<span class="nx">variable</span> <span class="s2">"subscription_id_app1_test"</span> <span class="p">{</span>
+  <span class="nx">description</span> <span class="o">=</span> <span class="s2">"Subscription ID for App1 Testing"</span>
+  <span class="nx">type</span>        <span class="o">=</span> <span class="nx">string</span>
+<span class="p">}</span>
+
+<span class="nx">variable</span> <span class="s2">"subscription_id_app2_dev"</span> <span class="p">{</span>
+  <span class="nx">description</span> <span class="o">=</span> <span class="s2">"Subscription ID for App2 Development"</span>
+  <span class="nx">type</span>        <span class="o">=</span> <span class="nx">string</span>
+<span class="p">}</span>
+
+<span class="nx">variable</span> <span class="s2">"subscription_id_ecommerce_prod"</span> <span class="p">{</span>
+  <span class="nx">description</span> <span class="o">=</span> <span class="s2">"Subscription ID for E-commerce Production"</span>
+  <span class="nx">type</span>        <span class="o">=</span> <span class="nx">string</span>
+<span class="p">}</span>
+
+<span class="nx">variable</span> <span class="s2">"subscription_id_ecommerce_staging"</span> <span class="p">{</span>
+  <span class="nx">description</span> <span class="o">=</span> <span class="s2">"Subscription ID for E-commerce Staging"</span>
+  <span class="nx">type</span>        <span class="o">=</span> <span class="nx">string</span>
+<span class="p">}</span>
+
+<span class="nx">variable</span> <span class="s2">"subscription_id_sandbox_dev1"</span> <span class="p">{</span>
+  <span class="nx">description</span> <span class="o">=</span> <span class="s2">"Subscription ID for Sandbox Dev 1"</span>
+  <span class="nx">type</span>        <span class="o">=</span> <span class="nx">string</span>
+<span class="p">}</span>
+
+<span class="nx">variable</span> <span class="s2">"subscription_id_sandbox_dev2"</span> <span class="p">{</span>
+  <span class="nx">description</span> <span class="o">=</span> <span class="s2">"Subscription ID for Sandbox Dev 2"</span>
+  <span class="nx">type</span>        <span class="o">=</span> <span class="nx">string</span>
+<span class="p">}</span>
+
+<span class="nx">variable</span> <span class="s2">"aad_group_cloud_admins_object_id"</span> <span class="p">{</span>
+  <span class="nx">description</span> <span class="o">=</span> <span class="s2">"Azure AD Group Object ID for Cloud Administrators"</span>
+  <span class="nx">type</span>        <span class="o">=</span> <span class="nx">string</span>
+<span class="p">}</span>
+
+<span class="nx">variable</span> <span class="s2">"aad_group_platform_team_object_id"</span> <span class="p">{</span>
+  <span class="nx">description</span> <span class="o">=</span> <span class="s2">"Azure AD Group Object ID for Platform Team"</span>
+  <span class="nx">type</span>        <span class="o">=</span> <span class="nx">string</span>
+<span class="p">}</span>
+
+<span class="nx">variable</span> <span class="s2">"aad_group_security_team_object_id"</span> <span class="p">{</span>
+  <span class="nx">description</span> <span class="o">=</span> <span class="s2">"Azure AD Group Object ID for Security Team"</span>
+  <span class="nx">type</span>        <span class="o">=</span> <span class="nx">string</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="bicep">Bicep</h3>
+
+<div class="language-bicep highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// bicep/management-groups.bicep</span>
+<span class="k">targetScope</span> <span class="p">=</span> <span class="s1">'managementGroup'</span>
+
+<span class="c1">// Parameters</span>
+<span class="k">param</span> <span class="n">platformMgName</span> <span class="kt">string</span> <span class="p">=</span> <span class="s1">'Platform'</span>
+<span class="k">param</span> <span class="n">landingZonesMgName</span> <span class="kt">string</span> <span class="p">=</span> <span class="s1">'Landing-Zones'</span>
+<span class="k">param</span> <span class="n">sandboxMgName</span> <span class="kt">string</span> <span class="p">=</span> <span class="s1">'Sandbox'</span>
+<span class="k">param</span> <span class="n">decommissionedMgName</span> <span class="kt">string</span> <span class="p">=</span> <span class="s1">'Decommissioned'</span>
+
+<span class="k">param</span> <span class="n">identitySubscriptionId</span> <span class="kt">string</span>
+<span class="k">param</span> <span class="n">monitoringSubscriptionId</span> <span class="kt">string</span>
+<span class="k">param</span> <span class="n">loggingSubscriptionId</span> <span class="kt">string</span>
+<span class="k">param</span> <span class="n">networkHubSubscriptionId</span> <span class="kt">string</span>
+
+<span class="c1">// Note: Root Management Group is implicit in Azure</span>
+
+<span class="c1">// Platform Management Group</span>
+<span class="k">resource</span> <span class="n">platformMg</span> <span class="s1">'Microsoft.Management/managementGroups@2023-04-01'</span> <span class="p">=</span> <span class="pi">{</span>
+  <span class="py">name</span><span class="p">:</span> <span class="nf">guid</span><span class="p">(</span><span class="n">platformMgName</span><span class="p">)</span>
+  <span class="py">properties</span><span class="p">:</span> <span class="pi">{</span>
+    <span class="py">displayName</span><span class="p">:</span> <span class="n">platformMgName</span>
+    <span class="py">details</span><span class="p">:</span> <span class="pi">{</span>
+      <span class="py">parent</span><span class="p">:</span> <span class="pi">{</span>
+        <span class="py">id</span><span class="p">:</span> <span class="nf">tenantResourceId</span><span class="p">(</span><span class="s1">'Microsoft.Management/managementGroups'</span><span class="p">,</span> <span class="nf">tenant</span><span class="p">().</span><span class="n">tenantId</span><span class="p">)</span>
+      <span class="pi">}</span>
+    <span class="pi">}</span>
+  <span class="pi">}</span>
+<span class="pi">}</span>
+
+<span class="c1">// Identity Management Group</span>
+<span class="k">resource</span> <span class="n">identityMg</span> <span class="s1">'Microsoft.Management/managementGroups@2023-04-01'</span> <span class="p">=</span> <span class="pi">{</span>
+  <span class="py">name</span><span class="p">:</span> <span class="nf">guid</span><span class="p">(</span><span class="s1">'Identity'</span><span class="p">,</span> <span class="n">platformMgName</span><span class="p">)</span>
+  <span class="py">properties</span><span class="p">:</span> <span class="pi">{</span>
+    <span class="py">displayName</span><span class="p">:</span> <span class="s1">'Identity'</span>
+    <span class="py">details</span><span class="p">:</span> <span class="pi">{</span>
+      <span class="py">parent</span><span class="p">:</span> <span class="pi">{</span>
+        <span class="py">id</span><span class="p">:</span> <span class="n">platformMg</span><span class="p">.</span><span class="n">id</span>
+      <span class="pi">}</span>
+    <span class="pi">}</span>
+  <span class="pi">}</span>
+<span class="pi">}</span>
+
+<span class="c1">// Subscription association for Identity</span>
+<span class="k">resource</span> <span class="n">identitySubAssociation</span> <span class="s1">'Microsoft.Management/managementGroups/subscriptions@2023-04-01'</span> <span class="p">=</span> <span class="pi">{</span>
+  <span class="py">name</span><span class="p">:</span> <span class="n">identitySubscriptionId</span>
+  <span class="py">parent</span><span class="p">:</span> <span class="n">identityMg</span>
+<span class="pi">}</span>
+
+<span class="c1">// Management Services MG</span>
+<span class="k">resource</span> <span class="n">managementMg</span> <span class="s1">'Microsoft.Management/managementGroups@2023-04-01'</span> <span class="p">=</span> <span class="pi">{</span>
+  <span class="py">name</span><span class="p">:</span> <span class="nf">guid</span><span class="p">(</span><span class="s1">'Management'</span><span class="p">,</span> <span class="n">platformMgName</span><span class="p">)</span>
+  <span class="py">properties</span><span class="p">:</span> <span class="pi">{</span>
+    <span class="py">displayName</span><span class="p">:</span> <span class="s1">'Management'</span>
+    <span class="py">details</span><span class="p">:</span> <span class="pi">{</span>
+      <span class="py">parent</span><span class="p">:</span> <span class="pi">{</span>
+        <span class="py">id</span><span class="p">:</span> <span class="n">platformMg</span><span class="p">.</span><span class="n">id</span>
+      <span class="pi">}</span>
+    <span class="pi">}</span>
+  <span class="pi">}</span>
+<span class="pi">}</span>
+
+<span class="c1">// Connectivity Management Group</span>
+<span class="k">resource</span> <span class="n">connectivityMg</span> <span class="s1">'Microsoft.Management/managementGroups@2023-04-01'</span> <span class="p">=</span> <span class="pi">{</span>
+  <span class="py">name</span><span class="p">:</span> <span class="nf">guid</span><span class="p">(</span><span class="s1">'Connectivity'</span><span class="p">,</span> <span class="n">platformMgName</span><span class="p">)</span>
+  <span class="py">properties</span><span class="p">:</span> <span class="pi">{</span>
+    <span class="py">displayName</span><span class="p">:</span> <span class="s1">'Connectivity'</span>
+    <span class="py">details</span><span class="p">:</span> <span class="pi">{</span>
+      <span class="py">parent</span><span class="p">:</span> <span class="pi">{</span>
+        <span class="py">id</span><span class="p">:</span> <span class="n">platformMg</span><span class="p">.</span><span class="n">id</span>
+      <span class="pi">}</span>
+    <span class="pi">}</span>
+  <span class="pi">}</span>
+<span class="pi">}</span>
+
+<span class="c1">// Landing Zones Management Group</span>
+<span class="k">resource</span> <span class="n">landingZonesMg</span> <span class="s1">'Microsoft.Management/managementGroups@2023-04-01'</span> <span class="p">=</span> <span class="pi">{</span>
+  <span class="py">name</span><span class="p">:</span> <span class="nf">guid</span><span class="p">(</span><span class="n">landingZonesMgName</span><span class="p">)</span>
+  <span class="py">properties</span><span class="p">:</span> <span class="pi">{</span>
+    <span class="py">displayName</span><span class="p">:</span> <span class="n">landingZonesMgName</span>
+    <span class="py">details</span><span class="p">:</span> <span class="pi">{</span>
+      <span class="py">parent</span><span class="p">:</span> <span class="pi">{</span>
+        <span class="py">id</span><span class="p">:</span> <span class="nf">tenantResourceId</span><span class="p">(</span><span class="s1">'Microsoft.Management/managementGroups'</span><span class="p">,</span> <span class="nf">tenant</span><span class="p">().</span><span class="n">tenantId</span><span class="p">)</span>
+      <span class="pi">}</span>
+    <span class="pi">}</span>
+  <span class="pi">}</span>
+<span class="pi">}</span>
+
+<span class="c1">// Corp Management Group</span>
+<span class="k">resource</span> <span class="n">corpMg</span> <span class="s1">'Microsoft.Management/managementGroups@2023-04-01'</span> <span class="p">=</span> <span class="pi">{</span>
+  <span class="py">name</span><span class="p">:</span> <span class="nf">guid</span><span class="p">(</span><span class="s1">'Corp'</span><span class="p">,</span> <span class="n">landingZonesMgName</span><span class="p">)</span>
+  <span class="py">properties</span><span class="p">:</span> <span class="pi">{</span>
+    <span class="py">displayName</span><span class="p">:</span> <span class="s1">'Corp'</span>
+    <span class="py">details</span><span class="p">:</span> <span class="pi">{</span>
+      <span class="py">parent</span><span class="p">:</span> <span class="pi">{</span>
+        <span class="py">id</span><span class="p">:</span> <span class="n">landingZonesMg</span><span class="p">.</span><span class="n">id</span>
+      <span class="pi">}</span>
+    <span class="pi">}</span>
+  <span class="pi">}</span>
+<span class="pi">}</span>
+
+<span class="c1">// Corp Production</span>
+<span class="k">resource</span> <span class="n">corpProdMg</span> <span class="s1">'Microsoft.Management/managementGroups@2023-04-01'</span> <span class="p">=</span> <span class="pi">{</span>
+  <span class="py">name</span><span class="p">:</span> <span class="nf">guid</span><span class="p">(</span><span class="s1">'Corp-Production'</span><span class="p">)</span>
+  <span class="py">properties</span><span class="p">:</span> <span class="pi">{</span>
+    <span class="py">displayName</span><span class="p">:</span> <span class="s1">'Corp-Production'</span>
+    <span class="py">details</span><span class="p">:</span> <span class="pi">{</span>
+      <span class="py">parent</span><span class="p">:</span> <span class="pi">{</span>
+        <span class="py">id</span><span class="p">:</span> <span class="n">corpMg</span><span class="p">.</span><span class="n">id</span>
+      <span class="pi">}</span>
+    <span class="pi">}</span>
+  <span class="pi">}</span>
+<span class="pi">}</span>
+
+<span class="c1">// Corp Non-Production</span>
+<span class="k">resource</span> <span class="n">corpNonProdMg</span> <span class="s1">'Microsoft.Management/managementGroups@2023-04-01'</span> <span class="p">=</span> <span class="pi">{</span>
+  <span class="py">name</span><span class="p">:</span> <span class="nf">guid</span><span class="p">(</span><span class="s1">'Corp-NonProduction'</span><span class="p">)</span>
+  <span class="py">properties</span><span class="p">:</span> <span class="pi">{</span>
+    <span class="py">displayName</span><span class="p">:</span> <span class="s1">'Corp-NonProduction'</span>
+    <span class="py">details</span><span class="p">:</span> <span class="pi">{</span>
+      <span class="py">parent</span><span class="p">:</span> <span class="pi">{</span>
+        <span class="py">id</span><span class="p">:</span> <span class="n">corpMg</span><span class="p">.</span><span class="n">id</span>
+      <span class="pi">}</span>
+    <span class="pi">}</span>
+  <span class="pi">}</span>
+<span class="pi">}</span>
+
+<span class="c1">// Online Management Group</span>
+<span class="k">resource</span> <span class="n">onlineMg</span> <span class="s1">'Microsoft.Management/managementGroups@2023-04-01'</span> <span class="p">=</span> <span class="pi">{</span>
+  <span class="py">name</span><span class="p">:</span> <span class="nf">guid</span><span class="p">(</span><span class="s1">'Online'</span><span class="p">,</span> <span class="n">landingZonesMgName</span><span class="p">)</span>
+  <span class="py">properties</span><span class="p">:</span> <span class="pi">{</span>
+    <span class="py">displayName</span><span class="p">:</span> <span class="s1">'Online'</span>
+    <span class="py">details</span><span class="p">:</span> <span class="pi">{</span>
+      <span class="py">parent</span><span class="p">:</span> <span class="pi">{</span>
+        <span class="py">id</span><span class="p">:</span> <span class="n">landingZonesMg</span><span class="p">.</span><span class="n">id</span>
+      <span class="pi">}</span>
+    <span class="pi">}</span>
+  <span class="pi">}</span>
+<span class="pi">}</span>
+
+<span class="c1">// Online Production</span>
+<span class="k">resource</span> <span class="n">onlineProdMg</span> <span class="s1">'Microsoft.Management/managementGroups@2023-04-01'</span> <span class="p">=</span> <span class="pi">{</span>
+  <span class="py">name</span><span class="p">:</span> <span class="nf">guid</span><span class="p">(</span><span class="s1">'Online-Production'</span><span class="p">)</span>
+  <span class="py">properties</span><span class="p">:</span> <span class="pi">{</span>
+    <span class="py">displayName</span><span class="p">:</span> <span class="s1">'Online-Production'</span>
+    <span class="py">details</span><span class="p">:</span> <span class="pi">{</span>
+      <span class="py">parent</span><span class="p">:</span> <span class="pi">{</span>
+        <span class="py">id</span><span class="p">:</span> <span class="n">onlineMg</span><span class="p">.</span><span class="n">id</span>
+      <span class="pi">}</span>
+    <span class="pi">}</span>
+  <span class="pi">}</span>
+<span class="pi">}</span>
+
+<span class="c1">// Online Non-Production</span>
+<span class="k">resource</span> <span class="n">onlineNonProdMg</span> <span class="s1">'Microsoft.Management/managementGroups@2023-04-01'</span> <span class="p">=</span> <span class="pi">{</span>
+  <span class="py">name</span><span class="p">:</span> <span class="nf">guid</span><span class="p">(</span><span class="s1">'Online-NonProduction'</span><span class="p">)</span>
+  <span class="py">properties</span><span class="p">:</span> <span class="pi">{</span>
+    <span class="py">displayName</span><span class="p">:</span> <span class="s1">'Online-NonProduction'</span>
+    <span class="py">details</span><span class="p">:</span> <span class="pi">{</span>
+      <span class="py">parent</span><span class="p">:</span> <span class="pi">{</span>
+        <span class="py">id</span><span class="p">:</span> <span class="n">onlineMg</span><span class="p">.</span><span class="n">id</span>
+      <span class="pi">}</span>
+    <span class="pi">}</span>
+  <span class="pi">}</span>
+<span class="pi">}</span>
+
+<span class="c1">// Sandbox Management Group</span>
+<span class="k">resource</span> <span class="n">sandboxMg</span> <span class="s1">'Microsoft.Management/managementGroups@2023-04-01'</span> <span class="p">=</span> <span class="pi">{</span>
+  <span class="py">name</span><span class="p">:</span> <span class="nf">guid</span><span class="p">(</span><span class="n">sandboxMgName</span><span class="p">)</span>
+  <span class="py">properties</span><span class="p">:</span> <span class="pi">{</span>
+    <span class="py">displayName</span><span class="p">:</span> <span class="n">sandboxMgName</span>
+    <span class="py">details</span><span class="p">:</span> <span class="pi">{</span>
+      <span class="py">parent</span><span class="p">:</span> <span class="pi">{</span>
+        <span class="py">id</span><span class="p">:</span> <span class="nf">tenantResourceId</span><span class="p">(</span><span class="s1">'Microsoft.Management/managementGroups'</span><span class="p">,</span> <span class="nf">tenant</span><span class="p">().</span><span class="n">tenantId</span><span class="p">)</span>
+      <span class="pi">}</span>
+    <span class="pi">}</span>
+  <span class="pi">}</span>
+<span class="pi">}</span>
+
+<span class="c1">// Decommissioned Management Group</span>
+<span class="k">resource</span> <span class="n">decommissionedMg</span> <span class="s1">'Microsoft.Management/managementGroups@2023-04-01'</span> <span class="p">=</span> <span class="pi">{</span>
+  <span class="py">name</span><span class="p">:</span> <span class="nf">guid</span><span class="p">(</span><span class="n">decommissionedMgName</span><span class="p">)</span>
+  <span class="py">properties</span><span class="p">:</span> <span class="pi">{</span>
+    <span class="py">displayName</span><span class="p">:</span> <span class="n">decommissionedMgName</span>
+    <span class="py">details</span><span class="p">:</span> <span class="pi">{</span>
+      <span class="py">parent</span><span class="p">:</span> <span class="pi">{</span>
+        <span class="py">id</span><span class="p">:</span> <span class="nf">tenantResourceId</span><span class="p">(</span><span class="s1">'Microsoft.Management/managementGroups'</span><span class="p">,</span> <span class="nf">tenant</span><span class="p">().</span><span class="n">tenantId</span><span class="p">)</span>
+      <span class="pi">}</span>
+    <span class="pi">}</span>
+  <span class="pi">}</span>
+<span class="pi">}</span>
+
+<span class="c1">// Outputs</span>
+<span class="k">output</span> <span class="n">platformMgId</span> <span class="kt">string</span> <span class="p">=</span> <span class="n">platformMg</span><span class="p">.</span><span class="n">id</span>
+<span class="k">output</span> <span class="n">identityMgId</span> <span class="kt">string</span> <span class="p">=</span> <span class="n">identityMg</span><span class="p">.</span><span class="n">id</span>
+<span class="k">output</span> <span class="n">managementMgId</span> <span class="kt">string</span> <span class="p">=</span> <span class="n">managementMg</span><span class="p">.</span><span class="n">id</span>
+<span class="k">output</span> <span class="n">connectivityMgId</span> <span class="kt">string</span> <span class="p">=</span> <span class="n">connectivityMg</span><span class="p">.</span><span class="n">id</span>
+<span class="k">output</span> <span class="n">landingZonesMgId</span> <span class="kt">string</span> <span class="p">=</span> <span class="n">landingZonesMg</span><span class="p">.</span><span class="n">id</span>
+<span class="k">output</span> <span class="n">corpMgId</span> <span class="kt">string</span> <span class="p">=</span> <span class="n">corpMg</span><span class="p">.</span><span class="n">id</span>
+<span class="k">output</span> <span class="n">corpProdMgId</span> <span class="kt">string</span> <span class="p">=</span> <span class="n">corpProdMg</span><span class="p">.</span><span class="n">id</span>
+<span class="k">output</span> <span class="n">corpNonProdMgId</span> <span class="kt">string</span> <span class="p">=</span> <span class="n">corpNonProdMg</span><span class="p">.</span><span class="n">id</span>
+<span class="k">output</span> <span class="n">onlineMgId</span> <span class="kt">string</span> <span class="p">=</span> <span class="n">onlineMg</span><span class="p">.</span><span class="n">id</span>
+<span class="k">output</span> <span class="n">onlineProdMgId</span> <span class="kt">string</span> <span class="p">=</span> <span class="n">onlineProdMg</span><span class="p">.</span><span class="n">id</span>
+<span class="k">output</span> <span class="n">onlineNonProdMgId</span> <span class="kt">string</span> <span class="p">=</span> <span class="n">onlineNonProdMg</span><span class="p">.</span><span class="n">id</span>
+<span class="k">output</span> <span class="n">sandboxMgId</span> <span class="kt">string</span> <span class="p">=</span> <span class="n">sandboxMg</span><span class="p">.</span><span class="n">id</span>
+<span class="k">output</span> <span class="n">decommissionedMgId</span> <span class="kt">string</span> <span class="p">=</span> <span class="n">decommissionedMg</span><span class="p">.</span><span class="n">id</span>
+</code></pre></div></div>
+
+<h3 id="script-de-deployment">Script de Deployment</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="c"># scripts/deploy-management-groups.sh</span>
+
+<span class="nb">set</span> <span class="nt">-e</span>
+
+<span class="nb">echo</span> <span class="s2">"🚀 Deploying Management Groups Hierarchy..."</span>
+
+<span class="c"># Variables</span>
+<span class="nv">TENANT_ID</span><span class="o">=</span><span class="si">$(</span>az account show <span class="nt">--query</span> tenantId <span class="nt">-o</span> tsv<span class="si">)</span>
+<span class="nv">LOCATION</span><span class="o">=</span><span class="s2">"westeurope"</span>
+
+<span class="nb">echo</span> <span class="s2">"📋 Tenant ID: </span><span class="nv">$TENANT_ID</span><span class="s2">"</span>
+
+<span class="c"># Validate Terraform</span>
+<span class="nb">echo</span> <span class="s2">"✅ Validating Terraform configuration..."</span>
+<span class="nb">cd </span>terraform
+terraform init
+terraform validate
+terraform plan <span class="nt">-out</span><span class="o">=</span>tfplan
+
+<span class="c"># Apply with approval</span>
+<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"🔍 Review the plan above. Apply changes? (yes/no): "</span> APPLY
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$APPLY</span><span class="s2">"</span> <span class="o">==</span> <span class="s2">"yes"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+    </span>terraform apply tfplan
+    <span class="nb">echo</span> <span class="s2">"✅ Management Groups deployed successfully!"</span>
+<span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"❌ Deployment cancelled."</span>
+    <span class="nb">exit </span>1
+<span class="k">fi</span>
+
+<span class="c"># Verify deployment</span>
+<span class="nb">echo</span> <span class="s2">"🔍 Verifying Management Groups..."</span>
+az account management-group list <span class="nt">--query</span> <span class="s2">"[].{Name:displayName, ID:id}"</span> <span class="nt">-o</span> table
+
+<span class="nb">echo</span> <span class="s2">"✅ Deployment complete!"</span>
+</code></pre></div></div>
+
+<h2 id="-6-seguridad">🔒 6. Seguridad</h2>
+
+<h3 id="azure-policy---políticas-aplicadas">Azure Policy - Políticas Aplicadas</h3>
+
+<h4 id="root-level-policies">Root Level Policies</h4>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"policies_root"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Require-Tags"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Require specific tags on resources"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deny"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"requiredTags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"CostCenter"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Environment"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Owner"</span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allowed-Locations"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allowed Azure regions"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deny"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"allowedLocations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"westeurope"</span><span class="p">,</span><span class="w"> </span><span class="s2">"northeurope"</span><span class="p">,</span><span class="w"> </span><span class="s2">"eastus"</span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audit-Diagnostic-Settings"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audit diagnostic settings for all resources"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AuditIfNotExists"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h4 id="platform-management-group-policies">Platform Management Group Policies</h4>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"policies_platform"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deny-Public-IP"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deny creation of public IPs"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deny"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Platform services only"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Require-NSG"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Require Network Security Groups on subnets"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deny"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Enforce-Private-Endpoints"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Storage and SQL must use private endpoints"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deny"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h4 id="landing-zones---production-policies">Landing Zones - Production Policies</h4>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"policies_landing_zones_prod"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Require-Backup"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VMs must have backup enabled"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DeployIfNotExists"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Require-Delete-Lock"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Critical resources must have delete lock"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Append"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deny-VM-Size"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Restrict VM sizes to approved list"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deny"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"allowedSizes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Standard_D2s_v3"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Standard_D4s_v3"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Standard_D8s_v3"</span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h4 id="sandbox-policies-relaxed">Sandbox Policies (Relaxed)</h4>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"policies_sandbox"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Auto-Shutdown-VMs"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Auto-shutdown VMs at 19:00 daily"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DeployIfNotExists"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Budget-Alert"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Alert when spending exceeds $500/month"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Audit"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="cifrado-y-key-management">Cifrado y Key Management</h3>
+
+<ul>
+  <li><strong>Azure Policy Encryption</strong>: Política en Root MG que requiere encryption at rest</li>
+  <li><strong>Key Vault</strong>: Por Management Group para secretos de automatización</li>
+  <li><strong>Managed Identities</strong>: Usadas para acceso a Key Vault desde pipelines</li>
+  <li><strong>Secrets Rotation</strong>: Automático cada 90 días via Azure Automation</li>
+</ul>
+
+<h3 id="private-endpoints">Private Endpoints</h3>
+
+<p>No aplica directamente a Management Groups (son construcción lógica), pero políticas fuerzan private endpoints en:</p>
+<ul>
+  <li>Azure Storage accounts</li>
+  <li>Azure SQL Databases</li>
+  <li>Azure Key Vaults</li>
+  <li>Azure Container Registries</li>
+</ul>
+
+<h3 id="identidad-y-rbac">Identidad y RBAC</h3>
+
+<h4 id="rbac-strategy">RBAC Strategy</h4>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">Root Management Group</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">Owner</span><span class="pi">:</span> <span class="s">Cloud-Admins-Group (Break-glass accounts)</span>
+  <span class="pi">-</span> <span class="na">Contributor</span><span class="pi">:</span> <span class="s">Platform-Admins-Group (Day-to-day admin)</span>
+  <span class="pi">-</span> <span class="na">Reader</span><span class="pi">:</span> <span class="s">Security-Team-Group (Audit access)</span>
+  <span class="pi">-</span> <span class="na">Management Group Contributor</span><span class="pi">:</span> <span class="s">Governance-Team-Group (MG structure changes)</span>
+
+<span class="na">Platform MG</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">Contributor</span><span class="pi">:</span> <span class="s">Platform-Team-Group</span>
+  <span class="pi">-</span> <span class="na">Reader</span><span class="pi">:</span> <span class="s">All-Engineers-Group</span>
+  
+<span class="na">Identity MG</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">Contributor</span><span class="pi">:</span> <span class="s">Identity-Team-Group</span>
+  <span class="pi">-</span> <span class="na">User Access Administrator</span><span class="pi">:</span> <span class="s">Identity-Team-Group (for RBAC management)</span>
+
+<span class="na">Management MG</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">Contributor</span><span class="pi">:</span> <span class="s">SRE-Team-Group</span>
+  <span class="pi">-</span> <span class="na">Log Analytics Contributor</span><span class="pi">:</span> <span class="s">DevOps-Team-Group</span>
+
+<span class="na">Connectivity MG</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">Network Contributor</span><span class="pi">:</span> <span class="s">Network-Team-Group</span>
+  <span class="pi">-</span> <span class="na">Reader</span><span class="pi">:</span> <span class="s">All-Engineers-Group</span>
+
+<span class="na">Landing Zones - Corp - Production</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">Reader</span><span class="pi">:</span> <span class="s">App-Team-Group</span>
+  <span class="pi">-</span> <span class="na">Contributor</span><span class="pi">:</span> <span class="s">(Granted at subscription level, not MG)</span>
+  
+<span class="na">Landing Zones - Corp - NonProduction</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">Contributor</span><span class="pi">:</span> <span class="s">App-Team-Group (More permissive for dev)</span>
+
+<span class="na">Sandbox MG</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">Contributor</span><span class="pi">:</span> <span class="s">All-Engineers-Group (Self-service)</span>
+  <span class="pi">-</span> <span class="na">Owner</span><span class="pi">:</span> <span class="s">Individual users on their subscriptions</span>
+</code></pre></div></div>
+
+<h4 id="custom-rbac-roles">Custom RBAC Roles</h4>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Management Group Policy Manager"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345678-1234-1234-1234-123456789012"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"IsCustom"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Can manage policies at Management Group level"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Actions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"Microsoft.Authorization/policyAssignments/*"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Microsoft.Authorization/policyDefinitions/*"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Microsoft.Authorization/policySetDefinitions/*"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Microsoft.PolicyInsights/*"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"NotActions"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"AssignableScopes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"/providers/Microsoft.Management/managementGroups/00000000-0000-0000-0000-000000000000"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="security-best-practices">Security Best Practices</h3>
+
+<p>✅ <strong>Principle of Least Privilege</strong>: RBAC asignado al nivel más bajo posible<br />
+✅ <strong>Separation of Duties</strong>: Platform team ≠ App teams<br />
+✅ <strong>Break-glass Accounts</strong>: Solo 2-3 Owner en Root MG<br />
+✅ <strong>Azure AD PIM</strong>: Roles privilegiados solo Just-In-Time<br />
+✅ <strong>Policy Exemptions</strong>: Aprobación formal, revisión trimestral<br />
+✅ <strong>Audit Logging</strong>: Activity logs a SIEM (Sentinel)</p>
+
+<h2 id="-7-costes">💰 7. Costes</h2>
+
+<h3 id="costes-directos">Costes Directos</h3>
+
+<p><strong>Management Groups son gratuitos</strong> - No hay costes por la estructura en sí.</p>
+
+<h3 id="costes-indirectos-servicios-relacionados">Costes Indirectos (Servicios relacionados)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Servicio</th>
+      <th>Propósito</th>
+      <th>Coste Mensual Estimado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Azure Policy</td>
+      <td>Gobernanza y compliance</td>
+      <td><strong>Gratis</strong> (hasta 1000 recursos, luego $0.50/100 recursos)</td>
+    </tr>
+    <tr>
+      <td>Log Analytics</td>
+      <td>Auditoría y logs</td>
+      <td>$150/mes (10 GB/día ingesta)</td>
+    </tr>
+    <tr>
+      <td>Azure Storage</td>
+      <td>Backup de Terraform state</td>
+      <td>$5/mes (LRS, 100 GB)</td>
+    </tr>
+    <tr>
+      <td>Azure Automation</td>
+      <td>Scripts de compliance</td>
+      <td>$10/mes (básico)</td>
+    </tr>
+    <tr>
+      <td>Azure Monitor Alerts</td>
+      <td>Notificaciones de cambios</td>
+      <td>$2/mes (~10 alertas)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Total estimado</strong>: ~$167/mes para toda la infraestructura de gobernanza</p>
+
+<h3 id="cost-management-por-management-group">Cost Management por Management Group</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Ver costes agregados por Management Group</span>
+az consumption usage list <span class="se">\</span>
+  <span class="nt">--management-group-id</span> <span class="s2">"mg-landing-zones-prod"</span> <span class="se">\</span>
+  <span class="nt">--start-date</span> 2026-01-01 <span class="se">\</span>
+  <span class="nt">--end-date</span> 2026-01-31
+
+<span class="c"># Budget por Management Group</span>
+az consumption budget create <span class="se">\</span>
+  <span class="nt">--budget-name</span> <span class="s2">"budget-landingzones-prod"</span> <span class="se">\</span>
+  <span class="nt">--amount</span> 50000 <span class="se">\</span>
+  <span class="nt">--category</span> Cost <span class="se">\</span>
+  <span class="nt">--time-grain</span> Monthly <span class="se">\</span>
+  <span class="nt">--management-group-id</span> <span class="s2">"mg-landing-zones-prod"</span> <span class="se">\</span>
+  <span class="nt">--notifications</span> <span class="s1">'[{
+    "enabled": true,
+    "operator": "GreaterThan",
+    "threshold": 80,
+    "contactEmails": ["finance@contoso.com"],
+    "contactRoles": ["Owner"],
+    "thresholdType": "Actual"
+  }]'</span>
+</code></pre></div></div>
+
+<h3 id="ahorros-por-implementar-management-groups">Ahorros por Implementar Management Groups</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ahorro</th>
+      <th>Descripción</th>
+      <th>Impacto Anual</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Políticas Centralizadas</strong></td>
+      <td>Prevención de recursos no conformes (VMs sobredimensionadas, regiones caras)</td>
+      <td>$24,000</td>
+    </tr>
+    <tr>
+      <td><strong>Auto-shutdown en Sandbox</strong></td>
+      <td>VMs apagadas automáticamente fuera de horario</td>
+      <td>$18,000</td>
+    </tr>
+    <tr>
+      <td><strong>Visibilidad de costes</strong></td>
+      <td>Identificación temprana de cost overruns</td>
+      <td>$12,000</td>
+    </tr>
+    <tr>
+      <td><strong>Reserved Instances</strong></td>
+      <td>Compra centralizada con mejor visibilidad de uso</td>
+      <td>$30,000</td>
+    </tr>
+    <tr>
+      <td><strong>Eliminación de recursos huérfanos</strong></td>
+      <td>Policy que detecta recursos sin tags → fácil cleanup</td>
+      <td>$8,000</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Total ahorros estimados</strong>: ~$92,000/año</p>
+
+<h3 id="chargeback-model">Chargeback Model</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Cost allocation por Management Group:
+├── Platform (15% del total)
+│   ├── Compartido entre todas las apps
+│   └── Billing: IT-Operations budget
+├── Landing Zones - Corp - Prod (50% del total)
+│   ├── Chargeback a cada aplicación por tags
+│   └── Billing: Por línea de negocio
+├── Landing Zones - Online - Prod (25% del total)
+│   ├── Chargeback a digital transformation team
+│   └── Billing: Marketing &amp; Sales budget
+└── Sandbox (10% del total)
+    ├── Compartido - no chargeback
+    └── Billing: IT-Training budget
+</code></pre></div></div>
+
+<h2 id="-8-pruebas-y-validación">🧪 8. Pruebas y Validación</h2>
+
+<h3 id="azure-cli">Azure CLI</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ============================================</span>
+<span class="c"># VALIDACIÓN DE ESTRUCTURA</span>
+<span class="c"># ============================================</span>
+
+<span class="c"># Listar todos los Management Groups</span>
+az account management-group list <span class="nt">-o</span> table
+
+<span class="c"># Ver jerarquía completa</span>
+az account management-group show <span class="se">\</span>
+  <span class="nt">--name</span> <span class="s2">"mg-root-contoso"</span> <span class="se">\</span>
+  <span class="nt">--expand</span> <span class="se">\</span>
+  <span class="nt">--recurse</span>
+
+<span class="c"># Ver suscripciones en un Management Group específico</span>
+az account management-group subscription show <span class="se">\</span>
+  <span class="nt">--name</span> <span class="s2">"mg-corp-prod"</span> <span class="se">\</span>
+  <span class="nt">--subscription</span> <span class="s2">"12345678-1234-1234-1234-123456789012"</span>
+
+<span class="c"># Verificar parent de un Management Group</span>
+az account management-group show <span class="se">\</span>
+  <span class="nt">--name</span> <span class="s2">"mg-identity-prod"</span> <span class="se">\</span>
+  <span class="nt">--query</span> <span class="s2">"properties.details.parent.displayName"</span>
+
+<span class="c"># ============================================</span>
+<span class="c"># VALIDACIÓN DE POLÍTICAS</span>
+<span class="c"># ============================================</span>
+
+<span class="c"># Listar políticas asignadas a un Management Group</span>
+az policy assignment list <span class="se">\</span>
+  <span class="nt">--scope</span> <span class="s2">"/providers/Microsoft.Management/managementGroups/mg-root"</span> <span class="se">\</span>
+  <span class="nt">-o</span> table
+
+<span class="c"># Ver estado de compliance de políticas</span>
+az policy state summarize <span class="se">\</span>
+  <span class="nt">--management-group</span> <span class="s2">"mg-landing-zones-prod"</span>
+
+<span class="c"># Ver recursos no conformes</span>
+az policy state list <span class="se">\</span>
+  <span class="nt">--management-group</span> <span class="s2">"mg-corp-prod"</span> <span class="se">\</span>
+  <span class="nt">--filter</span> <span class="s2">"complianceState eq 'NonCompliant'"</span> <span class="se">\</span>
+  <span class="nt">--query</span> <span class="s2">"[].{Resource:resourceId, Policy:policyDefinitionName}"</span> <span class="se">\</span>
+  <span class="nt">-o</span> table
+
+<span class="c"># Crear policy exemption (para testing)</span>
+az policy exemption create <span class="se">\</span>
+  <span class="nt">--name</span> <span class="s2">"test-vm-exemption"</span> <span class="se">\</span>
+  <span class="nt">--policy-assignment</span> <span class="s2">"/providers/Microsoft.Management/managementGroups/mg-root/providers/Microsoft.Authorization/policyAssignments/require-tags"</span> <span class="se">\</span>
+  <span class="nt">--exemption-category</span> Waiver <span class="se">\</span>
+  <span class="nt">--expires-on</span> <span class="s2">"2026-02-28T00:00:00Z"</span> <span class="se">\</span>
+  <span class="nt">--display-name</span> <span class="s2">"Temporary exemption for test VM"</span>
+
+<span class="c"># ============================================</span>
+<span class="c"># VALIDACIÓN DE RBAC</span>
+<span class="c"># ============================================</span>
+
+<span class="c"># Listar role assignments en un Management Group</span>
+az role assignment list <span class="se">\</span>
+  <span class="nt">--scope</span> <span class="s2">"/providers/Microsoft.Management/managementGroups/mg-platform-prod"</span> <span class="se">\</span>
+  <span class="nt">--query</span> <span class="s2">"[].{Principal:principalName, Role:roleDefinitionName, Scope:scope}"</span> <span class="se">\</span>
+  <span class="nt">-o</span> table
+
+<span class="c"># Verificar acceso de un usuario/grupo específico</span>
+az role assignment list <span class="se">\</span>
+  <span class="nt">--assignee</span> <span class="s2">"user@contoso.com"</span> <span class="se">\</span>
+  <span class="nt">--all</span> <span class="se">\</span>
+  <span class="nt">--query</span> <span class="s2">"[?contains(scope, 'managementGroups')]"</span> <span class="se">\</span>
+  <span class="nt">-o</span> table
+
+<span class="c"># Comprobar permisos efectivos (inherited)</span>
+az role assignment list <span class="se">\</span>
+  <span class="nt">--scope</span> <span class="s2">"/providers/Microsoft.Management/managementGroups/mg-corp-prod"</span> <span class="se">\</span>
+  <span class="nt">--include-inherited</span> <span class="se">\</span>
+  <span class="nt">-o</span> table
+
+<span class="c"># ============================================</span>
+<span class="c"># OPERACIONES DE CAMBIO</span>
+<span class="c"># ============================================</span>
+
+<span class="c"># Mover suscripción entre Management Groups</span>
+az account management-group subscription add <span class="se">\</span>
+  <span class="nt">--name</span> <span class="s2">"mg-corp-nonprod"</span> <span class="se">\</span>
+  <span class="nt">--subscription</span> <span class="s2">"12345678-1234-1234-1234-123456789012"</span>
+
+<span class="c"># Verificar movimiento</span>
+az account management-group subscription show-sub-under-mg <span class="se">\</span>
+  <span class="nt">--name</span> <span class="s2">"mg-corp-nonprod"</span>
+
+<span class="c"># Crear nuevo Management Group</span>
+az account management-group create <span class="se">\</span>
+  <span class="nt">--name</span> <span class="s2">"mg-temp-migration"</span> <span class="se">\</span>
+  <span class="nt">--display-name</span> <span class="s2">"Temporary Migration MG"</span> <span class="se">\</span>
+  <span class="nt">--parent</span> <span class="s2">"mg-landing-zones-prod"</span>
+
+<span class="c"># Eliminar Management Group (debe estar vacío)</span>
+az account management-group delete <span class="se">\</span>
+  <span class="nt">--name</span> <span class="s2">"mg-temp-migration"</span>
+
+<span class="c"># ============================================</span>
+<span class="c"># AUDITORÍA Y LOGS</span>
+<span class="c"># ============================================</span>
+
+<span class="c"># Ver activity logs de cambios en Management Groups (últimas 24h)</span>
+az monitor activity-log list <span class="se">\</span>
+  <span class="nt">--namespace</span> <span class="s2">"Microsoft.Management"</span> <span class="se">\</span>
+  <span class="nt">--start-time</span> <span class="s2">"2026-01-26T00:00:00Z"</span> <span class="se">\</span>
+  <span class="nt">--end-time</span> <span class="s2">"2026-01-27T23:59:59Z"</span> <span class="se">\</span>
+  <span class="nt">--query</span> <span class="s2">"[].{Time:eventTimestamp, Operation:operationName.value, Status:status.value, User:caller}"</span> <span class="se">\</span>
+  <span class="nt">-o</span> table
+
+<span class="c"># Ver cambios específicos en políticas</span>
+az monitor activity-log list <span class="se">\</span>
+  <span class="nt">--namespace</span> <span class="s2">"Microsoft.Authorization"</span> <span class="se">\</span>
+  <span class="nt">--start-time</span> <span class="s2">"2026-01-20T00:00:00Z"</span> <span class="se">\</span>
+  <span class="nt">--query</span> <span class="s2">"[?contains(operationName.value, 'policyAssignments')]"</span> <span class="se">\</span>
+  <span class="nt">-o</span> table
+</code></pre></div></div>
+
+<h3 id="powershell">PowerShell</h3>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ============================================</span><span class="w">
+</span><span class="c"># VALIDACIÓN DE ESTRUCTURA</span><span class="w">
+</span><span class="c"># ============================================</span><span class="w">
+
+</span><span class="c"># Conectar a Azure</span><span class="w">
+</span><span class="n">Connect-AzAccount</span><span class="w">
+
+</span><span class="c"># Listar todos los Management Groups</span><span class="w">
+</span><span class="n">Get-AzManagementGroup</span><span class="w">
+
+</span><span class="c"># Ver jerarquía completa con recursión</span><span class="w">
+</span><span class="n">Get-AzManagementGroup</span><span class="w"> </span><span class="nt">-GroupId</span><span class="w"> </span><span class="s2">"mg-root-contoso"</span><span class="w"> </span><span class="nt">-Expand</span><span class="w"> </span><span class="nt">-Recurse</span><span class="w"> </span><span class="o">|</span><span class="w"> 
+  </span><span class="n">Select-Object</span><span class="w"> </span><span class="nt">-ExpandProperty</span><span class="w"> </span><span class="nx">Children</span><span class="w"> </span><span class="o">|</span><span class="w">
+  </span><span class="n">Format-Table</span><span class="w"> </span><span class="nx">DisplayName</span><span class="p">,</span><span class="w"> </span><span class="nx">Id</span><span class="p">,</span><span class="w"> </span><span class="nx">Type</span><span class="w">
+
+</span><span class="c"># Obtener detalles de un Management Group específico</span><span class="w">
+</span><span class="nv">$mg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzManagementGroup</span><span class="w"> </span><span class="nt">-GroupId</span><span class="w"> </span><span class="s2">"mg-platform-prod"</span><span class="w">
+</span><span class="nv">$mg</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Format-List</span><span class="w"> </span><span class="o">*</span><span class="w">
+
+</span><span class="c"># Ver todas las suscripciones y sus Management Groups</span><span class="w">
+</span><span class="n">Get-AzSubscription</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ForEach-Object</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nv">$sub</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">$_</span><span class="w">
+    </span><span class="nv">$mgId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Get-AzManagementGroup</span><span class="w"> </span><span class="nt">-GroupId</span><span class="w"> </span><span class="nv">$sub</span><span class="o">.</span><span class="nf">TenantId</span><span class="w"> </span><span class="nt">-Expand</span><span class="p">)</span><span class="o">.</span><span class="nf">Children</span><span class="w"> </span><span class="o">|</span><span class="w"> 
+            </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">Children</span><span class="o">.</span><span class="nf">Name</span><span class="w"> </span><span class="o">-contains</span><span class="w"> </span><span class="nv">$sub</span><span class="o">.</span><span class="nf">Id</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">[</span><span class="n">PSCustomObject</span><span class="p">]@{</span><span class="w">
+        </span><span class="nx">SubscriptionName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$sub</span><span class="err">.</span><span class="nx">Name</span><span class="w">
+        </span><span class="nx">SubscriptionId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$sub</span><span class="err">.</span><span class="nx">Id</span><span class="w">
+        </span><span class="nx">ManagementGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$mgId</span><span class="err">.</span><span class="nx">DisplayName</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Format-Table</span><span class="w">
+
+</span><span class="c"># ============================================</span><span class="w">
+</span><span class="c"># VALIDACIÓN DE POLÍTICAS</span><span class="w">
+</span><span class="c"># ============================================</span><span class="w">
+
+</span><span class="c"># Obtener todas las policy assignments en un MG</span><span class="w">
+</span><span class="n">Get-AzPolicyAssignment</span><span class="w"> </span><span class="nt">-Scope</span><span class="w"> </span><span class="s2">"/providers/Microsoft.Management/managementGroups/mg-root"</span><span class="w"> </span><span class="o">|</span><span class="w">
+  </span><span class="n">Select-Object</span><span class="w"> </span><span class="nx">Name</span><span class="p">,</span><span class="w"> </span><span class="nx">DisplayName</span><span class="p">,</span><span class="w"> </span><span class="nx">EnforcementMode</span><span class="w"> </span><span class="o">|</span><span class="w">
+  </span><span class="n">Format-Table</span><span class="w">
+
+</span><span class="c"># Compliance summary por Management Group</span><span class="w">
+</span><span class="n">Get-AzPolicyState</span><span class="w"> </span><span class="nt">-ManagementGroupName</span><span class="w"> </span><span class="s2">"mg-landing-zones-prod"</span><span class="w"> </span><span class="o">|</span><span class="w">
+  </span><span class="n">Group-Object</span><span class="w"> </span><span class="nx">ComplianceState</span><span class="w"> </span><span class="o">|</span><span class="w">
+  </span><span class="n">Select-Object</span><span class="w"> </span><span class="nx">Name</span><span class="p">,</span><span class="w"> </span><span class="nx">Count</span><span class="w">
+
+</span><span class="c"># Recursos no conformes con detalles</span><span class="w">
+</span><span class="n">Get-AzPolicyState</span><span class="w"> </span><span class="nt">-ManagementGroupName</span><span class="w"> </span><span class="s2">"mg-corp-prod"</span><span class="w"> </span><span class="nt">-Filter</span><span class="w"> </span><span class="s2">"complianceState eq 'NonCompliant'"</span><span class="w"> </span><span class="o">|</span><span class="w">
+  </span><span class="n">Select-Object</span><span class="w"> </span><span class="nx">ResourceId</span><span class="p">,</span><span class="w"> </span><span class="nx">PolicyDefinitionName</span><span class="p">,</span><span class="w"> </span><span class="nx">ComplianceState</span><span class="w"> </span><span class="o">|</span><span class="w">
+  </span><span class="n">Format-Table</span><span class="w"> </span><span class="nt">-AutoSize</span><span class="w">
+
+</span><span class="c"># Exportar compliance report a CSV</span><span class="w">
+</span><span class="n">Get-AzPolicyState</span><span class="w"> </span><span class="nt">-ManagementGroupName</span><span class="w"> </span><span class="s2">"mg-root"</span><span class="w"> </span><span class="o">|</span><span class="w">
+  </span><span class="n">Export-Csv</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="s2">"C:\Reports\policy-compliance-</span><span class="si">$(</span><span class="n">Get-Date</span><span class="w"> </span><span class="nt">-Format</span><span class="w"> </span><span class="s1">'yyyyMMdd'</span><span class="p">)</span><span class="s2">.csv"</span><span class="w"> </span><span class="nt">-NoTypeInformation</span><span class="w">
+
+</span><span class="c"># ============================================</span><span class="w">
+</span><span class="c"># VALIDACIÓN DE RBAC</span><span class="w">
+</span><span class="c"># ============================================</span><span class="w">
+
+</span><span class="c"># Obtener todos los role assignments en un MG (incluye heredados)</span><span class="w">
+</span><span class="n">Get-AzRoleAssignment</span><span class="w"> </span><span class="nt">-Scope</span><span class="w"> </span><span class="s2">"/providers/Microsoft.Management/managementGroups/mg-platform-prod"</span><span class="w"> </span><span class="o">|</span><span class="w">
+  </span><span class="n">Select-Object</span><span class="w"> </span><span class="nx">DisplayName</span><span class="p">,</span><span class="w"> </span><span class="nx">RoleDefinitionName</span><span class="p">,</span><span class="w"> </span><span class="nx">Scope</span><span class="w"> </span><span class="o">|</span><span class="w">
+  </span><span class="n">Format-Table</span><span class="w"> </span><span class="nt">-AutoSize</span><span class="w">
+
+</span><span class="c"># Role assignments por usuario</span><span class="w">
+</span><span class="nv">$userUpn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"admin@contoso.com"</span><span class="w">
+</span><span class="n">Get-AzRoleAssignment</span><span class="w"> </span><span class="nt">-SignInName</span><span class="w"> </span><span class="nv">$userUpn</span><span class="w"> </span><span class="o">|</span><span class="w">
+  </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">Scope</span><span class="w"> </span><span class="o">-like</span><span class="w"> </span><span class="s2">"*managementGroups*"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">|</span><span class="w">
+  </span><span class="n">Format-Table</span><span class="w"> </span><span class="nx">RoleDefinitionName</span><span class="p">,</span><span class="w"> </span><span class="nx">Scope</span><span class="w">
+
+</span><span class="c"># Listar todos los Owners en Root MG (break-glass check)</span><span class="w">
+</span><span class="n">Get-AzRoleAssignment</span><span class="w"> </span><span class="nt">-Scope</span><span class="w"> </span><span class="s2">"/providers/Microsoft.Management/managementGroups/</span><span class="si">$(</span><span class="n">Get-AzContext</span><span class="p">)</span><span class="s2">.Tenant.Id)"</span><span class="w"> </span><span class="o">|</span><span class="w">
+  </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">RoleDefinitionName</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="s2">"Owner"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">|</span><span class="w">
+  </span><span class="n">Select-Object</span><span class="w"> </span><span class="nx">DisplayName</span><span class="p">,</span><span class="w"> </span><span class="nx">SignInName</span><span class="w"> </span><span class="o">|</span><span class="w">
+  </span><span class="n">Format-Table</span><span class="w">
+
+</span><span class="c"># ============================================</span><span class="w">
+</span><span class="c"># REPORTS Y AUDITORÍA</span><span class="w">
+</span><span class="c"># ============================================</span><span class="w">
+
+</span><span class="c"># Generar reporte completo de estructura</span><span class="w">
+</span><span class="kr">function</span><span class="w"> </span><span class="nf">Get-ManagementGroupReport</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="kr">param</span><span class="p">([</span><span class="n">string</span><span class="p">]</span><span class="nv">$RootMgId</span><span class="p">)</span><span class="w">
+    
+    </span><span class="nv">$report</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@()</span><span class="w">
+    </span><span class="nv">$mgs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzManagementGroup</span><span class="w"> </span><span class="nt">-Expand</span><span class="w"> </span><span class="nt">-Recurse</span><span class="w"> </span><span class="nt">-GroupId</span><span class="w"> </span><span class="nv">$RootMgId</span><span class="w">
+    
+    </span><span class="kr">function</span><span class="w"> </span><span class="nf">Parse-MG</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="kr">param</span><span class="p">(</span><span class="nv">$mg</span><span class="p">,</span><span class="w"> </span><span class="nv">$level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w">
+        
+        </span><span class="nv">$indent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"  "</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">$level</span><span class="w">
+        </span><span class="nv">$report</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="p">[</span><span class="n">PSCustomObject</span><span class="p">]@{</span><span class="w">
+            </span><span class="nx">Level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$level</span><span class="w">
+            </span><span class="nx">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$indent</span><span class="si">$(</span><span class="nv">$mg</span><span class="o">.</span><span class="nf">DisplayName</span><span class="si">)</span><span class="s2">"</span><span class="w">
+            </span><span class="nx">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$mg</span><span class="err">.</span><span class="nx">Name</span><span class="w">
+            </span><span class="nx">SubscriptionCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">(</span><span class="nv">$mg</span><span class="err">.</span><span class="nx">Children</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="nx">Where</span><span class="err">-</span><span class="nx">Object</span><span class="w"> </span><span class="nx">Type</span><span class="w"> </span><span class="err">-</span><span class="nx">eq</span><span class="w"> </span><span class="s2">"/subscriptions"</span><span class="err">).</span><span class="nx">Count</span><span class="w">
+            </span><span class="nx">ChildMGCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">(</span><span class="nv">$mg</span><span class="err">.</span><span class="nx">Children</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="nx">Where</span><span class="err">-</span><span class="nx">Object</span><span class="w"> </span><span class="nx">Type</span><span class="w"> </span><span class="err">-</span><span class="nx">like</span><span class="w"> </span><span class="s2">"*managementGroups*"</span><span class="err">).</span><span class="nx">Count</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        
+        </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$child</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="p">(</span><span class="nv">$mg</span><span class="o">.</span><span class="nf">Children</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Where-Object</span><span class="w"> </span><span class="nx">Type</span><span class="w"> </span><span class="o">-like</span><span class="w"> </span><span class="s2">"*managementGroups*"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$childMg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzManagementGroup</span><span class="w"> </span><span class="nt">-GroupId</span><span class="w"> </span><span class="nv">$child</span><span class="o">.</span><span class="nf">Name</span><span class="w"> </span><span class="nt">-Expand</span><span class="w">
+            </span><span class="n">Parse-MG</span><span class="w"> </span><span class="nt">-mg</span><span class="w"> </span><span class="nv">$childMg</span><span class="w"> </span><span class="nt">-level</span><span class="w"> </span><span class="p">(</span><span class="nv">$level</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    
+    </span><span class="n">Parse-MG</span><span class="w"> </span><span class="nt">-mg</span><span class="w"> </span><span class="nv">$mgs</span><span class="w">
+    </span><span class="kr">return</span><span class="w"> </span><span class="nv">$report</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="c"># Ejecutar reporte</span><span class="w">
+</span><span class="nv">$report</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-ManagementGroupReport</span><span class="w"> </span><span class="nt">-RootMgId</span><span class="w"> </span><span class="p">(</span><span class="n">Get-AzContext</span><span class="p">)</span><span class="o">.</span><span class="nf">Tenant</span><span class="o">.</span><span class="nf">Id</span><span class="w">
+</span><span class="nv">$report</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Format-Table</span><span class="w"> </span><span class="nt">-AutoSize</span><span class="w">
+
+</span><span class="c"># Exportar a HTML</span><span class="w">
+</span><span class="nv">$report</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ConvertTo-Html</span><span class="w"> </span><span class="nt">-Title</span><span class="w"> </span><span class="s2">"Management Group Structure"</span><span class="w"> </span><span class="o">|</span><span class="w">
+  </span><span class="n">Out-File</span><span class="w"> </span><span class="s2">"C:\Reports\mg-structure-</span><span class="si">$(</span><span class="n">Get-Date</span><span class="w"> </span><span class="nt">-Format</span><span class="w"> </span><span class="s1">'yyyyMMdd'</span><span class="p">)</span><span class="s2">.html"</span><span class="w">
+
+</span><span class="c"># ============================================</span><span class="w">
+</span><span class="c"># HEALTH CHECKS</span><span class="w">
+</span><span class="c"># ============================================</span><span class="w">
+
+</span><span class="c"># Verificar MGs sin suscripciones (posibles huérfanos)</span><span class="w">
+</span><span class="n">Get-AzManagementGroup</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ForEach-Object</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nv">$mg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzManagementGroup</span><span class="w"> </span><span class="nt">-GroupId</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">Name</span><span class="w"> </span><span class="nt">-Expand</span><span class="w">
+    </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$mg</span><span class="o">.</span><span class="nf">Children</span><span class="o">.</span><span class="nf">Count</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="p">[</span><span class="n">PSCustomObject</span><span class="p">]@{</span><span class="w">
+            </span><span class="nx">ManagementGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$mg</span><span class="err">.</span><span class="nx">DisplayName</span><span class="w">
+            </span><span class="nx">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$mg</span><span class="err">.</span><span class="nx">Name</span><span class="w">
+            </span><span class="nx">Status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Empty - Consider removal"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Format-Table</span><span class="w">
+
+</span><span class="c"># Verificar profundidad de jerarquía (max 6 niveles)</span><span class="w">
+</span><span class="kr">function</span><span class="w"> </span><span class="nf">Get-MGDepth</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="kr">param</span><span class="p">(</span><span class="nv">$mgId</span><span class="p">,</span><span class="w"> </span><span class="nv">$depth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w">
+    
+    </span><span class="nv">$mg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzManagementGroup</span><span class="w"> </span><span class="nt">-GroupId</span><span class="w"> </span><span class="nv">$mgId</span><span class="w"> </span><span class="nt">-Expand</span><span class="w">
+    </span><span class="nv">$maxDepth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$depth</span><span class="w">
+    
+    </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$child</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="p">(</span><span class="nv">$mg</span><span class="o">.</span><span class="nf">Children</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Where-Object</span><span class="w"> </span><span class="nx">Type</span><span class="w"> </span><span class="o">-like</span><span class="w"> </span><span class="s2">"*managementGroups*"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nv">$childDepth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-MGDepth</span><span class="w"> </span><span class="nt">-mgId</span><span class="w"> </span><span class="nv">$child</span><span class="o">.</span><span class="nf">Name</span><span class="w"> </span><span class="nt">-depth</span><span class="w"> </span><span class="p">(</span><span class="nv">$depth</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w">
+        </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$childDepth</span><span class="w"> </span><span class="o">-gt</span><span class="w"> </span><span class="nv">$maxDepth</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$maxDepth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$childDepth</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    
+    </span><span class="kr">return</span><span class="w"> </span><span class="nv">$maxDepth</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="nv">$rootMgId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Get-AzContext</span><span class="p">)</span><span class="o">.</span><span class="nf">Tenant</span><span class="o">.</span><span class="nf">Id</span><span class="w">
+</span><span class="nv">$depth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-MGDepth</span><span class="w"> </span><span class="nt">-mgId</span><span class="w"> </span><span class="nv">$rootMgId</span><span class="w">
+</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Maximum hierarchy depth: </span><span class="nv">$depth</span><span class="s2">"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$depth</span><span class="w"> </span><span class="o">-gt</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"Red"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"Green"</span><span class="w"> </span><span class="p">})</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="tests-automatizados-pester">Tests Automatizados (Pester)</h3>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># tests/ManagementGroups.Tests.ps1</span><span class="w">
+
+</span><span class="n">Describe</span><span class="w"> </span><span class="s2">"Management Group Structure Tests"</span><span class="w"> </span><span class="p">{</span><span class="w">
+    
+    </span><span class="n">BeforeAll</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">Connect-AzAccount</span><span class="w"> </span><span class="nt">-Identity</span><span class="w">
+        </span><span class="nv">$rootMgId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Get-AzContext</span><span class="p">)</span><span class="o">.</span><span class="nf">Tenant</span><span class="o">.</span><span class="nf">Id</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    
+    </span><span class="n">Context</span><span class="w"> </span><span class="s2">"Hierarchy Validation"</span><span class="w"> </span><span class="p">{</span><span class="w">
+        
+        </span><span class="n">It</span><span class="w"> </span><span class="s2">"Root Management Group should exist"</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$rootMg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzManagementGroup</span><span class="w"> </span><span class="nt">-GroupId</span><span class="w"> </span><span class="nv">$rootMgId</span><span class="w">
+            </span><span class="nv">$rootMg</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Should</span><span class="w"> </span><span class="o">-Not</span><span class="w"> </span><span class="nt">-BeNullOrEmpty</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        
+        </span><span class="n">It</span><span class="w"> </span><span class="s2">"Platform Management Group should exist under Root"</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$platformMg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzManagementGroup</span><span class="w"> </span><span class="nt">-GroupId</span><span class="w"> </span><span class="s2">"mg-platform-prod"</span><span class="w">
+            </span><span class="nv">$platformMg</span><span class="o">.</span><span class="nf">Properties</span><span class="o">.</span><span class="nf">Details</span><span class="o">.</span><span class="nf">Parent</span><span class="o">.</span><span class="nf">Name</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Should</span><span class="w"> </span><span class="nt">-Be</span><span class="w"> </span><span class="nv">$rootMgId</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        
+        </span><span class="n">It</span><span class="w"> </span><span class="s2">"Maximum hierarchy depth should not exceed 6 levels"</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="c"># Test depth calculation</span><span class="w">
+            </span><span class="nv">$depth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-MGDepth</span><span class="w"> </span><span class="nt">-mgId</span><span class="w"> </span><span class="nv">$rootMgId</span><span class="w">
+            </span><span class="nv">$depth</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Should</span><span class="w"> </span><span class="nt">-BeLessOrEqual</span><span class="w"> </span><span class="nx">6</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        
+        </span><span class="n">It</span><span class="w"> </span><span class="s2">"All required Management Groups should exist"</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$requiredMGs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@(</span><span class="w">
+                </span><span class="s2">"mg-platform-prod"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"mg-identity-prod"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"mg-management-prod"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"mg-connectivity-prod"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"mg-landing-zones-prod"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"mg-corp-prod"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"mg-online-prod"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"mg-sandbox-dev"</span><span class="w">
+            </span><span class="p">)</span><span class="w">
+            
+            </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$mgName</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$requiredMGs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nv">$mg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzManagementGroup</span><span class="w"> </span><span class="nt">-GroupId</span><span class="w"> </span><span class="nv">$mgName</span><span class="w"> </span><span class="nt">-ErrorAction</span><span class="w"> </span><span class="nx">SilentlyContinue</span><span class="w">
+                </span><span class="nv">$mg</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Should</span><span class="w"> </span><span class="o">-Not</span><span class="w"> </span><span class="nt">-BeNullOrEmpty</span><span class="w"> </span><span class="nt">-Because</span><span class="w"> </span><span class="s2">"</span><span class="nv">$mgName</span><span class="s2"> should exist"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    
+    </span><span class="n">Context</span><span class="w"> </span><span class="s2">"Policy Compliance"</span><span class="w"> </span><span class="p">{</span><span class="w">
+        
+        </span><span class="n">It</span><span class="w"> </span><span class="s2">"Root MG should have 'Require Tags' policy assigned"</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$policy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzPolicyAssignment</span><span class="w"> </span><span class="nt">-Scope</span><span class="w"> </span><span class="s2">"/providers/Microsoft.Management/managementGroups/</span><span class="nv">$rootMgId</span><span class="s2">"</span><span class="w"> </span><span class="o">|</span><span class="w">
+                      </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">Properties</span><span class="o">.</span><span class="nf">DisplayName</span><span class="w"> </span><span class="o">-like</span><span class="w"> </span><span class="s2">"*Require*Tag*"</span><span class="w"> </span><span class="p">}</span><span class="w">
+            </span><span class="nv">$policy</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Should</span><span class="w"> </span><span class="o">-Not</span><span class="w"> </span><span class="nt">-BeNullOrEmpty</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        
+        </span><span class="n">It</span><span class="w"> </span><span class="s2">"Production MGs should have 'Require Backup' policy"</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$prodMGs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzManagementGroup</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">DisplayName</span><span class="w"> </span><span class="o">-like</span><span class="w"> </span><span class="s2">"*Production*"</span><span class="w"> </span><span class="p">}</span><span class="w">
+            
+            </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$mg</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$prodMGs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nv">$backupPolicy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzPolicyAssignment</span><span class="w"> </span><span class="nt">-Scope</span><span class="w"> </span><span class="nv">$mg</span><span class="o">.</span><span class="nf">Id</span><span class="w"> </span><span class="o">|</span><span class="w">
+                               </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">Properties</span><span class="o">.</span><span class="nf">DisplayName</span><span class="w"> </span><span class="o">-like</span><span class="w"> </span><span class="s2">"*Backup*"</span><span class="w"> </span><span class="p">}</span><span class="w">
+                </span><span class="nv">$backupPolicy</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Should</span><span class="w"> </span><span class="o">-Not</span><span class="w"> </span><span class="nt">-BeNullOrEmpty</span><span class="w"> </span><span class="nt">-Because</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$mg</span><span class="o">.</span><span class="nf">DisplayName</span><span class="si">)</span><span class="s2"> should enforce backups"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        
+        </span><span class="n">It</span><span class="w"> </span><span class="s2">"Sandbox MG should have 'Auto-Shutdown' policy"</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$sandboxMg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzManagementGroup</span><span class="w"> </span><span class="nt">-GroupId</span><span class="w"> </span><span class="s2">"mg-sandbox-dev"</span><span class="w">
+            </span><span class="nv">$shutdownPolicy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzPolicyAssignment</span><span class="w"> </span><span class="nt">-Scope</span><span class="w"> </span><span class="nv">$sandboxMg</span><span class="o">.</span><span class="nf">Id</span><span class="w"> </span><span class="o">|</span><span class="w">
+                             </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">Properties</span><span class="o">.</span><span class="nf">DisplayName</span><span class="w"> </span><span class="o">-like</span><span class="w"> </span><span class="s2">"*Shutdown*"</span><span class="w"> </span><span class="p">}</span><span class="w">
+            </span><span class="nv">$shutdownPolicy</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Should</span><span class="w"> </span><span class="o">-Not</span><span class="w"> </span><span class="nt">-BeNullOrEmpty</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    
+    </span><span class="n">Context</span><span class="w"> </span><span class="s2">"RBAC Security"</span><span class="w"> </span><span class="p">{</span><span class="w">
+        
+        </span><span class="n">It</span><span class="w"> </span><span class="s2">"Root MG should have maximum 3 Owner assignments"</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$owners</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzRoleAssignment</span><span class="w"> </span><span class="nt">-Scope</span><span class="w"> </span><span class="s2">"/providers/Microsoft.Management/managementGroups/</span><span class="nv">$rootMgId</span><span class="s2">"</span><span class="w"> </span><span class="o">|</span><span class="w">
+                     </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">RoleDefinitionName</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="s2">"Owner"</span><span class="w"> </span><span class="p">}</span><span class="w">
+            </span><span class="nv">$owners</span><span class="o">.</span><span class="nf">Count</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Should</span><span class="w"> </span><span class="nt">-BeLessOrEqual</span><span class="w"> </span><span class="nx">3</span><span class="w"> </span><span class="nt">-Because</span><span class="w"> </span><span class="s2">"Principle of least privilege"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        
+        </span><span class="n">It</span><span class="w"> </span><span class="s2">"Platform Team should have Contributor on Platform MG"</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$platformMg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzManagementGroup</span><span class="w"> </span><span class="nt">-GroupId</span><span class="w"> </span><span class="s2">"mg-platform-prod"</span><span class="w">
+            </span><span class="nv">$assignments</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzRoleAssignment</span><span class="w"> </span><span class="nt">-Scope</span><span class="w"> </span><span class="nv">$platformMg</span><span class="o">.</span><span class="nf">Id</span><span class="w"> </span><span class="o">|</span><span class="w">
+                          </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">DisplayName</span><span class="w"> </span><span class="o">-like</span><span class="w"> </span><span class="s2">"*Platform*Team*"</span><span class="w"> </span><span class="o">-and</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">RoleDefinitionName</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="s2">"Contributor"</span><span class="w"> </span><span class="p">}</span><span class="w">
+            </span><span class="nv">$assignments</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Should</span><span class="w"> </span><span class="o">-Not</span><span class="w"> </span><span class="nt">-BeNullOrEmpty</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    
+    </span><span class="n">Context</span><span class="w"> </span><span class="s2">"Subscription Placement"</span><span class="w"> </span><span class="p">{</span><span class="w">
+        
+        </span><span class="n">It</span><span class="w"> </span><span class="s2">"All production subscriptions should be under Production MGs"</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$prodSubs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzSubscription</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">Name</span><span class="w"> </span><span class="o">-like</span><span class="w"> </span><span class="s2">"*prod*"</span><span class="w"> </span><span class="p">}</span><span class="w">
+            
+            </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$sub</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$prodSubs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="c"># Logic to check MG placement</span><span class="w">
+                </span><span class="c"># This is a placeholder - actual implementation would check parent MG</span><span class="w">
+                </span><span class="nv">$sub</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Should</span><span class="w"> </span><span class="o">-Not</span><span class="w"> </span><span class="nt">-BeNullOrEmpty</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        
+        </span><span class="n">It</span><span class="w"> </span><span class="s2">"Sandbox subscriptions should not be in Production MGs"</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$sandboxMg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzManagementGroup</span><span class="w"> </span><span class="nt">-GroupId</span><span class="w"> </span><span class="s2">"mg-sandbox-dev"</span><span class="w"> </span><span class="nt">-Expand</span><span class="w">
+            </span><span class="nv">$sandboxSubs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$sandboxMg</span><span class="o">.</span><span class="nf">Children</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Where-Object</span><span class="w"> </span><span class="nx">Type</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="s2">"/subscriptions"</span><span class="w">
+            
+            </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$sub</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$sandboxSubs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nv">$sub</span><span class="o">.</span><span class="nf">DisplayName</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Should</span><span class="w"> </span><span class="o">-Not</span><span class="w"> </span><span class="o">-Match</span><span class="w"> </span><span class="s2">"prod|production"</span><span class="w"> </span><span class="nt">-Because</span><span class="w"> </span><span class="s2">"Sandbox subs should not be production"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="c"># Ejecutar tests</span><span class="w">
+</span><span class="n">Invoke-Pester</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="s2">".\tests\ManagementGroups.Tests.ps1"</span><span class="w"> </span><span class="nt">-Output</span><span class="w"> </span><span class="nx">Detailed</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="-9-decisiones-adr">📝 9. Decisiones (ADR)</h2>
+
+<h3 id="adr-001-estructura-de-management-groups-basada-en-azure-landing-zones">ADR-001: Estructura de Management Groups basada en Azure Landing Zones</h3>
+
+<ul>
+  <li><strong>Fecha</strong>: 2025-10-15</li>
+  <li><strong>Estado</strong>: ✅ Aceptado</li>
+  <li><strong>Contexto</strong>: Necesitábamos definir la estructura organizativa de nuestro tenant de Azure con múltiples suscripciones y equipos</li>
+  <li><strong>Decisión</strong>: Adoptar la estructura de Management Groups recomendada por Microsoft Azure Landing Zones (Platform, Landing Zones, Sandbox)</li>
+  <li><strong>Alternativas consideradas</strong>:
+    <ol>
+      <li>Estructura plana con solo 2 niveles</li>
+      <li>Estructura por geografía (EMEA, AMER, APAC)</li>
+      <li>Estructura por línea de negocio</li>
+    </ol>
+  </li>
+  <li><strong>Consecuencias</strong>:
+    <ul>
+      <li>✅ Alineación con mejores prácticas de Microsoft</li>
+      <li>✅ Escalabilidad para futuro crecimiento</li>
+      <li>✅ Separación clara de responsabilidades</li>
+      <li>✅ Facilita aplicación de políticas</li>
+      <li>⚠️ Complejidad inicial mayor</li>
+      <li>⚠️ Requiere training del equipo en nuevos conceptos</li>
+      <li>⚠️ Movimientos de suscripciones requieren planificación</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="adr-002-terraform-como-herramienta-principal-de-iac-para-management-groups">ADR-002: Terraform como herramienta principal de IaC para Management Groups</h3>
+
+<ul>
+  <li><strong>Fecha</strong>: 2025-11-01</li>
+  <li><strong>Estado</strong>: ✅ Aceptado</li>
+  <li><strong>Contexto</strong>: Necesitábamos definir Management Groups como código para versionado y automatización</li>
+  <li><strong>Decisión</strong>: Usar Terraform con el provider azurerm para gestionar toda la estructura de Management Groups</li>
+  <li><strong>Alternativas consideradas</strong>:
+    <ol>
+      <li>Bicep (ARM templates)</li>
+      <li>Azure CLI scripts</li>
+      <li>Portal manual + documentación</li>
+    </ol>
+  </li>
+  <li><strong>Consecuencias</strong>:
+    <ul>
+      <li>✅ Multi-cloud capability (si necesitamos otras clouds)</li>
+      <li>✅ Módulos reutilizables</li>
+      <li>✅ State management robusto</li>
+      <li>✅ Plan/Apply workflow previene errores</li>
+      <li>⚠️ Curva de aprendizaje para equipo</li>
+      <li>⚠️ Dependencia de Terraform Cloud/backend</li>
+      <li>❌ No es nativo de Azure (vs Bicep)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="adr-003-políticas-restrictivas-en-production-permisivas-en-sandbox">ADR-003: Políticas restrictivas en Production, permisivas en Sandbox</h3>
+
+<ul>
+  <li><strong>Fecha</strong>: 2025-11-10</li>
+  <li><strong>Estado</strong>: ✅ Aceptado</li>
+  <li><strong>Contexto</strong>: Balance entre seguridad/compliance y velocidad de desarrollo</li>
+  <li><strong>Decisión</strong>:
+    <ul>
+      <li>Production MGs: Políticas estrictas (Deny, DeployIfNotExists)</li>
+      <li>Sandbox MG: Políticas relajadas (Audit, auto-shutdown)</li>
+    </ul>
+  </li>
+  <li><strong>Consecuencias</strong>:
+    <ul>
+      <li>✅ Ambiente seguro en producción</li>
+      <li>✅ Developers pueden experimentar en sandbox</li>
+      <li>✅ Reducción de costes en sandbox (auto-shutdown)</li>
+      <li>⚠️ Riesgo de “sorpresas” al mover a producción</li>
+      <li>⚠️ Requiere documentación clara de diferencias</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="adr-004-management-group-dedicado-para-recursos-decommissioned">ADR-004: Management Group dedicado para recursos decommissioned</h3>
+
+<ul>
+  <li><strong>Fecha</strong>: 2025-12-01</li>
+  <li><strong>Estado</strong>: ✅ Aceptado</li>
+  <li><strong>Contexto</strong>: Necesitábamos proceso claro para deprecar recursos sin eliminarlos inmediatamente</li>
+  <li><strong>Decisión</strong>: Crear Management Group “Decommissioned” con políticas ultra-restrictivas</li>
+  <li><strong>Políticas en Decommissioned MG</strong>:
+    <ul>
+      <li>Deny creation of new resources</li>
+      <li>Deny modification of existing resources</li>
+      <li>Audit all access</li>
+      <li>Auto-tag with decommission date</li>
+    </ul>
+  </li>
+  <li><strong>Consecuencias</strong>:
+    <ul>
+      <li>✅ Visibilidad de recursos obsoletos</li>
+      <li>✅ Período de gracia antes de eliminación (90 días)</li>
+      <li>✅ Previene uso accidental de recursos deprecated</li>
+      <li>✅ Facilita auditorías de cleanup</li>
+      <li>⚠️ Requiere proceso de revisión trimestral</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="adr-005-no-usar-management-group-por-región-geográfica">ADR-005: No usar Management Group por región geográfica</h3>
+
+<ul>
+  <li><strong>Fecha</strong>: 2025-11-05</li>
+  <li><strong>Estado</strong>: ✅ Aceptado (revisable en Q3 2026)</li>
+  <li><strong>Contexto</strong>: Tenemos workloads en West Europe y East US</li>
+  <li><strong>Decisión</strong>: NO organizar por región, mantener organización por función (Platform, Corp, Online)</li>
+  <li><strong>Razonamiento</strong>:
+    <ul>
+      <li>Las políticas de compliance son iguales independiente de región</li>
+      <li>Azure Policy “Allowed Locations” ya controla despliegues</li>
+      <li>Simplifica RBAC (no necesitamos duplicar por región)</li>
+    </ul>
+  </li>
+  <li><strong>Consecuencias</strong>:
+    <ul>
+      <li>✅ Estructura más simple</li>
+      <li>✅ RBAC más fácil de gestionar</li>
+      <li>✅ Chargeback sigue siendo posible vía tags</li>
+      <li>⚠️ Cost visibility por región requiere queries adicionales</li>
+      <li>⚠️ Puede requerir reevaluación si expandimos a 5+ regiones</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="adr-006-rbac-heredado-vs-asignaciones-directas">ADR-006: RBAC heredado vs asignaciones directas</h3>
+
+<ul>
+  <li><strong>Fecha</strong>: 2025-12-15</li>
+  <li><strong>Estado</strong>: ✅ Aceptado</li>
+  <li><strong>Contexto</strong>: Definir estrategia de asignación de RBAC en la jerarquía</li>
+  <li><strong>Decisión</strong>:
+    <ul>
+      <li>Roles estratégicos (Reader, Security) → Root MG (hereda a todos)</li>
+      <li>Roles operativos (Contributor) → Nivel de MG específico</li>
+      <li>Roles granulares → Nivel de suscripción/resource group</li>
+    </ul>
+  </li>
+  <li><strong>Consecuencias</strong>:
+    <ul>
+      <li>✅ Menos asignaciones de roles totales</li>
+      <li>✅ Consistent access para roles cross-cutting</li>
+      <li>✅ Flexibility en niveles inferiores</li>
+      <li>⚠️ Necesita documentación clara de herencia</li>
+      <li>⚠️ Troubleshooting de permisos más complejo</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="-10-referencias">🔗 10. Referencias</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Descripción</th>
+      <th>URL</th>
+      <th>Notas</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Azure Management Groups Overview</strong></td>
+      <td>https://learn.microsoft.com/azure/governance/management-groups/overview</td>
+      <td>Documentación oficial de Microsoft</td>
+    </tr>
+    <tr>
+      <td><strong>Azure Landing Zones</strong></td>
+      <td>https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/</td>
+      <td>Arquitectura de referencia de CAF</td>
+    </tr>
+    <tr>
+      <td><strong>Terraform azurerm Provider - Management Groups</strong></td>
+      <td>https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/management_group</td>
+      <td>Documentación de recursos Terraform</td>
+    </tr>
+    <tr>
+      <td><strong>Azure Policy Built-in Definitions</strong></td>
+      <td>https://learn.microsoft.com/azure/governance/policy/samples/built-in-policies</td>
+      <td>Catálogo de políticas predefinidas</td>
+    </tr>
+    <tr>
+      <td><strong>RBAC Best Practices</strong></td>
+      <td>https://learn.microsoft.com/azure/role-based-access-control/best-practices</td>
+      <td>Mejores prácticas de control de acceso</td>
+    </tr>
+    <tr>
+      <td><strong>Management Groups Limits</strong></td>
+      <td>https://learn.microsoft.com/azure/azure-resource-manager/management/azure-subscription-service-limits#management-group-limits</td>
+      <td>Límites y cuotas del servicio</td>
+    </tr>
+    <tr>
+      <td><strong>Azure Cost Management</strong></td>
+      <td>https://learn.microsoft.com/azure/cost-management-billing/costs/tutorial-acm-create-budgets</td>
+      <td>Presupuestos y análisis de costes</td>
+    </tr>
+    <tr>
+      <td><strong>Azure Policy Compliance</strong></td>
+      <td>https://learn.microsoft.com/azure/governance/policy/how-to/get-compliance-data</td>
+      <td>Cómo obtener datos de compliance</td>
+    </tr>
+    <tr>
+      <td><strong>CAF Naming Conventions</strong></td>
+      <td>https://learn.microsoft.com/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming</td>
+      <td>Convenciones de nomenclatura</td>
+    </tr>
+    <tr>
+      <td><strong>Enterprise-Scale GitHub Repo</strong></td>
+      <td>https://github.com/Azure/Enterprise-Scale</td>
+      <td>Código de referencia de Microsoft</td>
+    </tr>
+    <tr>
+      <td><strong>Azure Governance Visualizer</strong></td>
+      <td>https://github.com/JulianHayward/Azure-MG-Sub-Governance-Reporting</td>
+      <td>Herramienta para visualizar gobernanza</td>
+    </tr>
+    <tr>
+      <td><strong>Azure Landing Zones Accelerator</strong></td>
+      <td>https://portal.azure.com/#blade/Microsoft_Azure_CreateUIDef/CustomDeploymentBlade/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2FEnterprise-Scale%2Fmain%2FeslzArm%2FeslzArm.json</td>
+      <td>Deployment acelerado desde portal</td>
+    </tr>
+    <tr>
+      <td><strong>Blog: Management Groups Deep Dive</strong></td>
+      <td>https://techcommunity.microsoft.com/t5/azure-governance-and-management/bg-p/AzureGovernanceandManagementBlog</td>
+      <td>Microsoft Tech Community</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="-recursos-adicionales">📚 Recursos Adicionales</h2>
+
+<h3 id="scripts-útiles">Scripts Útiles</h3>
+
+<ul>
+  <li><strong>Backup Script</strong>: <code class="language-plaintext highlighter-rouge">scripts/backup-mg-structure.ps1</code> - Exporta estructura a JSON</li>
+  <li><strong>Validation Script</strong>: <code class="language-plaintext highlighter-rouge">scripts/validate-mg-compliance.ps1</code> - Verifica políticas</li>
+  <li><strong>Migration Script</strong>: <code class="language-plaintext highlighter-rouge">scripts/move-subscriptions.ps1</code> - Mover subs entre MGs</li>
+  <li><strong>Report Generator</strong>: <code class="language-plaintext highlighter-rouge">scripts/generate-mg-report.ps1</code> - Genera reporte HTML</li>
+</ul>
+
+<h3 id="diagramas">Diagramas</h3>
+
+<ul>
+  <li><strong>HLD</strong>: <code class="language-plaintext highlighter-rouge">_assets/diagrams/management-groups-hld.pdf</code></li>
+  <li><strong>Network Flow</strong>: <code class="language-plaintext highlighter-rouge">_assets/diagrams/mg-policy-inheritance.drawio</code></li>
+  <li><strong>RBAC Matrix</strong>: <code class="language-plaintext highlighter-rouge">_assets/diagrams/rbac-matrix.xlsx</code></li>
+</ul>
+
+<h3 id="runbooks">Runbooks</h3>
+
+<ul>
+  <li><strong>Onboarding New Subscription</strong>: <code class="language-plaintext highlighter-rouge">runbooks/onboard-subscription.md</code></li>
+  <li><strong>Disaster Recovery</strong>: <code class="language-plaintext highlighter-rouge">runbooks/mg-disaster-recovery.md</code></li>
+  <li><strong>Policy Exemption Process</strong>: <code class="language-plaintext highlighter-rouge">runbooks/policy-exemption-request.md</code></li>
+  <li><strong>Monthly Review Checklist</strong>: <code class="language-plaintext highlighter-rouge">runbooks/monthly-mg-review.md</code></li>
+</ul>
+
+<hr />
+
+<p><strong>Última actualización</strong>: 2026-01-27<br />
+<strong>Próxima revisión</strong>: 2026-04-27<br />
+<strong>Owner</strong>: Luis Adán Muñoz (@LuisAdan)<br />
+<strong>Reviewers</strong>: Platform Team, Security Team</p>
+
+<hr />
+
+<h2 id="-quick-start-commands">🎯 Quick Start Commands</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Ver estructura actual</span>
+az account management-group list <span class="nt">--output</span> table
+
+<span class="c"># Ver compliance</span>
+az policy state summarize <span class="nt">--management-group</span> <span class="s2">"mg-landing-zones-prod"</span>
+
+<span class="c"># Desplegar cambios</span>
+<span class="nb">cd </span>terraform <span class="o">&amp;&amp;</span> terraform plan <span class="o">&amp;&amp;</span> terraform apply
+
+<span class="c"># Generar reporte</span>
+pwsh ./scripts/generate-mg-report.ps1
+</code></pre></div></div>
+
+<hr />
+
+<p><strong>¿Preguntas?</strong> Contacta al equipo de Platform en Slack: <code class="language-plaintext highlighter-rouge">#platform-team</code> o abre un issue en el repositorio.</p>
+
+    <p class="review">Revisado el 27 de enero de 2026.</p>
+
+    <div class="author-card">
+      <img src="/assets/img/logo-luis-192.png" alt="Ilustración de Luis Adán Muñoz" width="72" height="72">
+      <div class="who"><strong>Luis Adán Muñoz</strong><span>Arquitecto cloud especializado en Azure, Terraform e IA con Microsoft Foundry.</span></div>
+      <a class="btn btn-primary" href="https://www.linkedin.com/sharing/share-offsite/?url=https://luisadanmunoz.es/posts/Azure-Management-Groups/">Compartir en LinkedIn</a>
+    </div>
+  </article>
+
+  <aside class="toc" aria-label="En este artículo" hidden>
+    <p>En este artículo</p>
+    <nav></nav>
+  </aside>
+</div>
+<section class="band" style="margin-top: 48px">
+  <div class="wrap">
+    <h2 class="section-title">Sigue leyendo</h2>
+    <div class="related">
+      <a href="/posts/portal-autoservicio-entra-id-gdap-lighthouse/">
+        <span class="mini" style="background: #3B5BF0" aria-hidden="true"></span>
+        <span><small style="color: #3B5BF0">Identidad</small><strong>Portal de autoservicio con Entra ID, GDAP y Lighthouse</strong></span>
+      </a>
+      <a href="/posts/Azure-Policy-Enterprise/">
+        <span class="mini" style="background: #3B5BF0" aria-hidden="true"></span>
+        <span><small style="color: #3B5BF0">Gobernanza</small><strong>Azure Policy en entornos enterprise</strong></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="wrap cta-wrap" aria-labelledby="newsletter-title">
+  <div class="cta">
+    <div>
+      <h2 id="newsletter-title">Te aviso cuando publique algo nuevo</h2>
+      <p>Un correo por artículo, sin nada más. Te das de baja con un clic.</p>
+    </div>
+    <form action="https://buttondown.com/api/emails/embed-subscribe/luisadanmunoz" method="post" target="_blank">
+      <label for="bd-email">Tu correo electrónico</label>
+      <div class="field">
+        <input id="bd-email" name="email" type="email" required autocomplete="email" placeholder="nombre@empresa.com">
+        <button class="btn btn-primary" type="submit">Suscribirme</button>
+      </div>
+      <label class="consent">
+        <input type="checkbox" name="consent" required>
+        <span>Acepto recibir un correo cuando se publique un artículo nuevo y he leído la <a href="/privacidad/">política de privacidad</a>.</span>
+      </label>
+    </form>
+  </div>
+</section><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://luisadanmunoz.es/" },
+    { "@type": "ListItem", "position": 2, "name": "Artículos", "item": "https://luisadanmunoz.es/articulos/" },
+    { "@type": "ListItem", "position": 3, "name": "Azure", "item": "https://luisadanmunoz.es/articulos/azure/" },
+    { "@type": "ListItem", "position": 4, "name": "Azure Management Groups para entornos enterprise", "item": "https://luisadanmunoz.es/posts/Azure-Management-Groups/" }
+  ]
+}
+</script>
+
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Luis Adán Muñoz</span>
+    <nav aria-label="Redes y enlaces"><a href="https://github.com/luisadanmunoz" rel="me">GitHub</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="/privacidad/">Privacidad</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js?v=1791994000" defer></script>
+</body>
+</html>
