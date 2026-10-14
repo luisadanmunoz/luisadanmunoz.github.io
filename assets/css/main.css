@@ -373,17 +373,21 @@ h1, h2, h3 { color: var(--ink-strong); font-weight: 800; letter-spacing: -0.02em
 .project-grid { grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); }
 @media (max-width: 460px) { .cards, .project-grid { grid-template-columns: 1fr; } }
 
+/* Artículo: el índice lateral arriba, junto al inicio del texto (con wrap-reverse, flex-start lo mandaba al final) */
+.post-layout { align-items: flex-end; }
+
 /* Ficha de recurso: separación del enlace "Volver a…" */
 .prose .review { margin-top: 32px; }
 
 /* Móvil */
 @media (max-width: 560px) {
-  /* Menú en menos filas */
+  /* Menú en una sola fila */
   .site-header .wrap { padding-top: 20px; padding-bottom: 20px; gap: 14px; }
-  .nav { gap: 4px; font-size: 15px; }
-  .nav > a, .nav summary { padding: 9px 8px; gap: 4px; }
+  .nav { width: 100%; flex-wrap: nowrap; justify-content: space-between; gap: 2px; font-size: 15px; }
+  .nav > a, .nav summary { padding: 9px 7px; gap: 4px; white-space: nowrap; }
   /* Miniatura de los listados más compacta */
   .post-tile { flex-basis: 132px; height: 84px; padding: 12px; font-size: 16px; }
   /* Foto de Sobre mí sin ocupar toda la pantalla */
   .photo { max-width: 300px; }
 }
+@media (max-width: 359px) { .nav { flex-wrap: wrap; justify-content: flex-start; } }
