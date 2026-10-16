@@ -1,0 +1,51 @@
+name: "LinkedIn: aviso de caducidad del token"
+
+# El token de LinkedIn dura 60 días y no se puede renovar solo.
+# Cada lunes comprueba cuánto le queda y abre una incidencia si faltan 14 días o menos.
+on:
+  schedule:
+    - cron: "17 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  comprobar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el script
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/scripts
+
+      - name: Comprobar el token
+        id: token
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_CLIENT_ID: ${{ secrets.LINKEDIN_CLIENT_ID }}
+          LINKEDIN_CLIENT_SECRET: ${{ secrets.LINKEDIN_CLIENT_SECRET }}
+        run: python3 .github/scripts/linkedin.py token
+
+      - name: Abrir incidencia si caduca pronto
+        if: steps.token.outputs.dias != '-1' && fromJSON(steps.token.outputs.dias) <= 14
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DIAS: ${{ steps.token.outputs.dias }}
+        run: |
+          titulo="Renovar el token de LinkedIn"
+          abiertas=$(gh issue list -R "$GITHUB_REPOSITORY" --state open --search "$titulo in:title" --json number --jq 'length')
+          if [ "$abiertas" = "0" ]; then
+            gh issue create -R "$GITHUB_REPOSITORY" --title "$titulo" --body "Al token le quedan **$DIAS días** (0 = caducado o revocado).
+
+          Para renovarlo, en PowerShell desde la carpeta del repo:
+
+          \`\`\`powershell
+          ./.github/scripts/Obtener-TokenLinkedIn.ps1 -ClientId '<client id>' -GuardarEnGitHub
+          \`\`\`
+
+          Cierra esta incidencia cuando esté hecho."
+          else
+            echo "Ya hay una incidencia abierta."
+          fi
