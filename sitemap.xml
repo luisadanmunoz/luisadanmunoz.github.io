@@ -1,0 +1,26 @@
+---
+layout: null
+permalink: /sitemap.xml
+sitemap: false
+---
+<?xml version="1.0" encoding="UTF-8"?>
+{%- comment -%}
+  Sitemap propio: incluye páginas, artículos y solo las fichas de recursos con contenido
+  (estado "en-curso" o "documentado"). Las fichas "proximamente" llevan noindex y no se listan.
+{%- endcomment %}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- for p in site.pages %}
+  {%- if p.sitemap == false or p.url contains '404' or p.url contains '/assets/' %}{% continue %}{% endif %}
+  {%- assign ultimo = p.url | slice: -1 %}
+  {%- unless ultimo == '/' or p.url contains '.html' %}{% continue %}{% endunless %}
+  <url><loc>{{ p.url | absolute_url | replace: 'index.html', '' }}</loc></url>
+{%- endfor %}
+{%- for post in site.posts %}
+  {%- if post.sitemap == false %}{% continue %}{% endif %}
+  <url><loc>{{ post.url | absolute_url }}</loc><lastmod>{{ post.last_modified_at | default: post.date | date_to_xmlschema }}</lastmod></url>
+{%- endfor %}
+{%- for r in site.recursos %}
+  {%- if r.estado == 'proximamente' or r.sitemap == false %}{% continue %}{% endif %}
+  <url><loc>{{ r.url | absolute_url }}</loc>{% if r.last_review %}<lastmod>{{ r.last_review | date_to_xmlschema }}</lastmod>{% endif %}</url>
+{%- endfor %}
+</urlset>

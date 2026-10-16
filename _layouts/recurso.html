@@ -51,3 +51,6 @@ layout: default
     <nav></nav>
   </aside>
 </div>
+
+{%- assign url_ind = "/recursos/" | append: page.indice | append: "/" -%}
+{% include jsonld-migas.html n1="Recursos" u1="/recursos/" n2=indice.nombre u2=url_ind %}

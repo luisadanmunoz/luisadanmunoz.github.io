@@ -1,5 +1,6 @@
 ---
 title: "Portal de autoservicio con Entra ID, GDAP y Lighthouse"
+description: "Del rol de administrador en Microsoft 365 Lighthouse a un portal de autoservicio: el cliente pide, su responsable aprueba y la tarea se ejecuta vía GDAP."
 area: azure/identidad
 owner: LuisAdan
 categories: [Azure, Seguridad, Automatizacion]
