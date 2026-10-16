@@ -99,7 +99,7 @@ certificaciones:
   - nombre: "Microsoft Certified: Azure Solutions Architect Expert"
     detalle: Renovada en agosto de 2026, válida hasta enero de 2028
     estado: vigente
-  - nombre: "AI-102: Azure AI Engineer Associate"
+  - nombre: "AI-103: Azure AI Apps and Agents Developer Associate"
     detalle: En preparación
     estado: preparando
 
