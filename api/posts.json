@@ -1,0 +1,24 @@
+---
+layout: null
+permalink: /api/posts.json
+sitemap: false
+---
+{%- comment -%}
+  Índice de artículos publicados para automatizaciones (publicación en LinkedIn).
+  Solo incluye lo que ya está en la web: si un artículo aparece aquí, su URL funciona.
+{%- endcomment -%}
+[
+{%- for p in site.posts %}
+  {
+    "path": {{ p.path | jsonify }},
+    "url": {{ p.url | absolute_url | jsonify }},
+    "title": {{ p.titulo | default: p.title | jsonify }},
+    "description": {{ p.description | default: "" | strip_newlines | jsonify }},
+    "image": {{ p.image | default: "/assets/img/og-default.png" | absolute_url | jsonify }},
+    "categoria": {{ p.categoria | default: "" | jsonify }},
+    "tags": {% if p.tags %}{{ p.tags | jsonify }}{% else %}[]{% endif %},
+    "date": {{ p.date | date_to_xmlschema | jsonify }},
+    "linkedin": {{ p.linkedin | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+{%- endfor %}
+]

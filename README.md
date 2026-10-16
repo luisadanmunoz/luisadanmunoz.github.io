@@ -35,6 +35,7 @@ fuentes:                  # opcional, se listan al final
   - titulo: "Documentación oficial"
     url: https://learn.microsoft.com/...
 mermaid: false            # true si usas diagramas mermaid
+linkedin: "Texto propio para LinkedIn"   # opcional; false para no publicarlo
 ---
 
 Texto en Markdown.
@@ -78,6 +79,37 @@ bundle exec jekyll serve --livereload
   entran en el sitemap; en cuanto pasan a `en-curso` o `documentado` se indexan solas.
 - Datos estructurados: artículos y páginas (jekyll-seo-tag), ruta de navegación en artículos y fichas, y persona en Sobre mí.
 - Imagen al compartir por defecto: `assets/img/og-default.jpg` (1200×630). Un artículo puede usar otra con `image:`.
+
+## Publicar en LinkedIn
+
+Cada artículo nuevo que llega a `main` se prepara para LinkedIn y **espera tu aprobación**:
+
+1. Al terminar de publicarse la web, el workflow **Publicar en LinkedIn** detecta los artículos añadidos,
+   espera a que estén en línea y genera el borrador (título, descripción, enlace e imagen del artículo).
+2. El texto aparece en el resumen del job **preparar**. El job **publicar** queda en espera.
+3. Si te gusta, pulsa **Review deployments → Approve**. Si no, **Reject** y no se publica nada.
+
+Para un artículo concreto: Actions → *Publicar en LinkedIn* → *Run workflow*, con la ruta del artículo
+(deja marcado *Solo preparar el borrador* para ver el texto sin publicar).
+
+En la cabecera del artículo: `linkedin: "texto"` usa ese texto; `linkedin: false` no lo publica.
+
+### Configuración (una vez)
+
+1. En https://www.linkedin.com/developers/apps crea una app y añade los productos
+   **Share on LinkedIn** y **Sign In with LinkedIn using OpenID Connect**.
+   En *Auth*, añade la URL de redirección `http://localhost:8765/callback`.
+2. En GitHub → Settings → Environments, crea el entorno `linkedin` y añade tu usuario en
+   **Required reviewers**.
+3. Obtén el token y guarda los secretos (necesita GitHub CLI con `gh auth login`):
+
+   ```powershell
+   ./.github/scripts/Obtener-TokenLinkedIn.ps1 -ClientId '<client id>' -GuardarEnGitHub
+   ```
+
+El token dura 60 días. Cada lunes el workflow *LinkedIn: aviso de caducidad del token* lo comprueba y
+abre una incidencia cuando quedan 14 días o menos; para renovarlo, vuelve a ejecutar el script.
+Opcional: variable de repositorio `LINKEDIN_VERSION` (por defecto `202609`) para la versión de la API.
 
 ## Dominio y publicación
 
