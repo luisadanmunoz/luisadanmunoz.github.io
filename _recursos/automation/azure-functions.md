@@ -6,18 +6,38 @@ estado: documentado   # proximamente | en-curso | documentado
 orden: 3
 last_review: 2026-10-20
 fuentes:
-  - https://learn.microsoft.com/azure/azure-functions/functions-scale
-  - https://learn.microsoft.com/azure/azure-functions/flex-consumption-plan
-  - https://learn.microsoft.com/azure/azure-functions/flex-consumption-how-to
-  - https://learn.microsoft.com/azure/azure-functions/functions-premium-plan
-  - https://learn.microsoft.com/azure/azure-functions/consumption-plan
-  - https://learn.microsoft.com/azure/azure-functions/functions-networking-options
-  - https://learn.microsoft.com/azure/azure-functions/storage-considerations
-  - https://learn.microsoft.com/azure/azure-functions/manage-connections
-  - https://learn.microsoft.com/azure/azure-functions/functions-infrastructure-as-code
-  - https://learn.microsoft.com/azure/azure-functions/functions-zone-redundancy
-  - https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app_flex_consumption
-  - https://github.com/luisadanmunoz/AzureTerraformModules/tree/main/Automation/FunctionApp
+  - titulo: "Azure Functions hosting options"
+    url: https://learn.microsoft.com/azure/azure-functions/functions-scale
+  - titulo: "Flex Consumption plan"
+    url: https://learn.microsoft.com/azure/azure-functions/flex-consumption-plan
+  - titulo: "Create and manage apps in Flex Consumption"
+    url: https://learn.microsoft.com/azure/azure-functions/flex-consumption-how-to
+  - titulo: "Premium plan"
+    url: https://learn.microsoft.com/azure/azure-functions/functions-premium-plan
+  - titulo: "Consumption plan (legacy) y retirada de Linux"
+    url: https://learn.microsoft.com/azure/azure-functions/consumption-plan
+  - titulo: "Migrate Consumption to Flex Consumption"
+    url: https://learn.microsoft.com/azure/azure-functions/migration/migrate-plan-consumption-to-flex
+  - titulo: "Networking options"
+    url: https://learn.microsoft.com/azure/azure-functions/functions-networking-options
+  - titulo: "Storage considerations"
+    url: https://learn.microsoft.com/azure/azure-functions/storage-considerations
+  - titulo: "Identity-based connections and required roles"
+    url: https://learn.microsoft.com/azure/azure-functions/manage-connections
+  - titulo: "Automate resource deployment (Bicep/ARM)"
+    url: https://learn.microsoft.com/azure/azure-functions/functions-infrastructure-as-code
+  - titulo: "Zone redundancy"
+    url: https://learn.microsoft.com/azure/azure-functions/functions-zone-redundancy
+  - titulo: "Flex Consumption IaC samples"
+    url: https://github.com/Azure-Samples/azure-functions-flex-consumption-samples
+  - titulo: "azurerm_function_app_flex_consumption"
+    url: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app_flex_consumption
+  - titulo: "azurerm 5.0 upgrade guide"
+    url: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/5.0-upgrade-guide
+  - titulo: "Azure Functions pricing"
+    url: https://azure.microsoft.com/pricing/details/functions/
+  - titulo: "Módulo Terraform Automation/FunctionApp"
+    url: https://github.com/luisadanmunoz/AzureTerraformModules/tree/main/Automation/FunctionApp
 ---
 
 Azure Functions ejecuta código como respuesta a un evento: una petición HTTP, un mensaje en una cola, un fichero que llega a un blob o un temporizador. No gestionas servidores y, según el plan, pagas solo por las ejecuciones. La decisión que más pesa en un proyecto no es el código, sino **el plan de hosting**: condiciona el coste, la red privada, el arranque en frío y lo que podrás hacer con la identidad gestionada.
@@ -811,21 +831,3 @@ az deployment group create  --resource-group <rg-workload-pro> --parameters main
 | `WEBSITE_TIME_ZONE` no tiene efecto | No está soportado en Flex | Trabajar en UTC en el código y en las expresiones CRON |
 | `terraform plan` falla con `azurerm_function_app` | Recurso eliminado en azurerm 5.0 | Migrar a `azurerm_linux_function_app` / `azurerm_windows_function_app` o a `azurerm_function_app_flex_consumption` |
 | Se intenta cambiar una app existente a Flex | No hay migración en caliente entre planes | App nueva en Flex y nuevo despliegue del código |
-
-## Fuentes oficiales
-
-- [Azure Functions hosting options](https://learn.microsoft.com/azure/azure-functions/functions-scale)
-- [Flex Consumption plan](https://learn.microsoft.com/azure/azure-functions/flex-consumption-plan)
-- [Create and manage apps in Flex Consumption](https://learn.microsoft.com/azure/azure-functions/flex-consumption-how-to)
-- [Premium plan](https://learn.microsoft.com/azure/azure-functions/functions-premium-plan)
-- [Consumption plan (legacy) y retirada de Linux](https://learn.microsoft.com/azure/azure-functions/consumption-plan)
-- [Migrate Consumption to Flex Consumption](https://learn.microsoft.com/azure/azure-functions/migration/migrate-plan-consumption-to-flex)
-- [Networking options](https://learn.microsoft.com/azure/azure-functions/functions-networking-options)
-- [Storage considerations](https://learn.microsoft.com/azure/azure-functions/storage-considerations)
-- [Identity-based connections and required roles](https://learn.microsoft.com/azure/azure-functions/manage-connections)
-- [Automate resource deployment (Bicep/ARM)](https://learn.microsoft.com/azure/azure-functions/functions-infrastructure-as-code)
-- [Zone redundancy](https://learn.microsoft.com/azure/azure-functions/functions-zone-redundancy)
-- [Flex Consumption IaC samples](https://github.com/Azure-Samples/azure-functions-flex-consumption-samples)
-- [azurerm_function_app_flex_consumption](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app_flex_consumption)
-- [azurerm 5.0 upgrade guide](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/5.0-upgrade-guide)
-- [Azure Functions pricing](https://azure.microsoft.com/pricing/details/functions/)
