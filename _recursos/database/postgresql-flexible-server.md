@@ -203,7 +203,7 @@ El modo se elige al crear:
 - **Con el disco al 95 % el servidor pasa a solo lectura.**
 - **La actualización de versión mayor desactiva la alta disponibilidad** y obliga a quitar réplicas.
 - **Las versiones 11 a 13 ya pagan soporte extendido.**
-- **Parado no paga cómputo, pero arranca solo a los 7 días.**
+- **Parado no paga cómputo, pero arranca solo a los 7 días**
 
 ## Decisiones de diseño
 
